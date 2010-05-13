@@ -1,6 +1,6 @@
 import os
 from pylons import config
-from studio.model import meta, User, LayerTemplate, Map, MapFish, AvailPort
+from studio.model import meta, User, LayerTemplate, Map
 from studio.lib.mapserializer import Mapfile
 
 from sqlalchemy.orm import join
