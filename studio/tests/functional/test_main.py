@@ -66,14 +66,14 @@ class TestMainController(TestController):
         log_in(self.app, 'enduser', 'password')
         response = self.app.get(url(controller='main', action='layout'), status=200)
         assert response.body.find('xtype: "studio.mm.chooser"') >= 0
-        assert response.body.find('xtype: "studio.dm.panel"') < 0
+        assert response.body.find('xtype: "studio.dm.chooser"') < 0
         log_out(self.app)
 
         # test log in as admin
         log_in(self.app, 'admin', 'password')
         response = self.app.get(url(controller='main', action='layout'), status=200)
         assert response.body.find('xtype: "studio.mm.chooser"') >= 0
-        assert response.body.find('xtype: "studio.dm.panel"') >= 0
+        assert response.body.find('xtype: "studio.dm.chooser"') >= 0
         log_out(self.app)
 
         # test without being logged in
