@@ -118,7 +118,7 @@ def decode_string(s):
 
 
 class DataStore:
-    def __init__(self,datastore_str):
+    def __init__(self, datastore_str):
         self.datastore_str = datastore_str
         self.ogr_connection = ogr.Open(str(self.datastore_str))
         if self.ogr_connection is not None:
@@ -128,7 +128,8 @@ class DataStore:
             elif conn_type == "PostgreSQL":
                 self.connection_type = "postgis"
             else:
-                #we only support shapefiles for now
+                # only shapefiles and postgis are
+                # currently supported
                 self.ogr_connection = None
 
         # if no ogr datasources were found, check if it is a directory
