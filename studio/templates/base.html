@@ -1,0 +1,28 @@
+## -*- coding: utf-8 -*-
+
+<html>
+<head>
+    <title>MapFish Studio</title>
+    ${self.css()}
+    ${self.js()}
+</head>
+<body>
+    ${self.header()}
+    ${next.body()}
+</body>
+</html>
+
+<%def name="header()">
+    <div id="banner">
+        % if c.user:
+        <a href="${h.url_for(controller='main', action='signout')}" style="float:right">${_("Sign out %s") %c.user}</a>
+        % endif
+        <div id="header" class="header"><img src="images/studio.png" alt="studio_logo"></div>
+    </div>
+</%def>
+
+<%def name="js()"></%def>
+<%def name="css()">
+    ${h.stylesheet_link(h.url_for("/js/Ext/resources/css/ext-all.css"))}
+    ${h.stylesheet_link(h.url_for("/css/global.css"))}
+</%def>

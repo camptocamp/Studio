@@ -1,0 +1,79 @@
+<%inherit file="base.html"/>
+
+% if c.user:
+<p>${_('You are currently logged in as "%s".' %c.user)}<p>
+<p>${_('Please sign out before sign in again.')}</p>
+% else:
+<div id="signin">
+    <form action="${h.url_for('/login')}" method="post">
+        <ul>
+            <li>
+                <label for="login">${_('Login:')}</label><br />
+                <input id="login" type="text" name="login"/>
+            </li>
+            <li>
+                <label for="password">${_('Password:')}</label><br />
+                <input id="password" type="password" name="password" />
+            </li>
+            <li>
+                <input type="submit" name="Login" value="Login" />
+            </li>
+        </ul>
+    </form>
+
+    <a href="javascript:toggleLayer('registerform');" title="Register form">
+        ${_('Register')}
+    </a>
+    <br />
+    <br />
+
+    <div id="registerform" style="display: none;">
+    <form action="${h.url_for(controller='main', action='register')}" method="post">
+        <ul>
+            <li>
+                <label for="login">${_('Choose a login:')}</label><br />
+                <input id="login" type="text" name="login"/>
+            </li>
+            <li>
+                <label for="password">${_('Choose a password:')}</label><br />
+                <input id="password" type="password" name="password" />
+            </li>
+            <li>
+                <input type="submit" name="Register" value="Register" />
+            </li>
+        </ul>
+    </form>
+    </div>
+</div>
+% endif
+
+${self.flash()}
+
+<%def name="flash()">
+    % if session.has_key('flash'):
+    <div id="flash"><p>${session.get('flash')}</p></div>
+    <%
+        del session['flash']
+        session.save()
+    %>
+    % endif
+</%def>
+
+<%def name="css()">
+    ${parent.css()}
+    ${h.stylesheet_link(h.url_for("/css/signin.css"))}
+</%def>
+
+<%def name="js()">
+<script type="text/javascript">
+    function toggleLayer( layer ) {
+        var elem = document.getElementById( layer );
+        if (elem.style.display == 'none') {
+            elem.style.display = 'block';
+        }
+        else {
+            elem.style.display = 'none';
+        }
+    }
+</script>
+</%def>

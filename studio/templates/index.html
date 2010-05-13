@@ -1,0 +1,108 @@
+<%inherit file="base.html"/>
+
+<%def name="css()">
+    ${parent.css()}
+    <link rel="stylesheet" type="text/css" href="${h.url_for('/js/Ext/resources/css/xtheme-black.css')}"></link>
+    <link rel="stylesheet" type="text/css" href="${h.url_for('/js/ux/colorpicker/color-picker.ux.css')}"></link>
+    <link rel="stylesheet" type="text/css" href="${h.url_for('/js/ux/spinner/Spinner.css')}"></link>
+    <link rel="stylesheet" type="text/css" href="${h.url_for('/js/ux/fileuploadfield/FileUploadField.css')}"></link>
+</%def>
+
+<%def name="js()">
+    <script type="text/javascript" src="${h.url_for('/js/OpenLayers/OpenLayers.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Ext/adapter/ext/ext-base.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Ext/ext-all.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/GeoExt/GeoExt.js')}"></script>
+
+    <!-- i18n -->
+    <script type="text/javascript" src="${h.url_for(str(_('/js/OpenLayers/Lang/%s.js' %c.lang)))}"></script>
+    <script type="text/javascript" src="${h.url_for(str(_('/js/Studio/Lang/%s.js' %c.lang)))}"></script>
+    <script type="text/javascript">
+        OpenLayers.Lang.setCode('${c.lang}');
+    </script>
+
+    % if config["debug"]:
+    <!-- START_MERGE -->
+    <script type="text/javascript" src="${h.url_for('/js/ux/colorpicker/ext.ux.ColorPicker.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/ux/colorpicker/ext.ux.ColorPickerField.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/ux/spinner/Spinner.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/ux/spinner/SpinnerStrategy.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/ux/fileuploadfield/FileUploadField.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/fromGeoServer/MultiSlider.js')}"></script>
+
+    <script type="text/javascript" src="${h.url_for('/js/Studio/Utils.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/ComboBoxWithEmpty.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/widgets/UnitComboBox.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/widgets/Chooser.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/widgets/DatastoreCombo.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/Ext.ux.IconCombo.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/ActionsNodeUI.js')}"></script>
+
+    <!-- Data Manager scripts -->
+    <script type="text/javascript" src="${h.url_for('/js/Studio/DataMgr/Panel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/DataMgr/Chooser.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/DataMgr/AddDatasourceWindow.js')}"></script>
+    <!-- -- >
+
+    <!-- Common tools -->
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/tools/ColorPickerField.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/tools/NumberSpinner.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/tools/MapfilePanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/tools/MapfileForm.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/tools/MapfileToFormVisitor.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/tools/FormToMapfileVisitor.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/tools/CheckColumn.js')}"></script>
+
+    <!-- Interface scripts -->
+    <script type="text/javascript" src="${h.url_for('/js/Studio/data/Store.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/data/FilteredStoreClone.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/data/MapfileRecord.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/data/LayertemplateRecord.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/data/DatastoreRecord.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/data/DatasourceRecord.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/data/DatasourceColumnRecord.js')}"></script>
+
+    <!-- Interface scripts -->
+    <script type="text/javascript" src="${h.url_for('/js/Studio/interface/RestInterface.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/interface/MapfileInterface.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/interface/DatasourceInterface.js')}"></script>
+
+    <!-- Mapfile Manager scripts -->
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/Chooser.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/Panel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/MapPropertiesPanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/LayerPropertiesPanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/WfsAttributesPanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/BboxPanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/AddLayerWindow.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/SaveLayertemplateWindow.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/ClassificationWizard.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/StyleWizard.js')}"></script>
+
+    <!-- Class edition -->
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/ClassPropertiesPanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/LimitByScalePanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/LimitByConditionPanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/RadioNumberSpinner.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/LabelStylePanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/StrokeStylePanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/FillStylePanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/PointStylePanel.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/FontComboBox.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/ColumnComboBox.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/OperatorComboBox.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/PositionComboBox.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/SymbolComboBox.js')}"></script>
+    <script type="text/javascript" src="${h.url_for('/js/Studio/MapfileMgr/styler/widgets/PaletteComboBox.js')}"></script>
+
+    <!-- Initialize Studio object -->
+    <script type="text/javascript" src="${h.url_for('/js/Studio/Studio.js')}"></script>
+    <!-- -->
+
+    <!-- END_MERGE -->
+    % else:
+    <script type="text/javascript" src="${h.url_for('/js/Studio/studio-all.js')}"></script>
+    % endif
+
+    <script type="text/javascript" src="${h.url_for(controller='main', action='layout')}"></script>
+</%def>

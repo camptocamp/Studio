@@ -1,0 +1,453 @@
+MAP
+  EXTENT 3.7 41.3 9.5 46.5
+  FONTSET "fonts.lst"
+  IMAGECOLOR 0 0 0
+  IMAGETYPE png
+  SYMBOLSET "symbols.sym"
+  SIZE 800 800
+  STATUS ON
+  UNITS DD
+  NAME "carte de test pour Studio"
+
+  OUTPUTFORMAT
+    NAME "png"
+    MIMETYPE "image/png"
+    DRIVER "GD/PNG"
+    EXTENSION "png"
+    IMAGEMODE "PC256"
+    TRANSPARENT FALSE
+  END
+
+
+  PROJECTION
+    "init=epsg:4326"
+  END
+
+  WEB
+    IMAGEPATH ""
+    IMAGEURL ""
+    METADATA
+      "ows_srs"	"epsg:4326 epsg:27572"
+    END
+    QUERYFORMAT text/html
+    LEGENDFORMAT text/html
+    BROWSEFORMAT text/html
+  END
+
+  LAYER
+    DATA "path/to/raster.tif"
+    NAME "raster"
+    OFFSITE 0 0 0
+    STATUS OFF
+    TYPE RASTER
+    UNITS METERS
+  END
+
+  LAYER
+    NAME "raster-tiled"
+    PROJECTION
+      "init=epsg:27572"
+    END
+    STATUS OFF
+    TILEINDEX "/path/to/rastertiles.shp"
+    TILEITEM "location"
+    TYPE RASTER
+    UNITS METERS
+  END
+
+  LAYER
+    CLASSITEM "FEAT_TYPE"
+    DATA "FRANCE_F3_LandUseA"
+    GROUP "fond"
+    MAXSCALEDENOM 1.00001e+06
+    NAME "landuse"
+    SIZEUNITS METERS
+    STATUS ON
+    TYPE POLYGON
+    UNITS METERS
+    CLASS
+      NAME "Woodland"
+      EXPRESSION "WOODLAND"
+      STYLE
+        ANGLE 360
+        COLOR 203 216 195
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+    CLASS
+      NAME "Industrial complex"
+      EXPRESSION "INDUSTRIAL COMPLEX"
+      MAXSCALEDENOM 100010
+      STYLE
+        ANGLE 360
+        COLOR 209 208 205
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+  END
+
+  LAYER
+    CLASSITEM "FEAT_COD"
+    CONNECTION "host=localhost port=5432 dbname=cdc user=www-data password=www-data"
+    CONNECTIONTYPE POSTGIS
+    DATA "FRANCE_F3_LandUseB"
+    GROUP "fond"
+    MAXSCALEDENOM 100010
+    NAME "airway"
+    STATUS ON
+    TYPE POLYGON
+    UNITS METERS
+    CLASS
+      EXPRESSION "2000123"
+      STYLE
+        ANGLE 360
+        COLOR 167 204 149
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+    CLASS
+      EXPRESSION "1907403"
+      MAXSCALEDENOM 50010
+      STYLE
+        ANGLE 360
+        COLOR 209 208 205
+        OPACITY 100
+        OUTLINECOLOR 112 112 112
+        SYMBOL 0
+      END
+    END
+    CLASS
+      EXPRESSION "1907403"
+      STYLE
+        ANGLE 360
+        COLOR 209 208 205
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+  END
+
+  LAYER
+    DATA "FRANCE_F3_RailRds"
+    GROUP "transport"
+    MAXSCALEDENOM 100010
+    NAME "rail"
+    STATUS ON
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      MAXSCALEDENOM 25010
+      STYLE
+        ANGLE 360
+        COLOR 112 112 112
+        OPACITY 100
+        SYMBOL 0
+        WIDTH 5
+      END
+      STYLE
+        ANGLE 360
+        COLOR 255 255 255
+        OPACITY 100
+        SYMBOL "mfs_s_dash"
+        WIDTH 3
+      END
+    END
+  END
+
+  LAYER
+    DATA "FRANCE_F3_Streets_Lev1"
+    GROUP "transport"
+    LABELITEM "ST_NAME"
+    NAME "routes1"
+    STATUS ON
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      LABEL
+        ANGLE [attribute2]
+        ANTIALIAS TRUE
+        FONT "scb"
+        MAXSIZE 256
+        MINSIZE 4
+        SIZE [attribute1]
+        TYPE TRUETYPE
+        BUFFER 15
+        COLOR 112 112 112
+        FORCE FALSE
+        MINDISTANCE 150
+        MINFEATURESIZE -1
+        OFFSET 0 0
+        OUTLINECOLOR 253 183 144
+        PARTIALS TRUE
+        POSITION CC
+        PRIORITY 4
+      END
+      MAXSCALEDENOM 25010
+      STYLE
+        ANGLE 360
+        COLOR 206 141 105
+        OPACITY 100
+        SYMBOL 0
+        WIDTH 13
+      END
+      STYLE
+        ANGLE 360
+        COLOR 253 183 144
+        OPACITY 100
+        SYMBOL 0
+        WIDTH 11
+      END
+    END
+    CLASS
+      LABEL
+        ANGLE FOLLOW
+        ANTIALIAS TRUE
+        FONT "scb"
+        MAXSIZE 256
+        MINSIZE 4
+        SIZE 7
+        TYPE TRUETYPE
+        BUFFER 15
+        COLOR 112 112 112
+        FORCE FALSE
+        MINDISTANCE 150
+        MINFEATURESIZE -1
+        OFFSET 0 0
+        OUTLINECOLOR 253 183 144
+        PARTIALS TRUE
+        POSITION CC
+        PRIORITY 4
+      END
+      MAXSCALEDENOM 50010
+      STYLE
+        ANGLE 360
+        COLOR 206 141 105
+        OPACITY 100
+        SYMBOL 0
+        WIDTH 11
+      END
+      STYLE
+        ANGLE 360
+        COLOR 253 183 144
+        OPACITY 100
+        SYMBOL 0
+        WIDTH 9
+      END
+    END
+    CLASS
+      LABEL
+        ANGLE 15.000000
+        ANTIALIAS TRUE
+        FONT "scb"
+        MAXSIZE 256
+        MINSIZE 4
+        SIZE 6
+        TYPE TRUETYPE
+        BUFFER 15
+        COLOR 112 112 112
+        FORCE FALSE
+        MINDISTANCE 150
+        MINFEATURESIZE -1
+        OFFSET 0 0
+        OUTLINECOLOR 253 183 144
+        PARTIALS TRUE
+        POSITION CC
+        PRIORITY 4
+      END
+      MAXSCALEDENOM 100010
+      STYLE
+        ANGLE 360
+        COLOR 206 141 105
+        OPACITY 100
+        SYMBOL 0
+        WIDTH 7
+      END
+      STYLE
+        ANGLE 360
+        COLOR 253 183 144
+        OPACITY 100
+        SYMBOL 0
+        WIDTH 5
+      END
+    END
+  END
+
+  LAYER
+    CLASSITEM "FAC_TYPE"
+    DATA "FRANCE_F3_TransHubs"
+      FILTER "FRE"
+    FILTERITEM "POI_LANGCD"
+    GROUP "poi"
+    LABELITEM "POI_NAME"
+    MAXSCALEDENOM 25010
+    NAME "transhubs"
+    STATUS OFF
+    TYPE ANNOTATION
+    UNITS METERS
+    CLASS
+      EXPRESSION "4581"
+      LABEL
+        ANGLE 0.000000
+        ANTIALIAS TRUE
+        FONT "sc"
+        MAXSIZE 256
+        MINSIZE 4
+        SIZE 6
+        TYPE TRUETYPE
+        BUFFER 0
+        COLOR 112 112 112
+        FORCE FALSE
+        MINDISTANCE -1
+        MINFEATURESIZE -1
+        OFFSET 0 0
+        PARTIALS TRUE
+        POSITION UC
+        PRIORITY 4
+      END
+      STYLE
+        ANGLE 360
+        COLOR 112 112 112
+        OPACITY 100
+        SIZE 12
+        SYMBOL "mfs_p_aeroport"
+      END
+    END
+    CLASS
+      EXPRESSION "4013"
+      LABEL
+        ANGLE 0.000000
+        ANTIALIAS TRUE
+        FONT "sc"
+        MAXSIZE 256
+        MINSIZE 4
+        SIZE 6
+        TYPE TRUETYPE
+        BUFFER 0
+        COLOR 112 112 112
+        FORCE FALSE
+        MINDISTANCE -1
+        MINFEATURESIZE -1
+        OFFSET 0 0
+        PARTIALS TRUE
+        POSITION UC
+        PRIORITY 4
+      END
+      STYLE
+        ANGLE 360
+        COLOR 112 112 112
+        OPACITY 100
+        SIZE 6
+        SYMBOL "mfs_p_gare"
+      END
+    END
+    CLASS
+      EXPRESSION "4100"
+      LABEL
+        ANGLE 0.000000
+        ANTIALIAS TRUE
+        FONT "sc"
+        MAXSIZE 256
+        MINSIZE 4
+        SIZE 6
+        TYPE TRUETYPE
+        BUFFER 0
+        COLOR 112 112 112
+        FORCE FALSE
+        MINDISTANCE -1
+        MINFEATURESIZE -1
+        OFFSET 0 0
+        PARTIALS TRUE
+        POSITION UC
+        PRIORITY 4
+      END
+      STYLE
+        ANGLE 360
+        COLOR 112 112 112
+        OPACITY 100
+        SIZE 6
+        SYMBOL "mfs_p_metro"
+      END
+    END
+    CLASS
+      EXPRESSION "4482"
+      LABEL
+        ANGLE 0.000000
+        ANTIALIAS TRUE
+        FONT "sc"
+        MAXSIZE 256
+        MINSIZE 4
+        SIZE 6
+        TYPE TRUETYPE
+        BUFFER 0
+        COLOR 112 112 112
+        FORCE FALSE
+        MINDISTANCE -1
+        MINFEATURESIZE -1
+        OFFSET 0 0
+        PARTIALS TRUE
+        POSITION UC
+        PRIORITY 4
+      END
+      STYLE
+        ANGLE 360
+        COLOR 112 112 112
+        OPACITY 100
+        SIZE 12
+        SYMBOL "mfs_p_ferry"
+      END
+    END
+  END
+
+  LAYER
+    DATA "NamedPlc"
+      FILTER "FRE"
+    FILTERITEM "POI_LANGCD"
+    GROUP "admin"
+    LABELITEM "POI_NAME"
+    NAME "namedplc"
+    STATUS ON
+    TYPE ANNOTATION
+    UNITS METERS
+    CLASS
+      EXPRESSION ([capital]<=2)
+      LABEL
+        ANGLE 0.000000
+        ANTIALIAS TRUE
+        FONT "scb"
+        MAXSIZE 256
+        MINSIZE 4
+        SIZE 6
+        TYPE TRUETYPE
+        BUFFER 20
+        COLOR 112 112 112
+        FORCE FALSE
+        MINDISTANCE -1
+        MINFEATURESIZE -1
+        OFFSET 0 0
+        OUTLINECOLOR 255 255 255
+        PARTIALS TRUE
+        POSITION UC
+        PRIORITY 5
+      END
+      STYLE
+        ANGLE 360
+        COLOR 255 255 255
+        OPACITY 100
+        OUTLINECOLOR 0 0 0
+        SIZE 6
+        SYMBOL "mfs_pf_circle"
+      END
+      STYLE
+        ANGLE 360
+        COLOR 0 0 0
+        OPACITY 100
+        SIZE 2
+        SYMBOL "mfs_pf_circle"
+      END
+    END
+  END
+
+END

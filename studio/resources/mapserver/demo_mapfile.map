@@ -1,0 +1,339 @@
+MAP
+  EXTENT -180 -90 180 90
+  FONTSET "/var/www/dev.mapfish.org/private/studio/Studio/studio/resources/mapserver/fonts.lst"
+  IMAGECOLOR 152 195 226
+  IMAGETYPE aggpng
+  SYMBOLSET "/var/www/dev.mapfish.org/private/studio/Studio/studio/resources/mapserver/symbols.sym"
+  SIZE 400 300
+  STATUS ON
+  UNITS METERS
+  NAME "Sample mapfile"
+
+  OUTPUTFORMAT
+    NAME "aggpng"
+    MIMETYPE "image/png"
+    DRIVER "AGG/PNG"
+    EXTENSION "png"
+    IMAGEMODE "RGB"
+    TRANSPARENT FALSE
+  END
+
+  PROJECTION
+    "init=epsg:4326"
+  END
+  LEGEND
+    IMAGECOLOR 255 255 255
+    KEYSIZE 20 10
+    KEYSPACING 5 5
+    LABEL
+      SIZE MEDIUM
+      TYPE BITMAP
+      BUFFER 0
+      COLOR 0 0 0
+      FORCE FALSE
+      MINDISTANCE -1
+      MINFEATURESIZE -1
+      OFFSET 0 0
+      PARTIALS TRUE
+    END
+    POSITION LL
+    STATUS OFF
+  END
+
+  QUERYMAP
+    COLOR 255 255 0
+    SIZE -1 -1
+    STATUS OFF
+    STYLE HILITE
+  END
+
+  SCALEBAR
+    COLOR 0 0 0
+    IMAGECOLOR 255 255 255
+    INTERVALS 4
+    LABEL
+      SIZE MEDIUM
+      TYPE BITMAP
+      BUFFER 0
+      COLOR 0 0 0
+      FORCE FALSE
+      MINDISTANCE -1
+      MINFEATURESIZE -1
+      OFFSET 0 0
+      PARTIALS TRUE
+    END
+    POSITION LL
+    SIZE 200 3
+    STATUS OFF
+    STYLE 0
+    UNITS MILES
+  END
+
+  WEB
+    IMAGEPATH ""
+    IMAGEURL ""
+    METADATA
+      "ows_srs"	"epsg:4326"
+    END
+    QUERYFORMAT text/html
+    LEGENDFORMAT text/html
+    BROWSEFORMAT text/html
+  END
+
+  LAYER
+    DATA "/var/www/dev.mapfish.org/private/studio/Studio/studio/resources/default_datastore/TM_WORLD_BORDERS_SIMPL-0.3.shp"
+    METADATA
+      "datastoreid"	"1"
+      "datasourceid"	"3dfa880a8e37bcc97ff8bbeb9aff7852"
+    END
+    NAME "world_borders"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "datum=WGS84"
+      "no_defs"
+    END
+    STATUS ON
+    TYPE POLYGON
+    UNITS METERS
+    CLASS
+      NAME "area_with_data"
+      EXPRESSION ([REGION]==150)
+      STYLE
+        ANGLE 360
+        COLOR 207 208 208
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+    CLASS
+      NAME "area_without_data"
+      STYLE
+        ANGLE 360
+        OPACITY 100
+        OUTLINECOLOR 146 179 208
+        SYMBOL 0
+      END
+    END
+  END
+
+  LAYER
+    DATA "/var/www/dev.mapfish.org/private/studio/Studio/studio/resources/default_datastore/veg-tree-a.shp"
+    MAXSCALEDENOM 6e+07
+    METADATA
+      "datastoreid"	"1"
+      "gml_featureid"	"ID"
+      "datasourceid"	"6220edfc8a70de4b02ba46be28c86488"
+    END
+    NAME "vegetation"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "datum=WGS84"
+      "no_defs"
+    END
+    STATUS ON
+    TYPE POLYGON
+    UNITS METERS
+    CLASS
+      NAME "forests"
+      STYLE
+        ANGLE 360
+        COLOR 154 204 155
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+  END
+
+  LAYER
+    DATA "/var/www/dev.mapfish.org/private/studio/Studio/studio/resources/default_datastore/hydro-inland-water-a.shp"
+    MAXSCALEDENOM 7e+06
+    METADATA
+      "datastoreid"	"1"
+      "gml_featureid"	"ID"
+      "datasourceid"	"fc9beea4eff48d5b510929edd0fb308c"
+    END
+    NAME "water"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "datum=WGS84"
+      "no_defs"
+    END
+    STATUS ON
+    TYPE POLYGON
+    UNITS METERS
+    CLASS
+      NAME "water"
+      STYLE
+        ANGLE 360
+        COLOR 152 195 226
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+  END
+
+  LAYER
+    DATA "/var/www/dev.mapfish.org/private/studio/Studio/studio/resources/default_datastore/trans-railroad-l.shp"
+    MAXSCALEDENOM 2e+06
+    METADATA
+      "datastoreid"	"1"
+      "gml_featureid"	"ID"
+      "datasourceid"	"eec10daa87086d028af00415bb964a9d"
+    END
+    NAME "railroads"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "datum=WGS84"
+      "no_defs"
+    END
+    STATUS ON
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      NAME "class 0"
+      MINSCALEDENOM 500000
+      STYLE
+        ANGLE 360
+        COLOR 118 118 118
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+    CLASS
+      NAME "New class"
+      MAXSCALEDENOM 500000
+      STYLE
+        ANGLE 360
+        COLOR 118 118 118
+        OPACITY 100
+        SYMBOL 0
+        WIDTH 3
+      END
+      STYLE
+        ANGLE 360
+        COLOR 255 255 255
+        OPACITY 100
+        SYMBOL "mfs_s_dash"
+      END
+    END
+  END
+
+  LAYER
+    DATA "/var/www/dev.mapfish.org/private/studio/Studio/studio/resources/default_datastore/trans-road-l.shp"
+    MAXSCALEDENOM 5e+06
+    METADATA
+      "datastoreid"	"1"
+      "gml_featureid"	"ID"
+      "datasourceid"	"1aee11dcea3ed1a2bf0ad63f6d13a754"
+    END
+    NAME "roads"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "datum=WGS84"
+      "no_defs"
+    END
+    STATUS ON
+    TYPE LINE
+    UNITS METERS
+    CLASS
+      NAME "roads far"
+      MINSCALEDENOM 500000
+      STYLE
+        ANGLE 360
+        COLOR 253 253 253
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+    CLASS
+      NAME "New class"
+      STYLE
+        ANGLE 360
+        COLOR 142 142 142
+        OPACITY 100
+        SYMBOL 0
+        WIDTH 3
+      END
+      STYLE
+        ANGLE 360
+        COLOR 255 255 255
+        OPACITY 100
+        SYMBOL 0
+      END
+    END
+  END
+
+  LAYER
+    DATA "/var/www/dev.mapfish.org/private/studio/Studio/studio/resources/default_datastore/trans-airport-p.shp"
+    LABELITEM "NAM"
+    MAXSCALEDENOM 2e+06
+    METADATA
+      "datastoreid"	"1"
+      "gml_featureid"	"ID"
+      "datasourceid"	"bceb12b484c87b10f24db5e8a5ae5a62"
+    END
+    NAME "airports"
+    PROJECTION
+      "proj=longlat"
+      "ellps=WGS84"
+      "datum=WGS84"
+      "no_defs"
+    END
+    STATUS ON
+    TYPE POINT
+    UNITS METERS
+    CLASS
+      NAME "airports far"
+      MINSCALEDENOM 1e+06
+      STYLE
+        ANGLE 360
+        COLOR 7 7 7
+        OPACITY 100
+        SIZE 3
+        SYMBOL "mfs_pf_circle"
+      END
+    END
+    CLASS
+      NAME "airports close"
+      LABEL
+        ANGLE 0.000000
+        ANTIALIAS TRUE
+        FONT "default"
+        MAXSIZE 256
+        MINSIZE 4
+        SIZE 7
+        TYPE TRUETYPE
+        BUFFER 0
+        COLOR 0 0 0
+        FORCE FALSE
+        MINDISTANCE -1
+        MINFEATURESIZE -1
+        OFFSET 0 0
+        OUTLINECOLOR 255 255 255
+        PARTIALS TRUE
+        POSITION LC
+      END
+      MAXSCALEDENOM 1e+06
+      STYLE
+        ANGLE 360
+        COLOR 222 156 32
+        OPACITY 100
+        SIZE 12
+        SYMBOL "mfs_pf_circle"
+      END
+      STYLE
+        ANGLE 360
+        COLOR 1 1 1
+        OPACITY 100
+        SIZE 8
+        SYMBOL "mfs_p_aeroport"
+      END
+    END
+  END
+
+END

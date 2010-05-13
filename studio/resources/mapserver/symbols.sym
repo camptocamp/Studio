@@ -1,0 +1,82 @@
+SYMBOLSET
+
+# If you start the symbol's name with "mfs_", follow it with a combination
+# of the "p", "s" and "f" letters and another "_", you can tell Studio for
+# what type of style a symbol can be used:
+#   p: point
+#   s: stroke
+#   f: fill
+#
+# For example "mfs_pf_toto" will show a symbol named "toto" for only point and
+# fill styles.
+#
+# If a symbol's name doesn't follow this syntax, it will be shown in every styles
+
+SYMBOL
+  NAME "mfs_pf_circle"
+  TYPE ELLIPSE
+  FILLED TRUE
+  POINTS
+    1 1
+  END
+END
+
+SYMBOL
+    NAME "mfs_f_hachures"
+    TYPE HATCH
+END
+
+SYMBOL
+   NAME "mfs_s_dash"
+  TYPE SIMPLE
+  PATTERN
+    7 7
+  END
+END
+
+SYMBOL
+  NAME "mfs_p_parking"
+  TYPE TRUETYPE
+  CHARACTER "P"
+  GAP 0
+  FONT "default"
+  POSITION CC
+END
+
+SYMBOL
+  NAME "mfs_p_gare"
+  TYPE TRUETYPE
+  CHARACTER "G"
+  GAP 0
+  FONT "default"
+  POSITION CC
+END
+
+SYMBOL
+  NAME "mfs_p_aeroport"
+  TYPE TRUETYPE
+  CHARACTER "A"
+  GAP 0
+  FONT "default"
+  POSITION CC
+END
+
+SYMBOL
+  NAME "mfs_p_metro"
+  TYPE TRUETYPE
+  CHARACTER "M"
+  GAP 0
+  FONT "default"
+  POSITION CC
+END
+
+SYMBOL
+  NAME "mfs_p_ferry"
+  TYPE TRUETYPE
+  CHARACTER "D"
+  GAP 0
+  FONT "default"
+  POSITION CC
+END
+
+END

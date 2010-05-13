@@ -1,0 +1,303 @@
+body {
+    font:12px tahoma,arial,verdana,sans-serif;
+    background-color: #000000 !important;
+}
+
+#banner {
+    padding: 5px;
+    background-color: #000000;
+}
+#banner a:link {
+	color:#FFFFFF;
+	text-decoration:underline
+}
+#banner a:visited {
+	color:#FFFFFF;
+	text-decoration:underline
+}
+#banner a:active {
+	color:#FFFFFF;
+	text-decoration:underline
+}
+#banner a:hover {
+	color:#FFFFFF;
+	text-decoration:underline
+}
+
+.x-tab-panel-header-plain {
+    background-color: transparent !important;
+}
+
+.x-border-layout-ct {
+    /*background: #FFD98A none repeat scroll 0 0 !important;*/
+}
+
+.x-tree-node .x-tree-selected {
+    background-color:#FFD98A !important;
+}
+
+.x-fieldset-header-text {
+    color: #000000;
+}
+
+.x-tree-node .x-tree-selected {
+    font-weight: bold;
+}
+
+.x-tree-node .node-action {
+    display: none;
+    margin-left: 90px;
+}
+
+.x-tree-node-over .node-action {
+    display: inline;
+}
+
+/* application specific styles */
+
+.info {
+    font:11px tahoma,arial,verdana,sans-serif;
+    background:#F9F9F9 url(../images/information.gif) no-repeat scroll 3px 0;
+    border:1px dotted #999999;
+    color:#555555;
+    padding:3px 3px 3px 22px;
+    margin-left: 3px;
+}
+
+.database {
+    background-image:url(../images/database.png) !important;
+}
+.folder {
+    background-image:url(../images/folderclose.gif) !important;
+}
+.add {
+    background-image:url(../images/add.gif) !important;
+    font-style: italic !important;
+}
+.add-txt {
+    font-style: italic
+}
+.delete {
+    background-image:url(../images/delete.gif) !important;
+}
+.move-up {
+    background-image:url(../images/move_up.png) !important;
+}
+.move-down {
+    background-image:url(../images/move_down.png) !important;
+}
+.save {
+    background-image:url(../images/disk.gif) !important;
+}
+.script_save {
+    background-image:url(../images/script_save.gif) !important;
+}
+.wizard {
+    background-image:url(../images/wand.gif) !important;
+}
+.back {
+    background-image:url(../images/arrow_left.gif) !important;
+}
+
+/* tree node actions */
+.x-tree-node-actions{
+    float: right;
+    display: none;
+}
+.x-tree-node-action {
+    background-position:center center;
+    background-repeat:no-repeat;
+    border:0 none;
+    height:16px;
+    margin:0;
+    padding:0;
+    vertical-align:top;
+    width:16px;
+}
+.x-tree-node-actions .delete {
+    background:transparent url(../images/delete.gif);
+}
+.x-tree-node-actions .layertemplate {
+    background:transparent url(../images/database.png);
+}
+.x-tree-node-actions .classify {
+    background:transparent url(../images/wand.gif);
+}
+.x-tree-node-actions .addStyle {
+    background:transparent url(../images/add.gif);
+}
+.x-tree-node-over .x-tree-node-actions  {
+    display: inline !important;
+}
+
+.x-form-item label {
+	color: #000000;
+}
+
+.x-panel-btns-ct {
+	background-color: #FFFFFF;
+}
+.x-form-item {
+	color: #000000;
+}
+/* Ext.ux.IconCombo mandatory styles */
+.x-icon-combo-icon {
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    width: 18px;
+    height: 14px;
+}
+.x-icon-combo-input {
+    padding-left: 25px !important;
+}
+.x-form-field-wrap .x-icon-combo-icon {
+    top: 3px;
+    left: 5px;
+}
+.x-icon-combo-item {
+    background-repeat: no-repeat !important;
+    background-position: 3px 50% !important;
+    padding-left: 24px !important;
+}
+
+.studioMaxTable table {
+    width: 100%;
+}
+.studioMaxTable td {
+    padding: 0 3px 0 0;
+}
+
+.studioMaxTableButton td {
+    padding: 0 0 0 0 !important;
+}
+
+.studioBboxTable table {
+    width: 100%;
+}
+.studioBboxTable td {
+    padding: 0 0 0 15px;
+}
+.studioBboxTable td:first-child {
+    padding: 0 0 0 0;
+}
+
+td.studioRightPadding {
+    padding: 0 10px 0 0 !important;
+}
+
+.studioStyleButtons {
+    margin-right: 5px;
+    margin-top: 1px;
+}
+
+.studioStyleButtons a {
+    margin: 1px 2px 1px 2px;
+}
+
+.studioStyleButtons a img {
+    position: relative !important;
+    visibility: visible !important;
+}
+
+.x-combo-list-lt-item {
+    color:#555555 !important;
+    font-size:11px !important;
+}
+
+/* end palette combo */
+.x-combo-palette-item {
+    padding: 2px !important;
+}
+.x-combo-palette-input-value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    height:18px;
+    padding: 3px;
+}
+.x-combo-palette {
+    position: relative;
+}
+.x-combo-palette div {
+    float: left;
+    -moz-outline: 0 none;
+    outline: 0 none;
+    padding: 1px;
+}
+.x-combo-palette div span {
+    display: block;
+    height: 14px;
+    line-height: 14px;
+    width: 14px;
+}
+/* end palette combo */
+
+.olControlScale {
+	background-color:white;
+}
+
+.studio-col-title {
+    color: black;
+    padding-bottom: 7px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.studio-col-subtitle {
+    color: black;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.studio-button:active {
+    padding: 2px 0 0 2px;
+}
+
+.studio-button {
+    padding: 1px;
+}
+
+/* want a contour around the toolbar buttons */
+.x-toolbar .x-btn .x-btn-left{
+    background: url(../js/Ext/resources/images/black/toolbar/tb-btn-sprite.gif) no-repeat 0 -63px;
+}
+.x-toolbar .x-btn .x-btn-right{
+	background: url(../js/Ext/resources/images/black/toolbar/tb-btn-sprite.gif) no-repeat 0 -21px;
+}
+.x-toolbar .x-btn .x-btn-center{
+	background: url(../js/Ext/resources/images/black/toolbar/tb-btn-sprite.gif) repeat-x 0 -42px;
+}
+.x-toolbar .x-btn button {
+    color:#cccccc;
+}
+.x-toolbar .x-btn-over button {
+    color:#ffffff;
+}
+
+/* better look for checkbox and radio labels */
+.x-form-cb-label {
+    font-family: arial,tahoma,helvetica,sans-serif;
+    font-size: 12px;
+    margin-right: 3px;
+    margin-left: 1px;
+}
+
+/* make links a bit lighter */
+a {
+    color: #aaaaFF
+}
+
+/* make area near buttons black for alerts and CO */
+.x-window-dlg .x-panel-btns-ct {
+    background-color: #1a1a1a;
+}
+
+/* for WMS layers with a SRS incompatibility */
+.studio-badSRS {
+    text-decoration: line-through
+}
+
+.x-window-mc {
+    color:#AAAAAA !important;
+}

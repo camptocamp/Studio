@@ -1,0 +1,46 @@
+body {
+    background-color: #000000 !important;
+    text-align: center; /* for IE */
+}
+
+p {
+    margin-top: 20px;
+    text-align:center;
+    color: #FFFFFF;
+}
+
+#signin {
+    margin: 0 auto;   /* align for good browsers */
+	text-align: left; /* counter the body center */
+    width: 185px;
+    padding:10px;
+}
+
+#signin ul, #signin li, #signin form, #signin p {
+    padding:0;
+    list-style:none;
+    padding-bottom:6px;
+    color: #FFFFFF;
+}
+
+#flash {
+    text-align:center;
+    color: white;
+}
+
+a:link {
+	color:#FFFFFF;
+	text-decoration:underline
+}
+a:visited {
+	color:#FFFFFF; 
+	text-decoration:underline
+}
+a:active {
+	color:#FFFFFF; 
+	text-decoration:underline
+}
+a:hover {
+	color:#FFFFFF;
+	text-decoration:underline
+}

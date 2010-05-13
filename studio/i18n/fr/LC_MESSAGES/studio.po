@@ -1,0 +1,78 @@
+# French translations for Studio.
+# Copyright (C) 2009 ORGANIZATION
+# This file is distributed under the same license as the Studio project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Studio 0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2009-03-26 18:13+0100\n"
+"PO-Revision-Date: 2009-03-26 19:05+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.4\n"
+
+#: studio/controllers/main.py:38
+msgid "Login or password should not be empty. Please register again."
+msgstr ""
+"Le login et le mot de passe ne doivent pas être vide. Vous devez vous "
+"enregistrez à nouveau."
+
+#: studio/controllers/main.py:45
+#, python-format
+msgid "The login \"%s\" is already in use. Please register again."
+msgstr ""
+"Le login \"%s\" est déjà utilisé. Vous devez vous enregistrez-vous à "
+"nouveau."
+
+#: studio/controllers/main.py:76
+msgid "You have just registered. Please log in to use Studio."
+msgstr ""
+"Vous venez de vous enregistrer. Identifiez-vous maintenant pour utiliser "
+"Studio."
+
+#: studio/controllers/main.py:83
+msgid "You have just logged out. Please log in again to use Studio."
+msgstr ""
+"Vous venez de vous déconnecter. Identifiez vous à nouveau si vous "
+"souhaitez utiliser Studio."
+
+#: studio/templates/base.html:18
+#, python-format
+msgid "Sign out %s"
+msgstr "Déconnecter %s"
+
+#: studio/templates/signin.html:4
+#, python-format
+msgid "You are currently logged in as \"%s\"."
+msgstr "L'utilisateur \"%s\" est actuellement logué."
+
+#: studio/templates/signin.html:5
+msgid "Please sign out before sign in again."
+msgstr "Vous devez vous déconnecter avant de vous connecter à nouveau."
+
+#: studio/templates/signin.html:11
+msgid "Login:"
+msgstr "Nom d'utilisateur:"
+
+#: studio/templates/signin.html:15
+msgid "Password:"
+msgstr "Mot de passe:"
+
+#: studio/templates/signin.html:25
+msgid "Register"
+msgstr "S'enregistrer"
+
+#: studio/templates/signin.html:34
+msgid "Choose a login:"
+msgstr "Choisissez un nom d'utilisateur:"
+
+#: studio/templates/signin.html:38
+msgid "Choose a password:"
+msgstr "Choisissez un mot de passe:"
+
