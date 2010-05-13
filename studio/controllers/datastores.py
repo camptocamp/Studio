@@ -77,7 +77,16 @@ class DatastoresController(BaseController):
         """GET /datastores/id: Show a specific item."""
         # url('DataStores', id=ID)
         datastore = meta.Session.query(DataStore).get(id)
-        datasources = discover_datasources(datastore.ogrstring)
+
+        # do not raise RuntimeError from discover_datasources
+        # if in "test" mode
+        try:
+            datasources = discover_datasources(datastore.ogrstring)
+        except RuntimeError:
+            if "test" in request.params:
+                datasources = None
+            else:
+                raise
 
         result = datastore.to_json()
         result['datasources'] = datasources

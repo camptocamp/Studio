@@ -104,12 +104,12 @@ class TestDatastoresController(TestController):
     def test_show(self):
         self._create_datastores()
         log_in(self.app, 'admin', 'password')
-        response = self.app.get(url('DataStores', id=1))
+        response = self.app.get(url('DataStores', id=1, test="true"))
         assert response.response.content_type == 'application/json'
         r = simplejson.loads(response.response._body)
         assert r['id'] == 1
         assert r['type'] == 'postgis'
-        assert r['ogrstring'] == 'pgsql://toto'
+        assert r['name'] == 'datastore1'
         log_out(self.app)
         # test anonymous user
         response = self.app.get(url('DataStores', id=1), status=302)
