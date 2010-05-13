@@ -11,7 +11,7 @@ from repoze.what.predicates import Not, NotAuthorizedError, not_anonymous, has_a
 from studio.lib.base import BaseController, render
 from studio.model import Group, User, Map, meta
 from studio.lib import helpers as h
-from studio.lib.mapserializer import create_default_mapfile,Mapfile
+from studio.lib.mapserializer import create_default_mapfile, Mapfile
 
 log = logging.getLogger(__name__)
 
