@@ -26,7 +26,7 @@ def load_environment(global_conf, app_conf):
     # Initialize config with the basic options
     config.init_app(global_conf, app_conf, package='studio', paths=paths)
 
-    # Defines custom config paths for Studio
+    # Defines custom config parameters
     config['resources_dir'] = os.path.join(root, 'resources')
     # path to mapserver dir containing default fonts and symbols
     config['mapserver_dir'] = os.path.join(config['resources_dir'], 'mapserver')
