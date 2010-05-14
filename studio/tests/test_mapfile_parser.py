@@ -246,7 +246,7 @@ def test_connection_layer():
     map = create_default_map()
     layer = map.getLayer(0)
     if mapscriptutils.VERSION_MAJOR>5 or (mapscriptutils.VERSION_MAJOR==5 and mapscriptutils.VERSION_MINOR>=4):
-        layer.setConnectionType(mapscript.MS_POSTGIS)
+        layer.setConnectionType(mapscript.MS_POSTGIS, "foo")
     else:
         layer.connectiontype = mapscript.MS_POSTGIS
     layer.connection = "host=localhost port=5432 dbname=cdc user=www-data password=www-data"
