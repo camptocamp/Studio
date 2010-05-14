@@ -1,0 +1,341 @@
+User Guide
+==========
+
+This document contains instructions for end users of Studio.
+
+Introduction
+------------
+
+Studio is a web software used to administrate web mapping applications based on `MapFish <http://www.mapfish.org>`_ framework.
+Studio allows the web administrator ot manage the geodata, to stylize them with a wysiwyg MapFile editor (for `MapServer <http://www.mapserver.org>`_)
+
+Install Studio
+--------------
+
+Install Dependencies
+^^^^^^^^^^^^^^^^^^^^
+
+Studio has two types of dependencies: pure Python dependencies, and system dependencies. Pure Python
+dependencies will be installed as part of the installation of Studio. System dependencies, listed
+below, are installed separately.
+
+* Python 2.4 or 2.5 (2.5 is recommended)
+* MapServer CGI, version 5.0 and higher
+* MapServer MapScript Python, version 5.0 and higher
+* OGRGDAL Python, version 1.5 and higher
+* Java JRE version 1.5.0 and higher (only needed if you want to enable printing)
+
+On a Linux system, you can rely on your distribution packages (recommanded).
+For example, on Debian-like system, you would install the packages with::
+
+    $ apt-get install python cgi-mapserver python-mapscript python-gdal sun-java6-bin
+
+On a Windows system, you would need to install Python 2.5 from
+http://www.python.org/download/releases/ and its pwin32 (a.k.a win32api)
+extension from http://sourceforge.net/project/showfiles.php?group_id=78018. You
+would rely on the MS4W distribution from http://www.maptools.org/ms4w/ for
+MapServer and OGRDAL.
+
+On a Debian system, you can check that MapServer CGI works locally by testing the following URL in a browser::
+
+    $ http://localhost/cgi-bin/mapserv
+
+Install Studio
+^^^^^^^^^^^^^^
+
+Start by creating a folder named ``studio``. This folder will contain your
+installation of Studio.
+
+You can now download the ``go-mapfish-studio.py`` script at::
+
+    http://dev.camptocamp.com/packages/mapfish/go-mapfish-studio.py
+
+Place it in the ``studio`` folder.
+
+Now open a console, go into the ``studio`` folder and run the ``go-mapfish-studio.py`` script there::
+
+    $ python go-mapfish-studio.py venv
+
+``venv`` is the name of the virtual Python environment Studio will be installed
+in. Don't worry if you don't know what a virtual Python environment, you don't
+need to understand that to complete the installation.
+
+Before going to the next section, you must activate the virtual environment.
+You would use the following on a Unix system::
+
+    $ source venv/bin/activate
+
+and the following a Windows system::
+
+    $ venv/Scripts/activate.bat
+
+If you use Python 2.5 (enter ``python -V`` in a console to check) you're done
+with the installation.
+
+If you use Python 2.4, you need to install the ``pysqlite`` package as it is
+not distributed with Python 2.4. On Unix do::
+
+    $ easy_install --index-url=http://dev.camptocamp.com/packages/mapfish/all/index --allow-hosts=dev.camptocamp.com pysqlite
+
+On Windows download
+http://www.pylonshq.com/download/0.9.7/pysqlite-2.4.1.win32-py2.4.exe and
+execute it.
+
+Create Config
+^^^^^^^^^^^^^
+
+Now that Studio is installed it is time that you create your own configuration
+for using it::
+
+    $ paster make-config Studio my_studio.ini
+
+You will be asked for the database URL needed to setup a connection with your
+database. If you press "Enter", a default sqlite database will be used. You are
+done!
+
+Feel free to adjust your newly created ``my_studio.ini`` configuration file to
+your needs.
+
+If you want to configure Studio with a PostgreSQL database, you will use a
+database URL that looks like this
+``postgres://user:password@host:port/dbname``. Studio assumes the database
+``dbname`` has already been created and the user is allowed to connect to this
+database. You can rely on `postgresql documentation
+<http://www.postgresql.org/docs/>`__ to learn `how to create a new database
+<http://www.postgresql.org/docs/8.3/static/manage-ag-createdb.html>`__.  You
+will also need to install the ``psycopg2`` package in the Python virtual
+environment, you can use that::
+
+    $ easy_install --index-url=http://dev.camptocamp.com/packages/mapfish/all/index --allow-hosts=dev.camptocamp.com psycopg2
+
+Set Up
+^^^^^^
+
+You now need to set up Studio, which means creating the database schema and insert initial data. This is as easy as::
+
+    $ paster setup-app my_studio.ini
+
+Start Up
+^^^^^^^^
+
+Your environnement is now setup with a new database freshly created with
+initial data inserted.  You can now launch the HTTP server with this command::
+
+    $ paster serve my_studio.ini
+
+Two user accounts have been created by default:
+
+* Admin user is the master user. He owns all permissions.
+    * login: ``admin``
+    * password: ``password``
+* Enduser is a standard user. He owns all permissions except those to add/update/view datastores.
+    * login: ``enduser``
+    * password: ``password``
+
+Work with Studio
+----------------
+
+Three Studio components
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Studio UI is divided in three functional parts:
+
+* Data: for the management of data stored as file or in a PostGis database
+* MapFile: for the easy creation of MapFile and the definition of WMS / WFS services in MapServer
+* MapFish: for the creation and publication of MapFish website
+
+.. image:: images/studio_full_view.png
+
+Work with Data manager
+^^^^^^^^^^^^^^^^^^^^^^
+
+Per default, two directories are configured:
+
+* PostGis datastore: allow the user to store spatial data in a PostGis database
+* Directory datastore: alow the user to use data as geospatial files (supported format: ESRI shapefile and raster georeferenced files)
+
+How to import shapefiles in Studio ?
+""""""""""""""""""""""""""""""""""""
+
+    The procedure is the following::
+
+        Select the "default (directory)" datastore
+        Choose "Add a new datasource..." function
+        Browse your filesystem to select a zip file containing the shapefile files (.shp, .dbf, .shx and .prj at least)
+        and your file are uploaded to the server
+
+How to load shapefile in Studio PostGis database ?
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+    The procedure is the following::
+
+        Select the "default (postgis)" datastore
+        Choose "Add a new datasource..." function
+        Browse your filesystem to select a zip file containing the shapefile files (.shp, .dbf, .shx and .prj at least)
+        and your file are uploaded to the server and stored in the database
+
+**Hint**
+
+   ``Don't forget the prj file that contain the coordinate system information.``
+
+Work with MapFile manager
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The MapFile manager has two main goals:
+
+* Create a MapFile with a wysiwyg editor
+* Generate WMS / WFS webservice that can be used in a Spatial Data Infrastructure
+
+How to create a new MapFile ?
+"""""""""""""""""""""""""""""
+
+    The procedure is the following::
+
+        Click on the "Create new mapfile..." function
+        Select the "Global properties panel"
+        Define a name for the mapfile
+        Define a Projection (for example "+init=epsg:2154" for RGF_1993_Lambert_93 or "+init=epsg:21781" for CH1903_LV03)
+        Define the image color (background color)
+        And the extent of interest
+
+**Hint**
+
+   ``The MapFile properties are very well documented here:`` http://www.mapserver.org/mapfile/index.html#mapfile
+
+**Hint**
+
+   ``Avoid special character for MapFile name.``
+
+**Hint**
+
+   ``Always click on "Save mapfile" to observe the result of your modifications.``
+
+How to create a new layer in the MapFile ?
+""""""""""""""""""""""""""""""""""""""""""
+
+    The procedure is the following::
+
+        Click on the "Create new layer..." function
+        Choose a datastore (per default: "default (directory)" or "default (postgis)").
+        You find then in the data source list the data you imported previously and the sample data provided with Studio. Select one dataset.
+        Then you should see the data in the map viewer
+
+.. image:: images/studio_mapfile_add_layer.png
+
+**Hint**
+
+   ``All the layers of a MapFile have to have different names, otherwise MapServer can't recognize them and will not be able to create maps.``
+
+How to classify data based on attribute values ?
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+    The procedure is the following::
+
+        Hover the desired layer and click on the "Classifiy using wizard" icon on the right.
+        Follow the classification wizard: select an attribute, select the classification process (quantile or unique value), define symbology...
+        ... and click on classify. Studio will generate the classes.
+        Save the MapFile and you can see the result in the map preview
+
+.. image:: images/studio_mapfile_classification_wizard.png
+
+**Hint**
+
+   ``Don't forget to "Save mapfile" to see the result of the classification.``
+
+How to define advanced class symbology ?
+""""""""""""""""""""""""""""""""""""""""
+
+    The procedure is the following::
+
+        Select a class
+        You have the possibility to modify existing style or to add new style (like fill or stroke, buttons on the bottom)
+
+.. image:: images/studio_mapfile_class_editor.png    
+
+Work with MapFish manager
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The MapFish allows the creation and publication of MapFish websites.
+
+Several steps are necessary to publish a complete web mapping applications:
+
+1. Create a new MapFish and set the global properties
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. image:: images/studio_mapfish_global_properties.png
+
+**Hint**
+
+   ``You can add html tags in the header section. If it's empty, no header will appear.``
+
+**Hint**
+
+   ``The coordinate system information (EPSG code) can't be modified afterwards, because Studio check the validity of the added layers.`` 
+
+**Hint**
+
+   ``The initial extent of your map has to be defined here``
+
+2. Configure layers
+"""""""""""""""""""
+
+.. image:: images/studio_mapfish_layers_editor.png
+
+**Hint**
+
+   ``A layer from an existing MapFile or from a WMS server can be chosen. Instead of using one of the proposed WMS, you can type your own URL.``
+
+**Hint**
+
+   ``You need at least to define one base layer.``
+
+3. Configure datasource
+"""""""""""""""""""""""
+
+Three capabilities can be configured:
+
+  * The layer and attributes to be edit
+  * The layer and attributes to be shown in a tooltip
+  * The layer and attributes to be queryied
+
+.. image:: images/studio_mapfish_configure_datasource.png
+
+**Hint**
+
+   ``Only the data stored in a PostGis database can be configured.``
+
+4. Configure print
+""""""""""""""""""
+
+.. image:: images/studio_mapfish_configure_print.png
+
+5. Start server
+"""""""""""""""
+
+Start the server ...
+
+**Hint**
+
+   ``Wait some seconds before clicking on "Start server". Studio needs to prepare all the file structure ;-)``
+
+**Hint**
+
+   ``Every website works on its own port.``
+
+6. See the published MapFish
+""""""""""""""""""""""""""""
+
+... and see the published MapFish website
+
+.. image:: images/studio_mapfish_published_website.png
+
+**Hint**
+
+   ``The tooltips are available only when the tooltip accordion is open``
+
+
+**Hint**
+
+   ``The created site is based on a template. This template can be adapted to your needs (but this part has to be in the developer guide;-)``
+
+

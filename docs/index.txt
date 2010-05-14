@@ -1,0 +1,22 @@
+.. Studio documentation master file, created by sphinx-quickstart on Mon Jan 19 16:07:19 2009.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to Studio's documentation!
+==================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   user_guide
+   developer_guide
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
