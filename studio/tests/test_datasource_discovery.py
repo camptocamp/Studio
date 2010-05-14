@@ -3,13 +3,12 @@ from studio.lib.datasource_discovery import *
 
 import pylons
 
-datadir = pylons.config['default_datastore_dir']
-pgdatasource = pylons.config['default_datastore_postgis']
 def ogr_list(ogr_string):
     dsa = discover_datasources(ogr_string)
     for ds in dsa:
         dsc = discover_datasource_columns(ogr_string,ds['hash'])
         
+datadir = pylons.config['default_datastore_dir']
         
 def test_directory():
     dsa = discover_datasources(datadir)
@@ -36,6 +35,7 @@ def test_shapefile():
     assert found_pop_column == True
 
 
+#pgdatasource = pylons.config['default_datastore_postgis']
 
 # def test_postgis_import():
 #     store = DataStore(pgdatasource)
