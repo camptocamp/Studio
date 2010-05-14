@@ -3,31 +3,34 @@ Developer Guide
 
 This document contains instructions for Studio developers.
 
-Install Studio from SVN
+Install Studio from source
 --------------------------
 
-It is highly recommended to install Studio in a virtual environment, so you'll start with that.
+It is highly recommended to install Studio in a virtual Python environment, so you'll start with that.
 
-Set up a Virtual Python Environment
+Set up a virtual Python environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Unix users will use this::
 
-    $ wget http://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.3.2.tar.gz
-    $ tar xvzf virtualenv-1.3.2.tar.gz
-    $ cp virtualenv-1.3.2/virtualenv.py ./
-    $ rm -rf virtualenv-1.3.2
-    $ rm virtualenv-1.3.2.tar.gz
+    $ wget http://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.4.8.tar.gz
+    $ tar xvzf virtualenv-1.4.8.tar.gz
+    $ cp virtualenv-1.4.8/virtualenv.py ./
+    $ rm -rf virtualenv-1.4.8
+    $ rm virtualenv-1.4.8.tar.gz
 
-Windows users will download the file through their browsers and use a tool such as 7-zip from http://www.7-zip.org
-to extract the files.
+Windows users will download the file through their browsers and use a tool such
+as 7-zip from http://www.7-zip.org to extract the files.
 
 **Note**
-    If you already have the ``easy_install`` (if it is not the case: sudo apt-get install python-setuptools) program installed, you can install ``virtualenv`` using::
+    If you already have the ``easy_install`` (if it is not the case: sudo
+    apt-get install python-setuptools) program installed, you can install
+    ``virtualenv`` using::
     
         $ easy_install "virtualenv==1.3.2"
 
-You are now ready to create a virtual Python environment. Here's how it looks like on Windows::
+You are now ready to create a virtual Python environment. Here's how it looks
+like on Windows::
 
     C:\>C:\Python25\python.exe "C:\Documents and Settings\Administrator\virtualenv.py" C:\env
     New python executable in C:\env\Scripts\python.exe
@@ -36,29 +39,27 @@ You are now ready to create a virtual Python environment. Here's how it looks li
 Here's how it looks like on Unix::
 
     $ python virtualenv.py /path/to/new/virtual/env
-    
-For example:
-  
-    $ python virtualenv.py vp
 
-Install
-^^^^^^^
+You can create your virtual environment wherever you want.
 
-Currently the Studio source tree is located in a MapFish sandbox::
+Install Studio
+^^^^^^^^^^^^^^
 
-    http://www.mapfish.org/svn/mapfish/sandbox/camptocamp/Studio
+Download Studio from gitorious::
 
-You can check out the source tree with::
+    $ git clone http://git.gitorious.org/erilem/studio.git 
 
-    $ svn co http://www.mapfish.org/svn/mapfish/sandbox/camptocamp/Studio
+Now that you have a virtual Python environment ready, you can proceed with the installation of Studio.
 
-Now that you have a virtual Python environment ready, you can proceed with the installation of Studio with::
+On Linux::
 
     $ source /path/to/virtual/env/bin/activate
     $ cd /path/to/Studio
     $ python setup.py develop
 
 This will install Studio and its dependencies.
+
+Windows users need to adapt the above commands.
 
 Build the documentation
 -----------------------
@@ -77,8 +78,8 @@ the entry point.
 
 Sphinx documentation: http://sphinx.pocoo.org/contents.html
 
-Run the tests
--------------
+Run the automatic tests
+-----------------------
 
 To run the unit and functional tests run the ``nosetests`` command at the root of the project directory (the
 Studio directory)::
@@ -89,6 +90,30 @@ The ``nosetests`` documentation gives this for the ``-d`` switch::
 
      Add detail to error output by attempting to evaluate
      failed asserts [NOSE_DETAILED_ERRORS]
+
+
+Manual tests
+------------
+
+Data Manager
+^^^^^^^^^^^^
+
+* view the default datastore, Studio should show four datasources
+* add a shapefile to the datastore (`shapefile <_static/polygons.zip>`_), Studio should show it in the list 
+* go back to the list of datastores
+* click on the "delete datastore" button, Studio should display a confirmation window (answer "No")
+
+Mapfile Manager
+^^^^^^^^^^^^^^^
+
+* view the default mapfile, Studio should the list of layers and a map
+* view the DM_WORL layer, Studio should display its properties in the "Layer object properties" panel
+* change the opacity, and click on the "Save mapfile" button, Studio should refresh the map
+* set the label to "NAME", and click on the "Save mapfile" button
+* view the class of the TM_WORLD layer, change the "fill color", and click on
+  the "Save mapfile" button, Studio should refresh the map
+* sets a label, and click on the "Save mapfile" button, you should see labels in the map
+
 
 Authentication and authorisation
 --------------------------------
@@ -549,26 +574,6 @@ Delete an existing layertemplate
 * request: ``DELETE /layertemplates/{layertemplate_id}``
 * success status code: ``204 No Content``
 
-started_mapfishes
-^^^^^^^^^^^^^^^^^
-
-Start a MapFish application
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* request: ``PUT /started_mapfishes/{id}``
-* success status code: ``201 CREATED``
-
-Stop a MapFish application
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* request: ``DELETE /started_mapfishes/{id}``
-* success status code: ``204 No Content``
-
-Get the status of a MapFish application
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* request: ``GET /started_mapfishes/{id}``
-* status code: ``200 OK`` if the application is started, ``404 NOT FOUND`` if it is stopped
 
 Style Panels
 ------------
