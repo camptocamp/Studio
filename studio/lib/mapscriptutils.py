@@ -94,7 +94,3 @@ layertypes = msConstants({
         mapscript.MS_LAYER_RASTER:"raster",
         mapscript.MS_LAYER_CIRCLE:"circle"
     })
-
-
-
-

@@ -1,11 +1,13 @@
 
 import mapscript
 from exceptions import AttributeError
-from pylons import config 
 import os
-import mapscriptutils
 from types import *
 import re
+
+from pylons import config
+
+from studio.lib import mapscriptutils
 
 class Mapfile:
     _SYMBOL_NAME_REGEXP = re.compile("^mfs_([psf]+)_(.*)$")
