@@ -8,6 +8,10 @@ Install Studio from source
 
 It is highly recommended to install Studio in a virtual Python environment, so you'll start with that.
 
+.. todo::
+
+    Include same "Install Dependencies" section as in User Guide.
+
 Set up a virtual Python environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
