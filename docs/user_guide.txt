@@ -23,12 +23,11 @@ below, are installed separately.
 * MapServer CGI, version 5.0 and higher
 * MapServer MapScript Python, version 5.0 and higher
 * OGRGDAL Python, version 1.5 and higher
-* Java JRE version 1.5.0 and higher (only needed if you want to enable printing)
 
 On a Linux system, you can rely on your distribution packages (recommanded).
 For example, on Debian-like system, you would install the packages with::
 
-    $ apt-get install python cgi-mapserver python-mapscript python-gdal sun-java6-bin
+    $ apt-get install python cgi-mapserver python-mapscript python-gdal
 
 On a Windows system, you would need to install Python 2.5 from
 http://www.python.org/download/releases/ and its pwin32 (a.k.a win32api)
