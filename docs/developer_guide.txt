@@ -22,13 +22,6 @@ Unix users will use this::
 Windows users will download the file through their browsers and use a tool such
 as 7-zip from http://www.7-zip.org to extract the files.
 
-**Note**
-    If you already have the ``easy_install`` (if it is not the case: sudo
-    apt-get install python-setuptools) program installed, you can install
-    ``virtualenv`` using::
-    
-        $ easy_install "virtualenv==1.3.2"
-
 You are now ready to create a virtual Python environment. Here's how it looks
 like on Windows::
 
