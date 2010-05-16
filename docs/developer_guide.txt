@@ -10,7 +10,10 @@ It is highly recommended to install Studio in a virtual Python environment, so y
 
 .. todo::
 
-    Include same "Install Dependencies" section as in User Guide.
+* include "Install Dependencies" section as in user guide
+* use fixed dependency versions in setup.py
+* fix bug in Mapfile Manager where removing all WFS attributes is impossible
+* fix bug in Data Manager where adding a new datastore doesn't work
 
 Set up a virtual Python environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
