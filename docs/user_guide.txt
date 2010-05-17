@@ -3,12 +3,6 @@ User Guide
 
 This document contains instructions for end users of Studio.
 
-Introduction
-------------
-
-Studio is a web software used to administrate web mapping applications based on `MapFish <http://www.mapfish.org>`_ framework.
-Studio allows the web administrator ot manage the geodata, to stylize them with a wysiwyg MapFile editor (for `MapServer <http://www.mapserver.org>`_)
-
 Install Studio
 --------------
 
@@ -24,16 +18,18 @@ below, are installed separately.
 * MapServer MapScript Python, version 5.0 and higher
 * OGRGDAL Python, version 1.5 and higher
 
-On a Linux system, you can rely on your distribution packages (recommanded).
+On a Linux system, you can rely on your distribution packages (recommended).
 For example, on Debian-like system, you would install the packages with::
 
     $ apt-get install python cgi-mapserver python-mapscript python-gdal
 
 On a Windows system, you would need to install Python 2.5 from
-http://www.python.org/download/releases/ and its pwin32 (a.k.a win32api)
-extension from http://sourceforge.net/project/showfiles.php?group_id=78018. You
-would rely on the MS4W distribution from http://www.maptools.org/ms4w/ for
-MapServer and OGRDAL.
+http://www.python.org/download/releases/ and its ``pwin32`` (a.k.a
+``win32api``) extension from
+http://sourceforge.net/project/showfiles.php?group_id=78018. You would rely on
+the MS4W distribution from http://www.maptools.org/ms4w/ for MapServer and
+OGRDAL (`2.3.1 <http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe>`_ is the
+current stable version).
 
 On a Debian system, you can check that MapServer CGI works locally by testing the following URL in a browser::
 
