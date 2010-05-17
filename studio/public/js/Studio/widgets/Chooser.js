@@ -36,14 +36,17 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
     },
 
     createChooserPanel: function() {
-        var elemNodeUI = Ext.extend(Ext.tree.ActionsNodeUI, {
-            actions: this.elemNodeUIActions || [{
+
+        var actions = this.elementNodeUIActions || [{
             action: 'script_save',
             qtip: OpenLayers.i18n('export' + this.label)
         },{
             action: 'delete',
             qtip: OpenLayers.i18n('delete' + this.label)
-        }]
+        }];
+
+        var elemNodeUI = Ext.extend(Ext.tree.ActionsNodeUI, {
+            actions: actions
         });
 
         var treePanel = this.treePanel = new Ext.tree.TreePanel({
@@ -89,28 +92,28 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
             var recordInterface = node.attributes.record.getInterface();
             if (action == 'delete') {
                 Ext.Msg.confirm(
-                		OpenLayers.i18n("discard" + this.label),
-                		OpenLayers.i18n("Are you sure you want to discard this " + this.label + " ?"),
-                        function(a) {
-                            if (a == "yes") {
-                                recordInterface["delete"]({
-                                    failure: function() {
-                                        Ext.Msg.alert(
-                                                'Error',
-                                                'An error occurred while discarding ' +
-                                                'the ' + this.label + ', please report the ' +
-                                                'problem.'
-                                                );
-                                    },
-                                    success: function() {
-                                        this.storeType.store.reload();
-                                    },
-                                    scope: this
-                                });
-                            }
-                        },
-                        this
-                        );
+                    OpenLayers.i18n("discard" + this.label),
+                    OpenLayers.i18n("Are you sure you want to discard this " + this.label + " ?"),
+                    function(a) {
+                        if (a == "yes") {
+                            recordInterface["delete"]({
+                                failure: function() {
+                                    Ext.Msg.alert(
+                                        'Error',
+                                        'An error occurred while discarding ' +
+                                        'the ' + this.label + ', please report the ' +
+                                        'problem.'
+                                    );
+                                },
+                                success: function() {
+                                    this.storeType.store.reload();
+                                },
+                                scope: this
+                            });
+                        }
+                    },
+                    this
+                );
                 // return false so that the selection model's
                 // selectionchange event does not trigger
                 return false;
