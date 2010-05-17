@@ -115,9 +115,7 @@ Ext.extend(Studio.MapfileMgr.WfsAttributesPanel, Ext.grid.EditorGridPanel, {
 
             v['gml_' + name + '_alias'] = alias;
         });
-        if (itemsToInclude.length > 0) {
-            v.gml_include_items = itemsToInclude.join(',');
-        }
+        v.gml_include_items = itemsToInclude.join(',');
         return v;
     }
 });
