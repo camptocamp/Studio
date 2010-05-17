@@ -5,14 +5,36 @@ except ImportError:
     use_setuptools()
     from setuptools import setup, find_packages
 
+import os
+
+try:
+    intro_path = os.path.join('docs', 'intro.frag')
+    long_description = ''.join([x for x in open(intro_path)])
+except IOError:
+    long_description = ""
+
 setup(
-    name='Studio',
-    version='0.1',
-    description='Studio',
-    author='Camptocamp',
-    author_email='',
-    #url='',
-    install_requires=[
+    name                    = 'Studio',
+    version                 = '0.1',
+    license                 = 'GPLv3',
+    description             = 'Studio is a management system for GIS.',
+    long_description        = long_description,
+    author                  = 'Camptocamp',
+    keywords                = 'GIS management mapserver',
+    classifiers          = [
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: GIS engineers and administrators',
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: GNU General Public License Version 3(GPLv3)',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Framework :: Pylons',
+        'Topic :: Scientific/Engineering :: GIS',
+        'Topic :: Internet :: WWW/HTTP',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        'Topic :: Internet :: WWW/HTTP :: WSGI',
+        ],
+    install_requires        = [
         "Pylons>=0.9.7,<=0.9.7.99",
         "SQLAlchemy>=0.5,<=0.5.99",
         "Mako>=0.2.3,<=0.2.99",
@@ -24,26 +46,26 @@ setup(
         "httplib2",
         "Babel",
         "Shapely"
-    ],
-    setup_requires=["PasteScript==dev,>=1.6.3dev-r7326"],
-    packages=find_packages(exclude=['ez_setup']),
-    include_package_data=True,
-    test_suite='nose.collector',
-    package_data={'studio': ['i18n/*/LC_MESSAGES/*.mo']},
-    message_extractors = {'studio': [
+        ],
+    setup_requires          = ["PasteScript==dev,>=1.6.3dev-r7326"],
+    packages                = find_packages(exclude=['ez_setup']),
+    include_package_data    = True,
+    test_suite              = 'nose.collector',
+    package_data            = {'studio': ['i18n/*/LC_MESSAGES/*.mo']},
+    message_extractors      = {'studio': [
            ('**.py', 'python', None),
            ('templates/**.html', 'mako', None),
            ('public/**', 'ignore', None)]},
-    zip_safe=False,
-    paster_plugins=['PasteScript', 'Pylons'],
-    entry_points="""
-    [paste.app_factory]
-    main = studio.config.middleware:make_app
+    zip_safe                = False,
+    paster_plugins          = ['PasteScript', 'Pylons'],
+    entry_points            = """
+        [paste.app_factory]
+        main = studio.config.middleware:make_app
 
-    [paste.app_install]
-    main = studio.config.installer:StudioInstaller
-    """,
-    extras_require = {
+        [paste.app_install]
+        main = studio.config.installer:StudioInstaller
+        """,
+    extras_require          = {
         'MySQL':  ["mysql-python>=1.2"],
         'PostgreSQL': ["psycopg2"],
         },
