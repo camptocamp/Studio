@@ -5,7 +5,13 @@
 Studio Documentation
 ====================
 
-Contents:
+Introduction
+------------
+
+.. include:: intro.frag
+
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
@@ -14,7 +20,7 @@ Contents:
    developer_guide
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
