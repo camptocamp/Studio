@@ -1,3 +1,4 @@
 * use fixed dependency versions in setup.py
 * fix bug in Data Manager where adding a new datastore doesn't work
+* add license headers in source files
 
