@@ -1,4 +1,3 @@
 * use fixed dependency versions in setup.py
-* fix bug in Mapfile Manager where removing all WFS attributes is impossible
 * fix bug in Data Manager where adding a new datastore doesn't work
 
