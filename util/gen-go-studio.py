@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-"""Generate go-mapfish-studio.py"""
+"""Generate go-studio.py"""
 import sys
 import textwrap
 import virtualenv
 
-filename = 'go-mapfish-studio.py'
+filename = 'go-studio.py'
 
 after_install = """\
 import os, subprocess
