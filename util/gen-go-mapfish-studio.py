@@ -24,10 +24,7 @@ def after_install(options, home_dir):
 
     if not os.path.exists(etc):
         os.makedirs(etc)
-    subprocess.call([join(bin_dir, 'easy_install'),
-        '--index-url', 'http://dev.camptocamp.com/packages/mapfish/%s/index',
-        '--allow-hosts', 'dev.camptocamp.com',
-        'Studio'])
+    subprocess.call([join(bin_dir, 'easy_install'), 'Studio'])
 """
 
 
