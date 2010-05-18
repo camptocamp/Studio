@@ -1,15 +1,36 @@
 Ext.namespace('Studio', 'Studio.DataMgr');
 
 Studio.DataMgr.Chooser = Ext.extend(Studio.Chooser, {
-    label: 'datastore',
-    labels: 'datastores',
+    /**
+     */
     subPanelXType: 'studio.dm.panel',
-    textField: 'text',
 
-    elemNodeUIActions: [{
-        action: 'delete',
-        qtip: OpenLayers.i18n('delete datastore')
-    }],
+    /**
+     *
+     */
+    allowDelete: false,
+
+    /**
+     *
+     */
+    allowExport: false,
+
+    /**
+     *
+     */
+    allowCreateNew: false,
+
+    /**
+     */
+    label: 'datastore',
+
+    /**
+     */
+    labels: 'datastores',
+
+    /**
+     */
+    textField: 'text',
 
     /**
      * Method: initComponent

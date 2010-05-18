@@ -112,7 +112,7 @@ Studio.MapfileMgr.Panel = Ext.extend(Ext.Panel, {
         },'-',{
             id: this.getId() + '_save_button',
             text: OpenLayers.i18n('Save mapfile'),
-            iconCls: 'script_save',
+            iconCls: 'save',
             disabled: true,
             handler: this.saveMapfile,
             scope: this

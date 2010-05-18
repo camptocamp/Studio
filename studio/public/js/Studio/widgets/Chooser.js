@@ -5,7 +5,23 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
      */
     subPanelXType: null,
 
-    layout: "card",
+    /**
+     * APIProperty: allowDelete
+     * {Boolean} Specifies if nodes include a "delete" action.
+     */
+    allowDelete: true,
+
+    /**
+     * APIProperty: allowExport
+     * {Boolean} Specifies if nodes include an "export" action.
+     */
+    allowExport: true,
+
+    /**
+     * APIProperty: allowCreateNew
+     * {Boolean} Specifies if the tree includes a "create new" node.
+     */
+    allowCreateNew: true,
 
     /**
      */
@@ -57,20 +73,53 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
         });
     },
 
+    /**
+     * Method: createChooserPanel
+     */
     createChooserPanel: function() {
 
-        var actions = this.elementNodeUIActions || [{
-            action: 'script_save',
-            qtip: OpenLayers.i18n('export' + this.label)
-        },{
-            action: 'delete',
-            qtip: OpenLayers.i18n('delete' + this.label)
-        }];
-
-        var elemNodeUI = Ext.extend(Ext.tree.ActionsNodeUI, {
+        // create the node ui for the "regular" nodes
+        var actions = [];
+        if (this.allowExport) {
+            actions.push({
+                action: "save",
+                qtip: OpenLayers.i18n("export" + this.label)
+            });
+        }
+        if (this.allowDelete) {
+            actions.push({
+                action: "delete",
+                qtip: OpenLayers.i18n("delete" + this.label)
+            });
+        }
+        var ElemNodeUI = Ext.extend(Ext.tree.ActionsNodeUI, {
             actions: actions
         });
 
+        // create the "create new" node if necessary
+        var children = [];
+        if (this.allowCreateNew) {
+            children.push({
+                text: OpenLayers.i18n("createnew" + this.label),
+                cls: "add-txt",
+                iconCls: "add",
+                leaf: true,
+                role: 'new-elem',
+                listeners: {
+                    click: function(n) {
+                        var s = this.storeType.getStore();
+                        var record = new s.recordType({id: null, url: null});
+                        record.set(this.textField, OpenLayers.i18n('DefaultName'));
+                        s.add(record);
+                        var newNode = treePanel.getRootNode().lastChild; //get the node that was just created
+                        this.loadRecord(record, newNode);
+                    },
+                    scope: this
+                }
+            });
+        }
+
+        // create the tree panel
         var treePanel = this.treePanel = new Ext.tree.TreePanel({
             rootVisible: true,
             width: 300,
@@ -78,32 +127,16 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
             root: new Ext.tree.AsyncTreeNode({
                 text: this.labels,
                 expanded: true,
-                children: [{
-                    text: OpenLayers.i18n("createnew" + this.label),
-                    cls: "add-txt",
-                    iconCls: "add",
-                    leaf: true,
-                    role: 'new-elem',
-                    listeners: {
-                        click: function(n) {
-                            var s = this.storeType.getStore();
-                            var record = new s.recordType({id: null, url: null});
-                            record.set(this.textField, OpenLayers.i18n('DefaultName'));
-                            s.add(record);
-                            var newNode = treePanel.getRootNode().lastChild; //get the node that was just created
-                            this.loadRecord(record, newNode);
-                        },
-                        scope: this
-                    }
-                }]
+                children: children
             }),
             loader: new Ext.tree.TreeLoader({
                 uiProviders: {
-                    'elem': elemNodeUI
+                    'elem': ElemNodeUI
                 }
             })
         });
 
+        // register listeners
         treePanel.getSelectionModel().on({
             beforeselect: this.elemListTreeOnBeforeSelect,
             selectionchange: this.elemListTreeOnSelect,
@@ -140,9 +173,8 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
                 // selectionchange event does not trigger
                 return false;
             }
-            if (action == 'script_save') {
+            if (action == "save") {
                 recordInterface["download"]();
-
                 // return false so that the selection model's
                 // selectionchange event does not trigger
                 return false;

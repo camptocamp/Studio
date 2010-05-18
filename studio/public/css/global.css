@@ -86,10 +86,10 @@ body {
 .move-down {
     background-image:url(../images/move_down.png) !important;
 }
-.save {
+.store {
     background-image:url(../images/disk.gif) !important;
 }
-.script_save {
+.save {
     background-image:url(../images/script_save.gif) !important;
 }
 .wizard {
