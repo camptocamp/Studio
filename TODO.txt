@@ -1,3 +1,2 @@
-* add license headers in source files
 * the user guide sucks, review it
 
