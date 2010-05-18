@@ -1,3 +1,2 @@
 * the user guide sucks, review it
-* create a development.ini variable for the postgis datastore
 

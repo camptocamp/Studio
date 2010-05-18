@@ -51,8 +51,6 @@ def load_environment(global_conf, app_conf):
     config['mapserver_dir'] = os.path.join(config['resources_dir'], 'mapserver')
     # path to default directory datastore
     config['default_datastore_dir'] = os.path.join(config['resources_dir'], 'default_datastore')
-    # path to default postgis datastore
-    #config['default_datastore_postgis'] = "PG:host=localhost dbname=studio user=studio password=SufahN5C"
     # path to the template including the <script> tags
     config['js_tmpl'] = os.path.join(paths['templates'][0], 'index.html')
 

@@ -46,11 +46,15 @@ mapserver_url = ${ms_url}
 # mapfiles dir path 
 mapfiles_dir = %(here)s/data/mapfiles
 
+# OGR connection string to a PostGIS database
+# warning: this will be removed in new versions of Studio, as adding datastores
+#          will be done through the user interface.
+#default_datastore_postgis=PG:host=changeme dbname=changeme user=changeme password=changeme
+
 # WARNING: *THE LINE BELOW MUST BE UNCOMMENTED ON A PRODUCTION ENVIRONMENT*
 # Debug mode will enable the interactive debugging tool, allowing ANYONE to
 # execute malicious code after an exception is raised.
 set debug = false
-
 
 # Logging configuration
 [loggers]
