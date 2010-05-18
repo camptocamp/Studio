@@ -2,42 +2,56 @@ Ext.namespace('Studio');
 
 Studio.Chooser = Ext.extend(Ext.Panel, {
     /**
+     * APIProperty: subPanelXType
+     * {String} The xtype of the panel created when a node is selected
+     * in the tree. To be overriden in subclasses.
      */
     subPanelXType: null,
 
     /**
      * APIProperty: allowDelete
-     * {Boolean} Specifies if nodes include a "delete" action.
+     * {Boolean} Specifies if nodes include a "delete" action. To be
+     * overriden in subclasses. Defaults to true.
      */
     allowDelete: true,
 
     /**
      * APIProperty: allowExport
-     * {Boolean} Specifies if nodes include an "export" action.
+     * {Boolean} Specifies if nodes include an "export" action. To be
+     * overriden in subclasses. Defaults to true.
      */
     allowExport: true,
 
     /**
      * APIProperty: allowCreateNew
-     * {Boolean} Specifies if the tree includes a "create new" node.
+     * {Boolean} Specifies if the tree includes a "create new" node. To
+     * be overriden in subclasses. Defaults to true.
      */
     allowCreateNew: true,
 
     /**
+     * APIProperty: storeType
+     * {<Studio.data.Store>} The store to be used by this panel.
      */
     storeType: null,
 
     /**
+     * APIProperty: label
+     * {String} String representing the type of object managed by this panel.
      */
     label: null,
 
     /**
+     * APIProperty: labels
+     * {String} String used for the text of the root node.
      */
     labels: null,
 
     /**
+     * APIProperty: textField
+     * {String} The name of the record text field. Defaults to "name".
      */
-    textField: 'name',
+    textField: "name",
 
     /**
      * Property: treePanel
