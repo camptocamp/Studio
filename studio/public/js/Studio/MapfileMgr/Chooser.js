@@ -1,17 +1,11 @@
 Ext.namespace('Studio', 'Studio.MapfileMgr');
 
 Studio.MapfileMgr.Chooser = Ext.extend(Studio.Chooser, {
-    /**
-     */
-    subPanelXType: 'studio.mm.panel',
 
-    /**
-     */
-    label: OpenLayers.i18n('labelmapfile'),
-
-    /**
-     */
-    labels: OpenLayers.i18n('labelmapfiles'),
+    // overrides
+    subPanelXType: "studio.mm.panel",
+    label: OpenLayers.i18n("labelmapfile"),
+    labels: OpenLayers.i18n("labelmapfiles"),
 
     /**
      * Method: initComponent

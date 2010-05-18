@@ -1,36 +1,15 @@
 Ext.namespace('Studio', 'Studio.DataMgr');
 
 Studio.DataMgr.Chooser = Ext.extend(Studio.Chooser, {
-    /**
-     */
-    subPanelXType: 'studio.dm.panel',
 
-    /**
-     *
-     */
+    // overrides
+    subPanelXType: "studio.dm.panel",
     allowDelete: false,
-
-    /**
-     *
-     */
     allowExport: false,
-
-    /**
-     *
-     */
     allowCreateNew: false,
-
-    /**
-     */
-    label: 'datastore',
-
-    /**
-     */
-    labels: 'datastores',
-
-    /**
-     */
-    textField: 'text',
+    label: "datastore",
+    labels: "datastores",
+    textField: "text",
 
     /**
      * Method: initComponent
