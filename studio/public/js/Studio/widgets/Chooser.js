@@ -1,17 +1,39 @@
 Ext.namespace('Studio');
 
 Studio.Chooser = Ext.extend(Ext.Panel, {
-    treePanel: null,
+    /**
+     */
+    subPanelXType: null,
 
     layout: "card",
 
+    /**
+     */
     storeType: null,
+
+    /**
+     */
     label: null,
+
+    /**
+     */
     labels: null,
-    subPanelXType: null,
+
+    /**
+     */
     textField: 'name',
+
+    /**
+     * Property: treePanel
+     * {Ext.tree.TreePanel} The tree panel.
+     */
+    treePanel: null,
     
-    elemNodeUIActions: null,
+    /**
+     * Property: layout
+     * {String} The layout of this panel.
+     */
+    layout: "card",
 
     /**
      * Method: initComponent
@@ -171,10 +193,27 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
         return treePanel;
     },
 
+    /**
+     * Method: elemListTreeOnBeforeSelect
+     * Callback function called before a node is selected in the tree. 
+     *
+     * Parameters:
+     * sm - {Ext.tree.DefaultSelectionModel} The tree selection model.
+     * node - {Ext.tree.TreeNode} The tree node.
+     */
     elemListTreeOnBeforeSelect: function(sm, node) {
-        // unselectable nodes
     },
 
+    /**
+     * Method: elemListTreeOnSelect
+     * Callback function called when a node is selected in the tree.
+     * If the selected node is a "regular" node this function loads
+     * the information about that node from the server.
+     *
+     * Parameters:
+     * sm - {Ext.tree.DefaultSelectionModel} The tree selection model.
+     * node - {Ext.tree.TreeNode} The tree node.
+     */
     elemListTreeOnSelect: function(sm, node) {
         if (node && node.attributes.role == 'elem') {
             this.loadRecord(node.attributes.record, node);
@@ -183,10 +222,12 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
 
     /**
      * Method: loadRecord
+     * Get information from the server about a record, and display the
+     * "editing panel" upon the reception of that information.
      *
-     * Parameters
-     * record {Ext.data.Record}
-     * node {Ext.tree.TreeNode}
+     * Parameters:
+     * record - {Ext.data.Record} The record.
+     * node {Ext.tree.TreeNode} The associated tree node.
      */
     loadRecord: function(record, node) {
         var recordInterface = record.getInterface();
@@ -202,7 +243,6 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
                         destroy: function() {
                             this.treePanel.getSelectionModel().clearSelections();
                             this.getLayout().setActiveItem(this.getId() + '-chooser');
-                            //this.doLayout();
                         },
                         scope: this
                     }
@@ -212,7 +252,7 @@ Studio.Chooser = Ext.extend(Ext.Panel, {
                 panel.loadFromRecord();
             },
             failure: function() {
-                alert("Sorry for inconvenience. A problem occurred during load of records.");
+                alert("A problem occured, check your connection to the server.");
             },
             scope: this
         });
