@@ -548,10 +548,10 @@ Studio.MapfileMgr.Panel = Ext.extend(Ext.Panel, {
                 break;
 
             case 'new-layer':
-                var window = new Studio.MapfileMgr.AddLayerWindow({
+                var win = new Studio.MapfileMgr.AddLayerWindow({
                      layers: this.record.layers
                 });
-                window.on('layercreated',
+                win.on('layercreated',
                         function(obj) {
                             this.addLayer(obj);
                             //FIXME: mapfile has to be saved unless the map won't work for the new layer
@@ -559,7 +559,7 @@ Studio.MapfileMgr.Panel = Ext.extend(Ext.Panel, {
                             this.saveMapfile();
                         },
                         this);
-                window.show();
+                win.show();
                 this.tree.getSelectionModel().clearSelections();
                 break;
 
@@ -659,34 +659,34 @@ Studio.MapfileMgr.Panel = Ext.extend(Ext.Panel, {
                         }
                         break;
                     case 'classify':
-                        var window = new Studio.MapfileMgr.ClassificationWizard({
+                        var win = new Studio.MapfileMgr.ClassificationWizard({
                             layer: node
                         });
-                        window.show();
-                        window.on('classificationready', function(window, layer, classes) {
+                        win.show();
+                        win.on('classificationready', function(win, layer, classes) {
                             this.addClasses(layer, classes, false);
                             this.onPropertyChange();
-                            window.close();
+                            win.close();
                         }, this /* scope */);
                         break;
                     case 'addStyle':
-                        var window = new Studio.MapfileMgr.StyleWizard({
+                        var win = new Studio.MapfileMgr.StyleWizard({
                             layer: node,
                             mapfileInterface: this.currentRecordInterface
                         });
-                        window.show();
-                        window.on('styleready', function(window, layer) {
+                        win.show();
+                        win.on('styleready', function(win, layer) {
                             this.onPropertyChange();
-                            window.close();
+                            win.close();
                         }, this /* scope */);
                         break;
                     case 'layertemplate':
                         //FIXME: Ensure layer properties is up to date (Save mapfile?)
                         var layer_properties = this.parseMapfileTree(node);
-                        var window = new Studio.MapfileMgr.SaveLayertemplateWindow({
+                        var win = new Studio.MapfileMgr.SaveLayertemplateWindow({
                             layer: layer_properties
                         });
-                        window.show();
+                        win.show();
                         break;
                 }
                 break;
