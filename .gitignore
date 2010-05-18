@@ -3,6 +3,6 @@ development.db
 test.db
 *.pyc
 studio/public/js/Studio/studio-all.js
-data
+/data
 *.mo
 docs/.build
