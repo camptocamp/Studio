@@ -77,6 +77,7 @@ Studio.DataMgr.Panel = Ext.extend(Ext.Panel, {
                 children: [newDataSourceNode]
             })
         });
+
         this.tree.getSelectionModel().on('beforeselect', this.treeOnBeforeSelect, this);
         this.tree.getSelectionModel().on('selectionchange', this.treeOnSelect, this);
 
@@ -88,10 +89,10 @@ Studio.DataMgr.Panel = Ext.extend(Ext.Panel, {
         if (node) {
             var properties = node.attributes;
             if (properties.role && properties.role == 'new-datasource') {
-                var window = new Studio.DataMgr.AddDatasourceWindow({
+                var win = new Studio.DataMgr.AddDatasourceWindow({
                     datastoreId: this.datastoreId
                 });
-                window.on('fileuploaded', function(window) {
+                win.on('fileuploaded', function(w) {
                     var store = Studio.getDatasourceStore(this.datastoreId).store;
                     store.reload({
                         callback: function(records, options, success) {
@@ -104,7 +105,7 @@ Studio.DataMgr.Panel = Ext.extend(Ext.Panel, {
                         scope: this
                     });
                 }, this);
-                window.show();
+                win.show();
                 this.tree.getSelectionModel().clearSelections();
             }
         }

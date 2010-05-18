@@ -93,7 +93,6 @@ def discover_datasources(datastore_str):
         datasources.append({'text':ds.name, 'type':ds.type, 'id':ds.getHash(), 'leaf': True})
     return datasources
 
-
 def discover_datasource_columns(datastore_str, datasource_id):
     """ Loop through the datastore's datasources to find
     the datasource identified by datasource_id, return
