@@ -1,5 +1,4 @@
 * use fixed dependency versions in setup.py
 * add license headers in source files
-* see if we really need Shapely
 * the user guide sucks, review it
 

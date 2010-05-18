@@ -59,13 +59,17 @@ Studio.DataMgr.Panel = Ext.extend(Ext.Panel, {
     },
     
     getElementsTreePanel: function() {
-        var newDataSourceNode = {
-            text: OpenLayers.i18n('Add a new datasource ...'),
-            cls: "add-txt",
-            iconCls: "add",
-            leaf: true,
-            role: 'new-datasource'
-        };
+
+        var children = [];
+        if (this.record.type === "directory") {
+            children.push({
+                text: OpenLayers.i18n('Add a new datasource ...'),
+                cls: "add-txt",
+                iconCls: "add",
+                leaf: true,
+                role: 'new-datasource'
+            });
+        }
 
         this.tree = new Ext.tree.TreePanel({
             region: 'center',
@@ -74,7 +78,7 @@ Studio.DataMgr.Panel = Ext.extend(Ext.Panel, {
             singleExpand: true,
             root: new Ext.tree.AsyncTreeNode({
                 text: 'invisible tree node',
-                children: [newDataSourceNode]
+                children: children
             })
         });
 

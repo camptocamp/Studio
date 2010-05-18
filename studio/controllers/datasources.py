@@ -46,25 +46,13 @@ class DatasourcesController(BaseController):
         if not datastore:
             abort(404)
 
-        if datastore.connection_type == 'directory':
-            extractall(h.tofile(request.POST['datasources']),
-                       request.POST['datasources'].filename,
-                       datastore.datastore_str)
-        elif datastore.connection_type == 'postgis':
-            tmpdir = tempfile.mkdtemp(prefix="sourceupload_")
-            extractall(h.tofile(request.POST['datasources']),
-                       request.POST['datasources'].filename,
-                       tmpdir)
-            
-            in_datastore = DataStore(tmpdir)
-            in_sources = in_datastore.get_vector_datasources()
-            for in_ds in in_sources:
-                datastore.import_datasource(in_ds)
+        # only "directory" datastores are supported at this point
+        if datastore.connection_type != 'directory':
+            abort(400)
 
-            # FIXME: remove tmpdir
-        else:
-            # unknown datastore type
-            abort(501)
+        extractall(h.tofile(request.POST['datasources']),
+                   request.POST['datasources'].filename,
+                   datastore.datastore_str)
 
         response.status = 201
         

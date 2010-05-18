@@ -45,7 +45,6 @@ setup(
         "WebTest==1.2",
         "httplib2>=0.6.0,<=0.6.99",
         "Babel>=0.9.5,<=0.9.99",
-        "Shapely"
         ],
     setup_requires          = ["PasteScript==dev,>=1.6.3dev-r7326"],
     packages                = find_packages(exclude=['ez_setup']),
