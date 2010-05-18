@@ -159,20 +159,6 @@ How to import shapefiles in Studio ?
         Browse your filesystem to select a zip file containing the shapefile files (.shp, .dbf, .shx and .prj at least)
         and your file are uploaded to the server
 
-How to load shapefile in Studio PostGis database ?
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-    The procedure is the following::
-
-        Select the "default (postgis)" datastore
-        Choose "Add a new datasource..." function
-        Browse your filesystem to select a zip file containing the shapefile files (.shp, .dbf, .shx and .prj at least)
-        and your file are uploaded to the server and stored in the database
-
-**Hint**
-
-   ``Don't forget the prj file that contain the coordinate system information.``
-
 Work with MapFile manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
