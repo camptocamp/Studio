@@ -43,8 +43,8 @@ setup(
         "repoze.what_quickstart>=1.0,<=1.0.99",
         "repoze.what_pylons>=1.0rc4,<=1.0.99",
         "WebTest==1.2",
-        "httplib2",
-        "Babel",
+        "httplib2>=0.6.0,<=0.6.99",
+        "Babel>=0.9.5,<=0.9.99",
         "Shapely"
         ],
     setup_requires          = ["PasteScript==dev,>=1.6.3dev-r7326"],
