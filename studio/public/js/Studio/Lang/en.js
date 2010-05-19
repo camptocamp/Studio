@@ -42,7 +42,7 @@ OpenLayers.Util.extend(OpenLayers.Lang.en, {
 	'Column': "Column",
 	'Value': "Value",
 	'Manage datastore': "Data",
-	'Manage mapfiles': "Mapfiles",
+	'Manage mapfiles': "Mapfile",
 	'Alias': "Alias",
 	'Editable': "Editable",
 	'Tooltip': "Tooltip",
