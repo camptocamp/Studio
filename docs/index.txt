@@ -16,7 +16,7 @@ Contents
 .. toctree::
    :maxdepth: 3
 
-   user_guide
+   installation_guide
    developer_guide
 
 Indices and tables
