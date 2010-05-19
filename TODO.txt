@@ -1,2 +1,4 @@
 * the user guide sucks, review it
+* in the user guide update link to go-studio.py
+* in the user guide update the screenshots (they all have the MapFish tab currently)
 
