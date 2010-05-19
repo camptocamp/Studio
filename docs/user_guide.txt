@@ -1,25 +1,28 @@
-User Guide
+User guide
 ==========
 
 This document contains instructions for end users of Studio.
 
-Install Studio
---------------
+Installation
+------------
 
-Install Dependencies
+Install dependencies
 ^^^^^^^^^^^^^^^^^^^^
 
-Studio has two types of dependencies: pure Python dependencies, and system dependencies. Pure Python
-dependencies will be installed as part of the installation of Studio. System dependencies, listed
-below, are installed separately.
+Studio has two types of dependencies: pure Python dependencies, and system
+dependencies. Pure Python dependencies will be installed as part of the
+installation of Studio. System dependencies, listed below, are installed
+separately.
 
-* Python 2.4 or 2.5 (2.5 is recommended)
+* Python 2.4 or 2.5, Python 2.5 is highly recommended and even required if you
+  use Windows (untested with Python 2.6 but it may work)
 * MapServer CGI, version 5.0 and higher
 * MapServer MapScript Python, version 5.0 and higher
 * OGRGDAL Python, version 1.5 and higher
 
 On a Linux system, you can rely on your distribution packages (recommended).
-For example, on Debian-like system, you would install the packages with::
+For example, on Debian-like system, you would install the required packages
+with::
 
     $ apt-get install python cgi-mapserver python-mapscript python-gdal
 
@@ -31,143 +34,169 @@ the MS4W distribution from http://www.maptools.org/ms4w/ for MapServer and
 OGRDAL (`2.3.1 <http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe>`_ is the
 current stable version).
 
-On a Debian system, you can check that MapServer CGI works locally by testing the following URL in a browser::
+On a Debian system, you can check that MapServer CGI is correctly installed by
+testing the following URL in a browser::
 
     $ http://localhost/cgi-bin/mapserv
 
 Install Studio
 ^^^^^^^^^^^^^^
 
-Start by creating a folder named ``studio``. This folder will contain your
-installation of Studio.
+Start by creating a folder named ``studio``, at the location of your choice.
+This folder will contain your installation of Studio
 
-You can now download the ``go-mapfish-studio.py`` script at::
+You can now download the Studio installation script from
+http://dev.camptocamp.com/packages/mapfish/go-studio.py. Place this
+script in the ``studio`` folder.
 
-    http://dev.camptocamp.com/packages/mapfish/go-mapfish-studio.py
+Now open a console, go into the ``studio`` folder and execute the
+``go-studio.py`` script there. You would use the following on a Unix system::
 
-Place it in the ``studio`` folder.
+    $ python go-studio.py venv
 
-Now open a console, go into the ``studio`` folder and run the ``go-mapfish-studio.py`` script there::
+and the following on a Windows system::
 
-    $ python go-mapfish-studio.py venv
+    C:\studio> C:\Python25\python.exe go-studio.py venv
+
+In the above command it is assumed that your ``studio`` folder is directly
+under ``C:\', it also assumes that Python is installed ``C:\Python25``, which
+is the default.
 
 ``venv`` is the name of the virtual Python environment Studio will be installed
-in. Don't worry if you don't know what a virtual Python environment, you don't
-need to understand that to complete the installation.
+in. Do not worry if you don't know what a virtual Python environment is, you
+don't need to understand that to complete the installation.
 
 Before going to the next section, you must activate the virtual environment.
-You would use the following on a Unix system::
+Use the following on a Unix system::
 
     $ source venv/bin/activate
 
-and the following a Windows system::
+and the following on a Windows system::
 
-    $ venv/Scripts/activate.bat
+    C:\studio> venv\Scripts\activate.bat
 
 If you use Python 2.5 (enter ``python -V`` in a console to check) you're done
-with the installation.
+with the installation, you can go directly to the next section.
 
 If you use Python 2.4, you need to install the ``pysqlite`` package as it is
 not distributed with Python 2.4. On Unix do::
 
-    $ easy_install --index-url=http://dev.camptocamp.com/packages/mapfish/all/index --allow-hosts=dev.camptocamp.com pysqlite
+    $ easy_install pysqlite
 
 On Windows download
 http://www.pylonshq.com/download/0.9.7/pysqlite-2.4.1.win32-py2.4.exe and
 execute it.
 
-Create Config
+Create config
 ^^^^^^^^^^^^^
 
-Now that Studio is installed it is time that you create your own configuration
-for using it::
+Now that Studio is installed it is time that you create your Studio
+configuration.
 
-    $ paster make-config Studio my_studio.ini
+On Unix use::
 
-You will be asked for the database URL needed to setup a connection with your
-database. If you press "Enter", a default sqlite database will be used. You are
-done!
+    (env) $ paster make-config Studio my_studio.ini
+
+On Windows use:
+
+    (env) C:\studio> paster.exe make-config Studio my_studio.ini
+
+You will be asked for a database URL, Studio indeed requires a database for its
+own use. If you just press "Enter", a default sqlite database will be created
+for you.
+
+You are done!
 
 Feel free to adjust your newly created ``my_studio.ini`` configuration file to
 your needs.
 
-If you want to configure Studio with a PostgreSQL database, you will use a
-database URL that looks like this
-``postgres://user:password@host:port/dbname``. Studio assumes the database
-``dbname`` has already been created and the user is allowed to connect to this
-database. You can rely on `postgresql documentation
-<http://www.postgresql.org/docs/>`__ to learn `how to create a new database
+If you want to configure Studio with a PostgreSQL database, you will set
+``sqlalchemy.url`` to something like
+``postgres://user:password@host:port/dbname``, where ``user`` is the username,
+``password`` the password, ``host`` the name of the host executing PostgreSQL,
+and ``dbname`` the name of the database. Look at the `postgreSQL documentation
+<http://www.postgresql.org/docs/>`_ to learn `how to create a new database
 <http://www.postgresql.org/docs/8.3/static/manage-ag-createdb.html>`__.  You
 will also need to install the ``psycopg2`` package in the Python virtual
-environment, you can use that::
+environment. On a Unix system::
 
-    $ easy_install --index-url=http://dev.camptocamp.com/packages/mapfish/all/index --allow-hosts=dev.camptocamp.com psycopg2
+    (env) $ easy_install psycopg2
 
-Set Up
+Set up
 ^^^^^^
 
-You now need to set up Studio, which means creating the database schema and insert initial data. This is as easy as::
+You now need to set up Studio, which means creating the database schema and
+insert initial data. 
 
-    $ paster setup-app my_studio.ini
+Use the following on Unix::
 
-Start Up
+    (env) $ paster setup-app my_studio.ini
+
+and the following on Windows::
+
+    (env) C:\studio> paster.exe setup-app my_studio.ini
+
+Start up
 ^^^^^^^^
 
-Your environnement is now setup with a new database freshly created with
-initial data inserted.  You can now launch the HTTP server with this command::
+Studio is now ready, let's start it!
 
-    $ paster serve my_studio.ini
+On Unix::
 
-Two user accounts have been created by default:
+    (env) $ paster serve my_studio.ini
 
-* Admin user is the master user. He owns all permissions.
+On Windows::
+
+    (env) C:\studio> paster.exe serve my_studio.ini
+
+Two user accounts were created (when running ``setup-app``):
+
+* ``admin`` is the master user. He has all permissions.
     * login: ``admin``
     * password: ``password``
-* Enduser is a standard user. He owns all permissions except those to add/update/view datastores.
+* ``enduser`` is a standard user. He has all permissions except those to add/update/view datastores.
     * login: ``enduser``
     * password: ``password``
 
 Work with Studio
 ----------------
 
-Three Studio components
-^^^^^^^^^^^^^^^^^^^^^^^
+This section provides some basic information about how to use Studio.
 
-Studio UI is divided in three functional parts:
+The Studio components
+^^^^^^^^^^^^^^^^^^^^^
 
-* Data: for the management of data stored as file or in a PostGis database
-* MapFile: for the easy creation of MapFile and the definition of WMS / WFS services in MapServer
-* MapFish: for the creation and publication of MapFish website
+The Studio user interface is divided into two functional parts:
+
+* Data: for the management of data stored as files in a directory or as tables
+  in a PostGIS database
+* Mapfile: for the creation of MapServer Mapfiles
 
 .. image:: images/studio_full_view.png
 
-Work with Data manager
+Work with Data Manager
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Per default, two directories are configured:
+Per default, two datastores are created:
 
-* PostGis datastore: allow the user to store spatial data in a PostGis database
-* Directory datastore: alow the user to use data as geospatial files (supported format: ESRI shapefile and raster georeferenced files)
+* a PostGIS datastore: allow the user to store spatial data in a PostGIS database.
+* a directory datastore: alow the user to use data as geospatial files (currently
+  supported formats: ESRI shapefile and raster georeferenced files).
 
 How to import shapefiles in Studio ?
 """"""""""""""""""""""""""""""""""""
 
-    The procedure is the following::
+The procedure is the following::
 
         Select the "default (directory)" datastore
         Choose "Add a new datasource..." function
         Browse your filesystem to select a zip file containing the shapefile files (.shp, .dbf, .shx and .prj at least)
         and your file are uploaded to the server
 
-Work with MapFile manager
+Work with Mapfile Manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The MapFile manager has two main goals:
-
-* Create a MapFile with a wysiwyg editor
-* Generate WMS / WFS webservice that can be used in a Spatial Data Infrastructure
-
-How to create a new MapFile ?
+How to create a new Mapfile ?
 """""""""""""""""""""""""""""
 
     The procedure is the following::
@@ -181,17 +210,17 @@ How to create a new MapFile ?
 
 **Hint**
 
-   ``The MapFile properties are very well documented here:`` http://www.mapserver.org/mapfile/index.html#mapfile
+   ``The Mapfile properties are very well documented here:`` http://www.mapserver.org/mapfile/index.html#mapfile
 
 **Hint**
 
-   ``Avoid special character for MapFile name.``
+   ``Avoid special character for Mapfile name.``
 
 **Hint**
 
    ``Always click on "Save mapfile" to observe the result of your modifications.``
 
-How to create a new layer in the MapFile ?
+How to create a new layer in the Mapfile ?
 """"""""""""""""""""""""""""""""""""""""""
 
     The procedure is the following::
@@ -205,7 +234,7 @@ How to create a new layer in the MapFile ?
 
 **Hint**
 
-   ``All the layers of a MapFile have to have different names, otherwise MapServer can't recognize them and will not be able to create maps.``
+   ``All the layers of a Mapfile have to have different names, otherwise MapServer can't recognize them and will not be able to create maps.``
 
 How to classify data based on attribute values ?
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -215,7 +244,7 @@ How to classify data based on attribute values ?
         Hover the desired layer and click on the "Classifiy using wizard" icon on the right.
         Follow the classification wizard: select an attribute, select the classification process (quantile or unique value), define symbology...
         ... and click on classify. Studio will generate the classes.
-        Save the MapFile and you can see the result in the map preview
+        Save the Mapfile and you can see the result in the map preview
 
 .. image:: images/studio_mapfile_classification_wizard.png
 
@@ -232,5 +261,3 @@ How to define advanced class symbology ?
         You have the possibility to modify existing style or to add new style (like fill or stroke, buttons on the bottom)
 
 .. image:: images/studio_mapfile_class_editor.png    
-
-

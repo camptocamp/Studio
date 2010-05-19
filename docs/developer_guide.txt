@@ -1,4 +1,4 @@
-Developer Guide
+Developer guide
 ===============
 
 This document contains instructions for Studio developers.
@@ -87,30 +87,6 @@ The ``nosetests`` documentation gives this for the ``-d`` switch::
 
      Add detail to error output by attempting to evaluate
      failed asserts [NOSE_DETAILED_ERRORS]
-
-
-Manual tests
-------------
-
-Data Manager
-^^^^^^^^^^^^
-
-* view the default datastore, Studio should show four datasources
-* add a shapefile to the datastore (`shapefile <_static/polygons.zip>`_), Studio should show it in the list 
-* go back to the list of datastores
-* click on the "delete datastore" button, Studio should display a confirmation window (answer "No")
-
-Mapfile Manager
-^^^^^^^^^^^^^^^
-
-* view the default mapfile, Studio should the list of layers and a map
-* view the DM_WORL layer, Studio should display its properties in the "Layer object properties" panel
-* change the opacity, and click on the "Save mapfile" button, Studio should refresh the map
-* set the label to "NAME", and click on the "Save mapfile" button
-* view the class of the TM_WORLD layer, change the "fill color", and click on
-  the "Save mapfile" button, Studio should refresh the map
-* sets a label, and click on the "Save mapfile" button, you should see labels in the map
-
 
 Authentication and authorisation
 --------------------------------
@@ -570,60 +546,3 @@ Delete an existing layertemplate
 
 * request: ``DELETE /layertemplates/{layertemplate_id}``
 * success status code: ``204 No Content``
-
-
-Style Panels
-------------
-
-FillStylePanel.js
-^^^^^^^^^^^^^^^^^
-
-For polygon layers.
-
-Properties:
- * color
- * opacity
- * angle
- * symbol
- * size
- * width
-
-LabelStylePanel.js
-^^^^^^^^^^^^^^^^^^
-
-For all layers.
-
-Properties:
- * angle
- * font
- * size
- * priority
- * buffer
- * color
- * outlinecolor
- * position
-
-PointStylePanel.js
-^^^^^^^^^^^^^^^^^^
-
-For point and annotation layers.
-
-Properties:
- * color
- * outlinecolor
- * size
- * angle
- * symbol
-
-StrokeStylePanel.js
-^^^^^^^^^^^^^^^^^^^
-
-For polygon and line layers.
-
-Properties:
- * color
- * outlinecolor
- * width
- * symbol
-
-
