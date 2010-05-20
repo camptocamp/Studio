@@ -22,8 +22,8 @@ import os, zipfile, tarfile, shutil
 def extractall(archive, filename, dstdir):
     """ extract zip or tar content to dstdir"""
     
-    if zipfile.is_zipfile(archive.name):
-        z = zipfile.ZipFile(archive.name)
+    if zipfile.is_zipfile(archive):
+        z = zipfile.ZipFile(archive)
         for name in z.namelist():
             targetname = name
             # directories ends with '/' (on Windows as well)
@@ -47,11 +47,10 @@ def extractall(archive, filename, dstdir):
                 # copy file
                 file(targetname, 'wb').write(z.read(name))
 
-    elif tarfile.is_tarfile(archive.name):
-        tar = tarfile.open(archive.name)
+    elif tarfile.is_tarfile(archive):
+        tar = tarfile.open(archive)
         tar.extractall(path=dstdir)
     else:
         # seems to be a single file, save it
-        archive.seek(0)
-        shutil.copyfileobj(archive,
-                           file(os.path.join(dstdir, filename), 'wb'))
+        shutil.copyfile(archive,
+                        file(os.path.join(dstdir, filename), 'wb'))
