@@ -52,5 +52,4 @@ def extractall(archive, filename, dstdir):
         tar.extractall(path=dstdir)
     else:
         # seems to be a single file, save it
-        shutil.copyfile(archive,
-                        file(os.path.join(dstdir, filename), 'wb'))
+        shutil.copyfile(archive, os.path.join(dstdir, filename))
