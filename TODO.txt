@@ -2,4 +2,5 @@
 * in the user guide update link to go-studio.py
 * in the user guide update the screenshots (they all have the MapFish tab currently)
 * add windows specific installation details
+* review code found with: grep -r "TODO\|FIXME" studio/
 
