@@ -63,7 +63,7 @@ Build the documentation
 
 To build the documentation, a Sphinx egg must first be installed in the virtual Python environment::
 
-    $ easy_install "Sphinx==0.4.2"
+    $ easy_install "Sphinx==0.6.5"
 
 Buiding the doc is done as follows::
 
