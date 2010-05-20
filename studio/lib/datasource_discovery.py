@@ -84,7 +84,7 @@ class DataStore:
 
         try:
             self.ogr_connection = ogr.Open(str(self.datastore_str))
-        except OGRError:
+        except ogr.OGRError:
             self.ogr_connection = None
 
         if self.ogr_connection is not None:
