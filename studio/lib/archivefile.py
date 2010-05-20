@@ -26,7 +26,8 @@ def extractall(archive, filename, dstdir):
         z = zipfile.ZipFile(archive.name)
         for name in z.namelist():
             targetname = name
-            if targetname.endswith(os.path.sep):
+            # directories ends with '/' (on Windows as well)
+            if targetname.endswith('/'):
                 targetname = targetname[:-1]
 
             # don't include leading "/" from file name if present
@@ -41,7 +42,8 @@ def extractall(archive, filename, dstdir):
             if upperdirs and not os.path.exists(upperdirs):
                 os.makedirs(upperdirs)
 
-            if not name.endswith(os.path.sep):
+            # directories ends with '/' (on Windows as well)
+            if not name.endswith('/'):
                 # copy file
                 file(targetname, 'wb').write(z.read(name))
 
