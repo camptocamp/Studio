@@ -81,7 +81,12 @@ def decode_string(s):
 class DataStore:
     def __init__(self, datastore_str):
         self.datastore_str = datastore_str
-        self.ogr_connection = ogr.Open(str(self.datastore_str))
+
+        try:
+            self.ogr_connection = ogr.Open(str(self.datastore_str))
+        except OGRError:
+            self.ogr_connection = None
+
         if self.ogr_connection is not None:
             conn_type = self.ogr_connection.GetDriver().GetName()
             if conn_type == "ESRI Shapefile":
