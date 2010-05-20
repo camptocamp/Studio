@@ -98,24 +98,22 @@ On Windows use:
 
     (env) C:\studio> paster.exe make-config Studio my_studio.ini
 
-You will be asked for a database URL, Studio indeed requires a database for its
-own use. If you just press "Enter", a default sqlite database will be created
-for you.
+You will be asked for a ``database URL``, Studio indeed requires a database for
+its own use (to store information about users, datastores, mapfiles, etc.). If
+you just press "Enter", Studio will use an SQLite database, which will be
+automatically created at setup time (see the next section).
 
-You are done!
+If you have a PostgreSQL database and would like Studio to use that database
+enter something like the following as the database URL::
 
-Feel free to adjust your newly created ``my_studio.ini`` configuration file to
-your needs.
+    postgres://username:password@host:port/dbname
 
-If you want to configure Studio with a PostgreSQL database, you will set
-``sqlalchemy.url`` to something like
-``postgres://user:password@host:port/dbname``, where ``user`` is the username,
-``password`` the password, ``host`` the name of the host executing PostgreSQL,
-and ``dbname`` the name of the database. Look at the `postgreSQL documentation
-<http://www.postgresql.org/docs/>`_ to learn `how to create a new database
-<http://www.postgresql.org/docs/8.3/static/manage-ag-createdb.html>`__.  You
-will also need to install the ``psycopg2`` package in the Python virtual
-environment. On a Unix system::
+where ``user`` is the name of the database user, ``password`` is the password
+for that user, ``host`` is the name of the host executing PostgreSQL, and
+``dbname`` the name of the database.
+
+If you want Studio to use PostgreSQL you will need to install the
+``psycopg2`` package in the Python virtual environment. On a Unix system do::
 
     (env) $ easy_install psycopg2
 
@@ -125,13 +123,25 @@ Set up
 You now need to set up Studio, which means creating the database schema and
 insert initial data. 
 
-Use the following on Unix::
+Studio comes with a default datastore, which is a directory to which Studio
+users will be able to add geographic files. This datastore is pre-populated
+with a few geographic files, mostly for testing purposes.
+
+If you have a PostGIS database that you would like to see as a datastore in
+Studio edit your ``my_studio.ini`` file, uncomment the line that sets the
+``default_datastore_postgis`` option, and change the value of that option as
+appropriate (to match the parameters of your database).
+
+To set up Studio, use the following command on Unix::
 
     (env) $ paster setup-app my_studio.ini
 
 and the following on Windows::
 
     (env) C:\studio> paster.exe setup-app my_studio.ini
+
+If you chose to have Studio rely on SQLite then a ``development.db`` file, the
+SQLite database, should now be present in your ``studio`` directory.
 
 Start up
 --------
