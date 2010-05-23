@@ -186,7 +186,7 @@ and the following on Windows::
 
     (env) C:\studio> paster.exe setup-app my_studio.ini
 
-If you chose to have Studio rely on SQLite then a ``development.db`` file, the
+If you chose to have Studio rely on SQLite then a ``studio.db`` file, the
 SQLite database, should now be present in your ``studio`` directory.
 
 Start up
