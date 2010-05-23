@@ -24,17 +24,28 @@ with::
     $ apt-get install python cgi-mapserver python-mapscript python-gdal
 
 On a Windows system, you would need to install Python 2.5 from
-http://www.python.org/download/releases/ and its ``pwin32`` (a.k.a
-``win32api``) extension from
-http://sourceforge.net/project/showfiles.php?group_id=78018. You would rely on
-the MS4W distribution from http://www.maptools.org/ms4w/ for MapServer and
-OGRDAL (`2.3.1 <http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe>`_ is the
+http://www.python.org/download/releases/2.5.4/ and its ``pwin32`` (a.k.a
+``win32api``) extension from http://sourceforge.net/projects/pywin32/files/.
+
+You would rely on the MS4W distribution from http://www.maptools.org/ms4w/
+for MapServer and OGR/GDAL
+(`2.3.1 <http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe>`_ is the
 current stable version).
+
+.. note::
+    You should install the same version of Python as the one supported by the
+    Python bindings (MapScript, OGR/GDAL) provided with MS4W.
+
+    For OS4W v2.3.1, you should rely on Python v2.5.x
 
 On a Debian system, you can check that MapServer CGI is correctly installed by
 testing the following URL in a browser::
 
     $ http://localhost/cgi-bin/mapserv
+
+and the following on a Windows system::
+
+    $ http://localhost/cgi-bin/mapserv.exe
 
 Install Studio
 --------------
@@ -56,12 +67,32 @@ and the following on a Windows system::
     C:\studio> C:\Python25\python.exe go-studio.py venv
 
 In the above command it is assumed that your ``studio`` folder is directly
-under ``C:\', it also assumes that Python is installed ``C:\Python25``, which
+under ``C:\``, it also assumes that Python is installed ``C:\Python25``, which
 is the default.
 
 ``venv`` is the name of the virtual Python environment Studio will be installed
 in. Do not worry if you don't know what a virtual Python environment is, you
 don't need to understand that to complete the installation.
+
+Next for Windows only, you also need to manually install the Python bindings
+for GDAL and MapScript in this virtual environment.
+
+First the GDAL Python bindings:
+
+Assuming that MS4W distribution has been installed in ``C:\Program Files\ms4w\``,
+copy all Python files (``*.py``) from ``C:\Program Files\ms4w\python\gdal\``
+directory to the ``C:\studio\venv\Lib\`` of your virtual environment.
+Also copy the DLL ``C:\Program Files\ms4w\python\gdal\_gdal.dll`` to
+``C:\studio\venv\Lib\_gdal.pyd`` (take care of changing the extension ``.dll``
+to ``.pyd`` so that the library is understood by Python).
+
+Now the MapScript bindings:
+
+Unpack ``C:\Program Files\ms4w\Apache\cgi-bin\mapscript\python\mapscript-5.2.1.win32.zip``
+in a safe location. In the directory structure that results from the above step,
+navigate to ``build\mapserver-buildkit\Python-2.5.1\Lib\site-packages`` and copy the
+files ``_mapscript.pyd`` and ``mapscript.py`` to the ``C:\studio\venv\Lib\site-packages\``
+directory in your virtual env.
 
 Before going to the next section, you must activate the virtual environment.
 Use the following on a Unix system::
@@ -71,6 +102,10 @@ Use the following on a Unix system::
 and the following on a Windows system::
 
     C:\studio> venv\Scripts\activate.bat
+
+On a Windows system, you also need to set up MS4W environment variables::
+
+    C:\studio> C:\Program Files\ms4w\setenv.bat
 
 If you use Python 2.5 (enter ``python -V`` in a console to check) you're done
 with the installation, you can go directly to the next section.
@@ -94,7 +129,7 @@ On Unix use::
 
     (env) $ paster make-config Studio my_studio.ini
 
-On Windows use:
+On Windows use::
 
     (env) C:\studio> paster.exe make-config Studio my_studio.ini
 
@@ -116,6 +151,18 @@ If you want Studio to use PostgreSQL you will need to install the
 ``psycopg2`` package in the Python virtual environment. On a Unix system do::
 
     (env) $ easy_install psycopg2
+
+The above ``make-config`` command will also ask for the ``url to the mapserv CGI``.
+So press "Enter" to keep the default, or enter a correct MapServer URL.
+
+On Windows, MapServer is provided with MS4W, so you should enter the following
+URL::
+
+    http://localhost/cgi-bin/mapserv.exe
+
+.. note::
+    These configuration parameters can also be edited directly in the ``.ini``
+    generated file (``my_studio.ini`` in our example).
 
 Set up
 ------
