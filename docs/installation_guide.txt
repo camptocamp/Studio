@@ -60,17 +60,17 @@ script in the ``studio`` folder.
 Now open a console, go into the ``studio`` folder and execute the
 ``go-studio.py`` script there. You would use the following on a Unix system::
 
-    $ python go-studio.py venv
+    $ python go-studio.py env
 
 and the following on a Windows system::
 
-    C:\studio> C:\Python25\python.exe go-studio.py venv
+    C:\studio> C:\Python25\python.exe go-studio.py env
 
 In the above command it is assumed that your ``studio`` folder is directly
 under ``C:\``, it also assumes that Python is installed ``C:\Python25``, which
 is the default.
 
-``venv`` is the name of the virtual Python environment Studio will be installed
+``env`` is the name of the virtual Python environment Studio will be installed
 in. Do not worry if you don't know what a virtual Python environment is, you
 don't need to understand that to complete the installation.
 
@@ -81,9 +81,9 @@ First the GDAL Python bindings:
 
 Assuming that MS4W distribution has been installed in ``C:\Program Files\ms4w\``,
 copy all Python files (``*.py``) from ``C:\Program Files\ms4w\python\gdal\``
-directory to the ``C:\studio\venv\Lib\`` of your virtual environment.
+directory to the ``C:\studio\env\Lib\`` of your virtual environment.
 Also copy the DLL ``C:\Program Files\ms4w\python\gdal\_gdal.dll`` to
-``C:\studio\venv\Lib\_gdal.pyd`` (take care of changing the extension ``.dll``
+``C:\studio\env\Lib\_gdal.pyd`` (take care of changing the extension ``.dll``
 to ``.pyd`` so that the library is understood by Python).
 
 Now the MapScript bindings:
@@ -91,17 +91,17 @@ Now the MapScript bindings:
 Unpack ``C:\Program Files\ms4w\Apache\cgi-bin\mapscript\python\mapscript-5.2.1.win32.zip``
 in a safe location. In the directory structure that results from the above step,
 navigate to ``build\mapserver-buildkit\Python-2.5.1\Lib\site-packages`` and copy the
-files ``_mapscript.pyd`` and ``mapscript.py`` to the ``C:\studio\venv\Lib\site-packages\``
+files ``_mapscript.pyd`` and ``mapscript.py`` to the ``C:\studio\env\Lib\site-packages\``
 directory in your virtual env.
 
 Before going to the next section, you must activate the virtual environment.
 Use the following on a Unix system::
 
-    $ source venv/bin/activate
+    $ source env/bin/activate
 
 and the following on a Windows system::
 
-    C:\studio> venv\Scripts\activate.bat
+    C:\studio> env\Scripts\activate.bat
 
 On a Windows system, you also need to set up MS4W environment variables::
 
