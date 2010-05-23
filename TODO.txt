@@ -1,7 +1,7 @@
 * in the user guide update link to go-studio.py
 * review code found with: grep -r "TODO\|FIXME" studio/
-* test studio client side on IE --> Bruno
 * jslint on studio javascript files --> Bruno
+* fix few mistakes in installation guide --> Bruno
 
 Bugs:
 
