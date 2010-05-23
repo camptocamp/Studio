@@ -122,8 +122,7 @@ execute it.
 Create config
 -------------
 
-Now that Studio is installed it is time that you create your Studio
-configuration.
+Now that Studio is installed, it is time to create your Studio configuration.
 
 On Unix use::
 
@@ -168,14 +167,14 @@ Set up
 ------
 
 You now need to set up Studio, which means creating the database schema and
-insert initial data. 
+insert initial data.
 
 Studio comes with a default datastore, which is a directory to which Studio
 users will be able to add geographic files. This datastore is pre-populated
 with a few geographic files, mostly for testing purposes.
 
 If you have a PostGIS database that you would like to see as a datastore in
-Studio edit your ``my_studio.ini`` file, uncomment the line that sets the
+Studio, edit your ``my_studio.ini`` file, uncomment the line that sets the
 ``default_datastore_postgis`` option, and change the value of that option as
 appropriate (to match the parameters of your database).
 
