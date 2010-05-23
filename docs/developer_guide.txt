@@ -1,3 +1,5 @@
+:tocdepth: 3
+
 Developer guide
 ===============
 
@@ -142,197 +144,176 @@ HTTP Interfaces
 
 This section describes the HTTP Interfaces the server side of Studio exposes.
 
-datastores
+Datastores
 ^^^^^^^^^^
 
 Get the list of datastores
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 * request: ``GET /datastores``
 * response: a JSON document of this form:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    { "datastores": [
-        {
-            "text": "{datastore_name}",
-            "href": "{datastore_href}",
-            "id": "{datastore_id}"
-        },
-        ...
-    ]} 
+      {
+          "datastores": [
+              {
+                  "text": "{datastore_name}",
+                  "href": "{datastore_href}",
+                  "type": "{datastore_type}",
+                  "id": {datastore_id}
+              },
+          ...
+          ]
+      } 
 
 * success status code: ``200 OK``
-* manual test: ``curl -X GET http://localhost:5000/datastores``
+* manual test::
+
+    curl -X GET http://localhost:5000/datastores
 
 Get the information of a given datastore
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * request: ``GET /datastores/{datastore_id}``
-* response: a JSON document of this form:
+* response: a JSON document of this form
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    {
-        "type": "{datastore_type}",
-        "id": "{datastore_id}",
-        "ogrstring": "{datastore_ogrstring}",
-        "name": "{datastore_name}"
-    }
+      {
+          "datasources": [
+              {
+                  "text": "{datasource_name}",
+                  "leaf": [true|false],
+                  "type": "[RASTER|POINT|LINE|POLYGON]",
+                  "id": "{datasource_id}"
+              },
+              ...
+          ],
+          "type": "[directory|postgis]",
+          "id": {directory_id},
+          "name": "{directory_name}"
+      }
 
-* Note: {datastore_type} is a string representing the type of datastore (ie. [directory|postgis])
 * success status code: ``200 OK``
-* manual test: ``curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852``
+* notes:
 
-Create a new datastore
-~~~~~~~~~~~~~~~~~~~~~~
+  - ``{datasource_id}`` is a hash representing the datasource
 
-* request: ``POST /datastores``
-* request body for a "directory" datastore:
+* manual test::
 
-.. code-block:: javascript
+    curl -X GET http://localhost:5000/datastores/1
 
-    {
-        "name": "{datastore_name}",
-        "type": "directory",
-        "ogrstring": "path/to/directory"
-    }
-
-* request body for a "database" datastore:
-
-.. code-block:: javascript
-
-    {
-        "name": "{datastore_name}",
-        "type": "postgis",
-        "ogrstring": "PG: host=localhost port=5433 user=www-data password=www-data dbname=pref"
-    }
-
-* success status code: ``201 CREATED``
-
-Update an existing datastore
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* request: ``PUT /datastores/{datastore_id}``
-* request body for a "directory" datastore:
-
-.. code-block:: javascript
-
-    {
-        "name": "{datastore_name}",
-        "type": "directory",
-        "ogrstring": "path/to/directory"
-    }
-
-* request body for a "database" datastore:
-
-.. code-block:: javascript
-
-    {
-        "name": "{datastore_name}",
-        "type": "postgis",
-        "ogrstring": "PG: host=localhost port=5433 user=www-data password=www-data dbname=pref"
-    }
-
-* success status code: ``201 CREATED``
-
-Delete an existing datastore
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* request: ``DELETE /datastores/{datastore_id}``
-* success status code: ``204 No Content``
-
-datasources
+Datasources
 ^^^^^^^^^^^
 
-Get the list of datasources within a given datastore
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* request: ``GET /datastores/{datastore_id}/datasources``
-* response body:
-
-.. code-block:: javascript
-
-    { "datasources": [
-        {
-            "text": "{datasource_name}",
-            "href": "{datasource_href}",
-            "id": "{datasource_id}",
-            "type": "[RASTER|POINT|LINE|POLYGON]",
-            "leaf": true
-        },
-        ...
-    ]} 
-
-* Note: ``{datasource_id}`` is a hash representing the datasource
-* success status code: ``200 OK``
-* manual test: ``curl -X GET http://localhost:5000/datastores/1/datasources``
-
-Get the information of a given datasource
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* request: ``GET /datastores/{datastore_id}/datasources/{datasource_id}``
-* ``{datasource_id}`` is a hash representing the datasource
-* success status code: ``200 OK``
-* manual test: ``curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852``
-
-Get the mapfile excerpt for the given datasource
+Get the list of datasources of a given datastore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* request: ``GET /datastores/{datastore_id}/datasources``
+* response: a JSON document of this form
 
-* request: ``GET /datastores/{datastore_id}/datasources/{datasource_id}/mapfile[?classificationparams=....]``
-* manual test: ``curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile``
-* Note: if the ``classificationparams`` parameter is present, returns a mapfile
-  excerpt for the thematized layer. Parameters should include:
+  .. code-block:: javascript
 
-  * ``classification=quantile|unique`` : what type of classification to apply
-  * ``attribute={column}`` : must be on an numeric column for quantile classification
-  * ``intervals=[integer]`` : number of classes (applies only for quantile classification
-  * ``colortype=ramp|qualitative``
+      {
+          "datasources": [
+              {
+                  "href": "{datasource_href}",
+                  "text": "{datasource_name}",
+                  "leaf": true,
+                  "type": "[RASTER|POINT|LINE|POLYGON]",
+                  "id": "{datasource_id}"
+              },
+              ...
+          ]
+      }
 
-    * ramp: interpolate between a start and end color:
-      
-      * startcolor=rrggbb : first color in ramp, in hexadecimal format without leading #
-      * endcolor=rrggbb : last color in ramp, in hexadecimal format without leading #
-      * interpolation=RGB|HSV : in wich colorspace should the interpolation be done
+* success status code: ``200 OK``
+* notes:
+
+  - ``{datasource_id}`` is a hash representing the datasource
+
+* manual test::
+
+    curl -X GET http://localhost:5000/datastores/1/datasources
+
+Get the mapfile excerpt for a given datasource
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* request: ``GET /datastores/{datastore_id}/datasources/{datasource_id}/mapfile``
+* response: a JSON document representing the mapfile section for this datasource
+* manual test::
+
+    curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile
+
+Get the mapfile excerpt for a given datasource, with an automatic classification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* request: ``GET /datastores/{datastore_id}/datasources/{datasource_id}/mapfile[?{classificationparams}]``
+* the classifications params:
+
+  - ``classification=[quantile|unique]``: type of classification to apply
+  - ``attribute={attribute_name}``: name of the attribute
+  - ``intervals={number_of_classes}``: number of classes (applies only for quantile classification)
+  - ``colortype=[ramp|qualitative]``
+
+* ramp: interpolate between a start and end color
+
+  - startcolor={rrggbb}: first color in ramp, in hexadecimal format without leading #
+  - endcolor={rrggbb}: last color in ramp, in hexadecimal format without leading #
+  - interpolation=[RGB|HSV]: in wich colorspace should the interpolation be done
+
+* qualitative: use a predefined palette
+
+  - theme=[0|1|2.....|7]: which predefined palette to use
+
+* examples:
+
+  -
+
+    ::
+
+        curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&startcolor=ff0000&endcolor=0000ff&attribute=POP2005&intervals=5
+
+  -
+  
+    ::
+
+        curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&colortype=ramp&interpolation=HSV&startcolor=ff2200&endcolor=0022ff&attribute=POP2005&intervals=7
+
+  -
+  
+    ::
     
-    * qualitative: use a predefined palette:
+        curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&colortype=qualitative&theme=0&attribute=POP2005&intervals=5
 
-      * theme=0|1|2.....|7 : which predefined palette to use
-
-  * ``curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&startcolor=ff0000&endcolor=0000ff&attribute=POP2005&intervals=5``
-  * ``curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&colortype=ramp&interpolation=HSV&startcolor=ff2200&endcolor=0022ff&attribute=POP2005&intervals=7``
-  * ``curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&colortype=qualitative&theme=0&attribute=POP2005&intervals=5``
-  * ``curl -x GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=unique&colortype=qualitative&theme=0&attribute=REGION``
+  -
+    
+    ::
+    
+        curl -x GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=unique&colortype=qualitative&theme=0&attribute=REGION
 
 * response: a JSON document representing a default mapfile layer excerpt for this datasource
 * success status code: ``200 OK``
 
 Get the columns of a given datasource
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 * request: ``GET /datastores/{datastore_id}/datasources/{datasource_id}/columns``
 * success status code: ``200 OK``
 * response body:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    { "columns": [
-        {
-            "name":"columname",
-            "type":"string|numeric"
-        },
-        ...
-    ]}
+      { "columns": [
+          {
+              "name":"{colum_name}",
+              "type":"[string|numeric]"
+          },
+          ...
+      ]}
 
-* manual test: ``curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/columns``
+* manual test:: 
+  
+    curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/columns
 
 Create a new datasource
 ~~~~~~~~~~~~~~~~~~~~~~~
-This action creates a new datasource within a given datastore by file
-upload. The request body must contains a single parameter ``datasources`` that
-contains the datasource, the parameter Content-Disposition must be ``form-data``.
-This file can be a single file, a zip or a tar archive.
-
+* This action creates a new datasource within a given datastore by file upload. The request body must contains a single parameter ``datasources`` that contains the datasource, the parameter Content-Disposition must be ``form-data``.  This file can be a single file, a zip or a tar archive.
 * request: ``POST /datastores/{datastore_id}/datasources/``
 * success status code: ``201 CREATED``
 
@@ -351,16 +332,16 @@ Get the list of mapfiles
 * request: ``GET /mapfiles``
 * response: a JSON document of this form:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    { "maps": [
-        {
-            "id": "{mapfile_id}",
-            "href": "{mapfile_href}",
-            "name": "{mapfile_name}"
-        },
-        ...
-    ]}
+      { "maps": [
+          {
+              "id": "{mapfile_id}",
+              "href": "{mapfile_href}",
+              "name": "{mapfile_name}"
+          },
+          ...
+      ]}
 
 * success status code: ``200 OK``
 
@@ -377,19 +358,19 @@ Get symbols from an existing mapfile
 * request: ``GET /mapfiles/{mapfile_id}/symbols``
 * response: a JSON document representing symbols of a mapfile:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    { "symbols": [
-        {
-            "id": 1,
-            "name": "dash"
-        },
-        {
-            "id": 2,
-            "name": "parking"
-        },
-        ...
-    ]}
+      { "symbols": [
+          {
+              "id": 1,
+              "name": "dash"
+          },
+          {
+              "id": 2,
+              "name": "parking"
+          },
+          ...
+      ]}
 
 * success status code: ``200 OK``
 
@@ -399,19 +380,19 @@ Get fonts from an existing mapfile
 * request: ``GET /mapfiles/{mapfile_id}/fonts``
 * response: a JSON document representing fonts of a mapfile:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    { "fonts": [
-        {
-            "id": "verdana",
-            "name": "verdana"
-        },
-        {
-            "id": "arial",
-            "name": "arial"
-        },
-        ...
-    ]}
+      { "fonts": [
+          {
+              "id": "verdana",
+              "name": "verdana"
+          },
+          {
+              "id": "arial",
+              "name": "arial"
+          },
+          ...
+      ]}
 
 * success status code: ``200 OK``
 
@@ -431,13 +412,13 @@ Create a new mapfile
 * success status code: ``201 CREATED``
 * response: a JSON document of this form:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    {
-        "id": "{mapfile_id}",
-        "href": "{mapfile_href}",
-        "name": "{mapfile_name}"
-    }
+      {
+          "id": "{mapfile_id}",
+          "href": "{mapfile_href}",
+          "name": "{mapfile_name}"
+      }
 
 Update an existing mapfile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -461,17 +442,17 @@ Get the list of layertemplates
 * request: ``GET /layertemplates``
 * response: a JSON document of this form:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    { "layertemplates": [
-        {
-            "id": "{layertemplate_id}",
-            "href": "{layertemplate_href}",
-            "name": "{layertemplate_name}",
-            "comment": "{layertemplate_comment}"
-        },
-        ...
-    ]}
+      { "layertemplates": [
+          {
+              "id": "{layertemplate_id}",
+              "href": "{layertemplate_href}",
+              "name": "{layertemplate_name}",
+              "comment": "{layertemplate_comment}"
+          },
+          ...
+      ]}
 
 * success status code: ``200 OK``
 
@@ -481,17 +462,17 @@ Get an existing layertemplate
 * request: ``GET /layertemplates/{layertemplate_id}``
 * response: a JSON document of this form:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    {
-        "id": "{layertemplate_id}",
-        "name": "{layertemplate_name}",
-        "comment": "{layertemplate_comment}",
-        "user_id": "{layertemplate_user_id}",
-        "json": {
-            // the json representing the layer template
-        }
-    }
+      {
+          "id": "{layertemplate_id}",
+          "name": "{layertemplate_name}",
+          "comment": "{layertemplate_comment}",
+          "user_id": "{layertemplate_user_id}",
+          "json": {
+              // the json representing the layer template
+          }
+      }
 
 * success status code: ``200 OK``
 
@@ -501,27 +482,27 @@ Create a new layertemplate
 * request: ``POST /layertemplates``
 * request body: a JSON document of this form:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    {
-        "name": "{layertemplate_name}",
-        "comment": "{layertemplate_comment}",
-        "json": {
-            // the json representing the layer template
-        }
-    }
+      {
+          "name": "{layertemplate_name}",
+          "comment": "{layertemplate_comment}",
+          "json": {
+              // the json representing the layer template
+          }
+      }
 
 * success status code: ``201 CREATED``
 * response: a JSON document of this form:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    {
-        "id": "{layertemplate_id}",
-        "href": "{layertemplate_href}",
-        "name": "{layertemplate_name}",
-        "comment": "{layertemplate_comment}"
-    }
+      {
+          "id": "{layertemplate_id}",
+          "href": "{layertemplate_href}",
+          "name": "{layertemplate_name}",
+          "comment": "{layertemplate_comment}"
+      }
 
 Update an existing layertemplate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -529,15 +510,15 @@ Update an existing layertemplate
 * request: ``PUT /layertemplates/{layertemplate_id}``
 * request body: a JSON document of this form:
 
-.. code-block:: javascript
+  .. code-block:: javascript
 
-    {
-        "name": "{layertemplate_name}",
-        "comment": "{layertemplate_comment}",
-        "json": {
-            // the json representing the layer template
-        }
-    }
+      {
+          "name": "{layertemplate_name}",
+          "comment": "{layertemplate_comment}",
+          "json": {
+              // the json representing the layer template
+          }
+      }
 
 * success status code: ``201 CREATED``
 
