@@ -27,8 +27,6 @@ available to Controllers. This module is available to both as 'h'.
 
 import string
 import os
-import shutil
-from tempfile import NamedTemporaryFile
 
 from random import choice
 
@@ -49,10 +47,3 @@ def gen_mapname():
 def _gen_string(length=8, chars=string.digits + string.letters):
     return ''.join([choice(chars) for i in range(length)])
 
-def tofile(field_storage):
-    dstfile = NamedTemporaryFile()
-    shutil.copyfileobj(field_storage.file, dstfile)
-    field_storage.file.close()
-    dstfile.flush()
-    
-    return dstfile

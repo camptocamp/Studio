@@ -18,7 +18,9 @@
 #
 
 import logging
-import tempfile
+import os
+import shutil
+from tempfile import mkstemp
 
 from pylons import request, response, session, tmpl_context as c
 from pylons.controllers.util import abort, redirect_to
@@ -69,9 +71,26 @@ class DatasourcesController(BaseController):
         if datastore.connection_type != 'directory':
             abort(400)
 
-        extractall(h.tofile(request.POST['datasources']),
+        # use mkstemp to store the file to avoid issues with
+        # NamedTemporaryFile that can't be open a second time
+        # on Windows. See:
+        # http://docs.python.org/library/tempfile.html#tempfile.NamedTemporaryFile
+        # "Whether the name can be used to open the file a second time, while the
+        # named temporary file is still open, varies across platforms (it can be so
+        # used on Unix; it cannot on Windows NT or later).
+        fd, fn = mkstemp()
+        tmpfile = os.fdopen(fd, 'wb')
+        fieldstorage = request.POST['datasources']
+        shutil.copyfileobj(fieldstorage.file, tmpfile)
+        fieldstorage.file.close()
+        tmpfile.close()
+
+        extractall(fn,
                    request.POST['datasources'].filename,
                    datastore.datastore_str)
+
+        # we are reponsible for removing the temporary file
+        os.remove(fn)
 
         response.status = 201
         
