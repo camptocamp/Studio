@@ -545,7 +545,6 @@ Studio.MapfileMgr.Panel = Ext.extend(Ext.Panel, {
                     mapfileInterface: this.currentRecordInterface,
                     properties: properties.properties
                 });
-                // FIXME: remove loadProperties and load data in initComponent()
                 this.propertiesPanel.add(this.currentPanelProperties);
                 this.propertiesPanel.doLayout();
                 this.currentPanelProperties.loadData();
@@ -560,7 +559,6 @@ Studio.MapfileMgr.Panel = Ext.extend(Ext.Panel, {
                     properties: properties.properties,
                     map: this.map
                 });
-                // FIXME: remove loadGeneralProperties and load data in initComponent()
                 this.propertiesPanel.add(this.currentPanelProperties);
                 this.propertiesPanel.doLayout();
                 this.currentPanelProperties.loadData();
@@ -573,8 +571,6 @@ Studio.MapfileMgr.Panel = Ext.extend(Ext.Panel, {
                 win.on('layercreated',
                         function(obj) {
                             this.addLayer(obj);
-                            //FIXME: mapfile has to be saved unless the map won't work for the new layer
-                            //we should maybe ask for user to confirm mapfile saving?
                             this.saveMapfile();
                         },
                         this);
