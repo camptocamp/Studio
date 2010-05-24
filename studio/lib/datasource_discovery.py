@@ -254,9 +254,9 @@ class OgrDataSource(DataSource):
                 if cols.GetFeatureCount() > 0:
                     cname = cols.GetFeature(0).GetFieldAsString(0)
             
-            # FIXME
             # if we still haven't found a column, we resort to looping through the
-            # column names to find one with a sufficiently convenient name
+            # column names to find one with a sufficiently convenient name.
+            # is this really needed?
             if cname is None or cname=='':
                 defn = self.ogr_layer.GetLayerDefn()
                 for i in range(0,defn.GetFieldCount()):
