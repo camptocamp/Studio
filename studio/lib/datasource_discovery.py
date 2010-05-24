@@ -255,7 +255,7 @@ class OgrDataSource(DataSource):
                     cname = cols.GetFeature(0).GetFieldAsString(0)
             
             # FIXME
-            # if we still haven't found a column, we resort to looping throught the
+            # if we still haven't found a column, we resort to looping through the
             # column names to find one with a sufficiently convenient name
             if cname is None or cname=='':
                 defn = self.ogr_layer.GetLayerDefn()
@@ -308,7 +308,7 @@ class OgrDataSource(DataSource):
         projection = self.ogr_layer.GetSpatialRef()
         featureIdColumn = self._get_featureId_column()
         if featureIdColumn is not None and featureIdColumn != '' :
-            layerobj.metadata.set('gml_featureid',featureIdColumn)
+            layerobj.metadata.set('gml_featureid', featureIdColumn)
         if projection is not None:
             layerobj.setProjection(projection.ExportToProj4())
         if self.datastore.connection_type == "directory":
