@@ -147,6 +147,9 @@ If you want Studio to use PostgreSQL you will need to install the
 
     (env) $ easy_install psycopg2
 
+On Windows, install psycopg2 for Python 2.5 from
+``http://www.stickpeople.com/projects/python/win-psycopg/``.
+
 The above ``make-config`` command will also ask for the ``Url to the mapserv CGI``.
 So press "Enter" to keep the default, or enter a correct MapServer URL.
 
