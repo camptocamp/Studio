@@ -117,14 +117,6 @@ def setup_app(command, conf, vars):
     admin.groups.append(admin_gp)
     meta.Session.add(admin)
 
-    # Create user enduser
-    enduser = model.User()
-    enduser.name = 'Enduser'
-    enduser.login = 'enduser'
-    enduser.password = 'password'
-    enduser.groups.append(enduser_gp)
-    meta.Session.add(enduser)
-
     mfdir = config['mapfiles_dir']
     if not os.path.exists(mfdir):
         os.makedirs(mfdir, 0755)
