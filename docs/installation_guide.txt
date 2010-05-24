@@ -147,13 +147,16 @@ If you want Studio to use PostgreSQL you will need to install the
 
     (env) $ easy_install psycopg2
 
-The above ``make-config`` command will also ask for the ``url to the mapserv CGI``.
+The above ``make-config`` command will also ask for the ``Url to the mapserv CGI``.
 So press "Enter" to keep the default, or enter a correct MapServer URL.
 
 On Windows, MapServer is provided with MS4W, so you should enter the following
 URL::
 
     http://localhost/cgi-bin/mapserv.exe
+
+Then you will be asked for a ``Password for default admin user``. Again, press
+``Enter`` to keep the default, or enter a custom password.
 
 .. note::
     These configuration parameters can also be edited directly in the ``.ini``
@@ -198,11 +201,21 @@ On Windows::
 
     (env) C:\studio> paster.exe serve my_studio.ini
 
-Two user accounts were created (when running ``setup-app``):
+An admin account has been created (when running ``setup-app``), so you
+can sign in using the following credentials:
+
+* login: ``admin``
+* password: [the password you provided when running ``make-config``]
+
+Note that you can also register for new user accounts directly from
+Studio home page. By default, these accounts will be associated to the
+``enduser`` group and will have restricted rights. This can be changed
+by editing the following line in file ``my_studio.ini``::
+
+    # default group for user creation ("enduser", "admin")
+    default_group = enduser
+
+Two groups a currently available:
 
 * ``admin`` is the master user. He has all permissions.
-    * login: ``admin``
-    * password: ``password``
 * ``enduser`` is a standard user. He has all permissions except those to add/update/view datastores.
-    * login: ``enduser``
-    * password: ``password``

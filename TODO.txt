@@ -3,7 +3,6 @@ General:
 * in the user guide update link to go-studio.py
 * review code found with: grep -r "TODO\|FIXME" studio/
 * jslint on studio javascript files --> Bruno
-* fix few mistakes in installation guide --> Bruno
 
 Bugs:
 
