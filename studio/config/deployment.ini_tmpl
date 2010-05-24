@@ -33,13 +33,13 @@ sqlalchemy.url = ${db_url}
 sqlalchemy.echo = False
 
 # password for default admin user
-admin_password = change_this_password
+admin_password = ${admin_password}
 
 # default group for user creation ("enduser", "admin")
 default_group = enduser
 
 # cookie secret for authentication
-cookie_secret = change_this_secret
+cookie_secret = ${cookie_secret}
 
 mapserver_url = ${ms_url}
 

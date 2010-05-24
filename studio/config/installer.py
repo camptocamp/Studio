@@ -21,6 +21,7 @@ import getpass
 
 from pylons.util import PylonsInstaller
 from paste.script.templates import var
+from paste.script.util import secret
 
 
 class StudioInstaller(PylonsInstaller):
@@ -33,8 +34,10 @@ class StudioInstaller(PylonsInstaller):
         settable_vars = [
                 var('db_url', 'Database url for sqlite, postgres or mysql', 
                     default='sqlite:///studio.db'),
-                var('ms_url','url to the mapserv CGI',
-                    default='http://localhost/cgi-bin/mapserv')
+                var('ms_url','Url to the mapserv CGI',
+                    default='http://localhost/cgi-bin/mapserv'),
+                var('admin_password','Password for default admin user',
+                    default=secret.secret_string(length=8))
         ]
 
         for svar in settable_vars:
@@ -45,6 +48,8 @@ class StudioInstaller(PylonsInstaller):
             else:
                 if not vars.has_key(svar.name):
                     vars[svar.name] = svar.default
+
+        vars['cookie_secret'] = secret.secret_string()
 
         # call default pylons install
         return super(StudioInstaller, self).config_content(command, vars)
