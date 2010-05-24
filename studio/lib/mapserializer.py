@@ -126,7 +126,6 @@ def create_default_mapfile():
         map.appendOutputFormat(of)
         map.selectOutputFormat(of.name)
         
-        #TODO 
         # we'd like to include an agg/jpeg outputformat here, but we can't
         # since mapserver's saveMap function only saves the currently selected
         # outputformat, not all of them
