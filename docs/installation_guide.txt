@@ -218,7 +218,7 @@ by editing the following line in file ``my_studio.ini``::
     # default group for user creation ("enduser", "admin")
     default_group = enduser
 
-Two groups a currently available:
+Two groups are currently available:
 
 * ``admin`` is the master user. He has all permissions.
 * ``enduser`` is a standard user. He has all permissions except those to add/update/view datastores.
