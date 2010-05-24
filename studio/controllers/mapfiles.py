@@ -85,7 +85,6 @@ class MapfilesController(BaseController):
         mapname = mapfile.get_name()
         map_pathname = h.gen_mapname()
         mapfile.to_file(os.path.join(config['mapfiles_dir'], map_pathname))
-        #FIXME: catch unexpected exception?
 
         # create map in db
         map = self._new_map_from_user(c.user, mapname, map_pathname)
