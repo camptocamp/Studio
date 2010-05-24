@@ -202,11 +202,6 @@ class GdalDataSource(DataSource):
         p.ImportFromWkt(self.gdal_source.GetProjection())
         return p.ExportToProj4()
 
-    def get_extent(self):
-        #FIXME!!!
-        return [-180,-90,180,90]
-
-
 
 class OgrDataSource(DataSource):
     def __init__(self,ogr_layer,datastore):
@@ -232,9 +227,6 @@ class OgrDataSource(DataSource):
             field = defn.GetFieldDefn(i)
             columns.append({'name':field.GetName(),'type':self._get_column_type(field)})
         return columns
-    
-    def get_extent(self):
-        return self.ogr_layer.getExtent()
 
     def _get_column(self,name):
         columns = self.list_columns()
