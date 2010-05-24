@@ -4,3 +4,7 @@
 * test studio client side on IE --> Bruno
 * jslint on studio javascript files --> Bruno
 
+Bugs:
+
+* "limit by scale" slider and text fields don't behave well, it's even worse in IE
+* I think the map doesn't support non EPSG:4326
