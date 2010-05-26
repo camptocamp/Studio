@@ -22,8 +22,7 @@ Ext.namespace('Studio', 'Studio.MapfileMgr');
 Studio.MapfileMgr.BboxPanel = Ext.extend(Studio.MapfileMgr.MapfilePanel, {
     /**
      * APIProperty: jsonName
-     * The name of the bbox field in the mapfile
-     * {string}
+     * {String} The name of the bbox field in the mapfile.
      */
     jsonName: null,
 

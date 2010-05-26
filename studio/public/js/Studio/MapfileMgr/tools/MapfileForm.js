@@ -73,7 +73,7 @@ Studio.MapfileMgr.MapfileForm = Ext.extend(Ext.FormPanel, {
     /**
      * APIMethod: loadData
      *
-     * Fills the form with the data comming from the properties
+     * Fills the form with the data coming from the properties
      */
     loadData: function() {
         this.visitStyler(new Studio.MapfileMgr.MapfileToFormVisitor(this.properties, this.mapfileInterface));
