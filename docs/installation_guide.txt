@@ -34,9 +34,8 @@ current stable version).
 
 .. note::
     You should install the same version of Python as the one supported by the
-    Python bindings (MapScript, OGR/GDAL) provided with MS4W.
-
-    For OS4W v2.3.1, you should rely on Python v2.5.x
+    Python bindings (MapScript, OGR/GDAL) provided with MS4W. For OS4W v2.3.1,
+    you should rely on Python v2.5.x
 
 On a Debian system, you can check that MapServer CGI is correctly installed by
 testing the following URL in a browser::
@@ -74,25 +73,26 @@ is the default.
 in. Do not worry if you don't know what a virtual Python environment is, you
 don't need to understand that to complete the installation.
 
-Next for Windows only, you also need to manually install the Python bindings
-for GDAL and MapScript in this virtual environment.
+When installing on Windows, you also need to manually install the Python
+bindings for GDAL and MapScript in this virtual environment.
 
-First the GDAL Python bindings:
+The GDAL Python bindings:
+    Assuming that MS4W distribution has been installed in ``C:\Program
+    Files\ms4w\``, copy all Python files (``*.py``) from ``C:\Program
+    Files\ms4w\python\gdal\`` directory to the ``C:\studio\env\Lib\`` of your
+    virtual environment.  Also copy the DLL ``C:\Program
+    Files\ms4w\python\gdal\_gdal.dll`` to ``C:\studio\env\Lib\_gdal.pyd`` (make
+    sure you change the extension from ``.dll`` to ``.pyd`` so that the library
+    is understood by Python).
 
-Assuming that MS4W distribution has been installed in ``C:\Program Files\ms4w\``,
-copy all Python files (``*.py``) from ``C:\Program Files\ms4w\python\gdal\``
-directory to the ``C:\studio\env\Lib\`` of your virtual environment.
-Also copy the DLL ``C:\Program Files\ms4w\python\gdal\_gdal.dll`` to
-``C:\studio\env\Lib\_gdal.pyd`` (take care of changing the extension ``.dll``
-to ``.pyd`` so that the library is understood by Python).
-
-Now the MapScript bindings:
-
-Unpack ``C:\Program Files\ms4w\Apache\cgi-bin\mapscript\python\mapscript-5.2.1.win32.zip``
-in a safe location. In the directory structure that results from the above step,
-navigate to ``build\mapserver-buildkit\Python-2.5.1\Lib\site-packages`` and copy the
-files ``_mapscript.pyd`` and ``mapscript.py`` to the ``C:\studio\env\Lib\site-packages\``
-directory in your virtual env.
+The MapScript bindings:
+    Unpack ``C:\Program
+    Files\ms4w\Apache\cgi-bin\mapscript\python\mapscript-5.2.1.win32.zip``
+    in a safe location. In the directory structure that results from the
+    above step, navigate to
+    ``build\mapserver-buildkit\Python-2.5.1\Lib\site-packages`` and copy
+    the files ``_mapscript.pyd`` and ``mapscript.py`` to the
+    ``C:\studio\env\Lib\site-packages\`` directory in your virtual env.
 
 Before going to the next section, you must activate the virtual environment.
 Use the following on a Unix system::
