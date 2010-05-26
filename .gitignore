@@ -6,3 +6,4 @@ studio/public/js/Studio/studio-all.js
 /data
 *.mo
 docs/.build
+util/go-studio.py
