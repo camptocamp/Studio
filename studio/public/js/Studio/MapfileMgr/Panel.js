@@ -599,7 +599,7 @@ Studio.MapfileMgr.Panel = Ext.extend(Ext.Panel, {
                 alert('error: unsupported node type: ' + properties.role);
                 break;
         }
-        ;
+        
         if (this.currentPanelProperties) {
             this.currentPanelProperties.on({
                 'change': function(field, newValue, oldValue) {

@@ -173,10 +173,8 @@ Studio.MapfileMgr.StyleWizard = Ext.extend(Ext.Window, {
     selectMode: function(combo, record, index) {
         var strokePanelFieldset = Ext.getCmp(this.getId() + "_stroke_panel_fieldset");
         var labelPanelFieldset = Ext.getCmp(this.getId() + "_label_panel_fieldset");
-        var labelPanel = Ext.getCmp(this.getId() + "_label_panel");
         var pointPanelFieldset = Ext.getCmp(this.getId() + "_point_panel_fieldset");
         var fillPanelFieldset = Ext.getCmp(this.getId() + "_fill_panel_fieldset");
-        console.log(this.layer.attributes.properties.type);
         labelPanelFieldset.show();
         if (this.layer.attributes.properties.type == 'line' || this.layer.attributes.properties.type == 'polygon') {
             strokePanelFieldset.show();
