@@ -17,9 +17,11 @@ setup(
     name                    = 'Studio',
     version                 = '0.5dev',
     license                 = 'GPLv3',
-    description             = 'Studio is a management system for GIS.',
+    description             = 'Web-based administration interface for MapServer',
     long_description        = long_description,
     author                  = 'Camptocamp',
+    author_email            = 'studio-discuss@googlegroups.com',
+    url                     = 'http://camptocamp.github.com/Studio/',
     keywords                = 'GIS management mapserver',
     classifiers          = [
         'Development Status :: 4 - Beta',
