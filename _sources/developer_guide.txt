@@ -55,8 +55,9 @@ On Linux::
     $ source /path/to/virtual/env/bin/activate
     $ cd /path/to/Studio
     $ python setup.py develop
+    $ python setup.py compile_catalog
 
-This will install Studio and its dependencies.
+This will install Studio and its dependencies, then compile the localization files for i18n.
 
 Windows users need to adapt the above commands.
 
@@ -65,7 +66,7 @@ Build the documentation
 
 To build the documentation, a Sphinx egg must first be installed in the virtual Python environment::
 
-    $ easy_install "Sphinx==0.6.5"
+    $ easy_install "Sphinx==1.0.7"
 
 Buiding the doc is done as follows::
 

@@ -84,16 +84,17 @@ Installing setuptools..............done.</pre>
 <p>On Linux:</p>
 <div class="highlight-python"><pre>$ source /path/to/virtual/env/bin/activate
 $ cd /path/to/Studio
-$ python setup.py develop</pre>
+$ python setup.py develop
+$ python setup.py compile_catalog</pre>
 </div>
-<p>This will install Studio and its dependencies.</p>
+<p>This will install Studio and its dependencies, then compile the localization files for i18n.</p>
 <p>Windows users need to adapt the above commands.</p>
 </div>
 </div>
 <div class="section" id="build-the-documentation">
 <h2>Build the documentation<a class="headerlink" href="#build-the-documentation" title="Permalink to this headline">¶</a></h2>
 <p>To build the documentation, a Sphinx egg must first be installed in the virtual Python environment:</p>
-<div class="highlight-python"><pre>$ easy_install "Sphinx==0.6.5"</pre>
+<div class="highlight-python"><pre>$ easy_install "Sphinx==1.0.7"</pre>
 </div>
 <p>Buiding the doc is done as follows:</p>
 <div class="highlight-python"><pre>$ cd /path/to/Studio/docs

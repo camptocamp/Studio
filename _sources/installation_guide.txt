@@ -221,4 +221,8 @@ by editing the following line in file ``my_studio.ini``::
 Two groups are currently available:
 
 * ``admin`` is the master user. He has all permissions.
-* ``enduser`` is a standard user. He has all permissions except those to add/update/view datastores.
+* ``enduser`` is a standard user. He has all permissions except those to
+  add/update/view datastores.
+
+In the user interface, users from the ``admin`` group will have acces to the
+data manager tab, which end users won't see.
