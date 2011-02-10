@@ -1,0 +1,18 @@
+# Here is the procedure to create a new clone for gh-pages docs in this
+# current Studio clone.
+
+# remove _build/html if present and create _build if not present
+rm -rf _build/html
+mkdir -p _build
+
+# clone repo and checkout gh-pages branch
+git clone -b gh-pages git@github.com:camptocamp/Studio.git _build/html
+
+# in docs/, run `make html` to generate our doc, which will fill 
+# _build/html, but not overwrite the .git directory
+make html
+
+# you can then commit and push the documentation updates to github
+#cd _build/html
+#git commit -am 'made some doc changes'
+#git push origin gh-pages
