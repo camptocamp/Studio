@@ -1,10 +1,29 @@
-General:
+General
+-------
 
 * in the user guide update link to go-studio.py
-* review code found with: grep -r "TODO\|FIXME" studio/
-* jslint on studio javascript files --> Bruno
 
-Bugs:
+* do not build js in paster setup-app: should be done manually before
+  publishing egg to pypi
+
+* refactor general layout by removing main tabpanel: Mapfile manager would
+  be fullscreen and data manager could be opened in an Ext window
+
+* refactor the data manager as a tree in an Ext window: each datasources
+  would be children nodes of datastores nodes
+
+* test if postgis datastore is working when default_datastore_postgis is set
+  in *.ini file
+
+* add support for deleting datastores/datasources
+
+* remove admin_password property from *.ini file and ask for it on paster
+  setup-app command
+
+* review code found with: grep -r "TODO\|FIXME" studio/
+
+Bugs
+----
 
 * MapFile Manager
  - Limit By Scale
