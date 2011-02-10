@@ -52,9 +52,8 @@ Install Studio
 Start by creating a folder named ``studio``, at the location of your choice.
 This folder will contain your installation of Studio
 
-You can now download the Studio installation script from
-http://dev.camptocamp.com/packages/mapfish/go-studio.py. Place this
-script in the ``studio`` folder.
+You can now download the Studio installation script `go-studio.py
+<_static/go-studio.py>`_. Place this script in the ``studio`` folder.
 
 Now open a console, go into the ``studio`` folder and execute the
 ``go-studio.py`` script there. You would use the following on a Unix system::
