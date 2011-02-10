@@ -1,0 +1,48 @@
+Releasing Studio
+================
+
+* Make sure all unit tests pass::
+
+  $ python setup.py nosetests
+
+* Compile localization files::
+
+  $ python setup.py compile_catalog
+
+* Make sure docs render OK::
+
+  $ cd docs
+  $ make html
+
+  There should be no meaningful errors or warnings.
+
+* Change setup.py version to the new version number.
+
+* Change docs/conf.py version to the new version number.
+
+* Make sure PyPI long description renders (requires ``collective.dist``
+  installed into your Python)::
+
+  $ python setup.py check --restructuredtext
+
+* Release to PyPI::
+
+  $ python setup.py sdist upload
+
+* Publish new docs on Github::
+
+  Regenerate docs:
+
+  $ cd docs
+  $ make html
+
+  Push new docs to Github:
+
+  $ cd _build/html
+  $ git commit -am "update docs to new version"
+  $ git push origin gh-pages
+
+* Announce to maillist.
+
+* Announce to Twitter.
+
