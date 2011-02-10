@@ -71,7 +71,7 @@ def make_map():
 
     # default route for root ;)
     map.connect('/', controller='main', action='index')
-    map.connect('/js/layout.js', controller='main', action='layout')
+    map.connect('/layout.js', controller='main', action='layout')
 
     map.connect('/{controller}/{action}')
     map.connect('/{controller}/{action}/{id}')

@@ -28,7 +28,7 @@ class TestMainController(TestController):
     def test_index(self):
         log_in(self.app, 'enduser', 'password')
         response = self.app.get(url(controller='main', action='index'), status=200)
-        assert response.body.find('<script type="text/javascript" src="/js/layout.js"></script>') >= 0
+        assert response.body.find('<script type="text/javascript" src="/layout.js"></script>') >= 0
         log_out(self.app)
 
         # test without being logged in
@@ -60,7 +60,7 @@ class TestMainController(TestController):
 
         follow_response = form_response.follow()
         assert follow_response.status.startswith('200 ')
-        assert follow_response.body.find('<script type="text/javascript" src="/js/layout.js"></script>') >= 0
+        assert follow_response.body.find('<script type="text/javascript" src="/layout.js"></script>') >= 0
         log_out(self.app)
 
     def test_signout(self):
