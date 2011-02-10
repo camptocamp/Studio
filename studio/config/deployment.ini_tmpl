@@ -27,7 +27,7 @@ app_instance_uuid = ${app_instance_uuid}
 
 
 # SQLAlchemy database URL
-# Example: sqlalchemy.url = sqlite:///studio.db
+# Example: sqlalchemy.url = sqlite:///(here)s/studio.db
 sqlalchemy.url = ${db_url}
 
 sqlalchemy.echo = False

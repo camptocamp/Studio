@@ -33,7 +33,7 @@ class StudioInstaller(PylonsInstaller):
         """
         settable_vars = [
                 var('db_url', 'Database url for sqlite, postgres or mysql', 
-                    default='sqlite:///studio.db'),
+                    default='sqlite:///%(here)s/studio.db'),
                 var('ms_url','Url to the mapserv CGI',
                     default='http://localhost/cgi-bin/mapserv'),
                 var('admin_password','Password for default admin user',
