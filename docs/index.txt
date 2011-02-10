@@ -10,6 +10,25 @@ Introduction
 
 .. include:: intro.frag
 
+Community
+---------
+
+* Mailing-list
+
+  http://groups.google.com/group/studio-discuss
+
+* Code repository
+
+  https://github.com/camptocamp/Studio
+
+* Issue tracker
+
+  https://github.com/camptocamp/Studio/issues
+
+* Documentation
+
+  http://camptocamp.github.com/Studio
+
 Contents
 --------
 
