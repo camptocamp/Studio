@@ -25,9 +25,8 @@ setup(
     keywords                = 'GIS management mapserver',
     classifiers          = [
         'Development Status :: 4 - Beta',
-        'Intended Audience :: GIS engineers and administrators',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: GNU General Public License Version 3(GPLv3)',
+        'License :: OSI Approved :: GNU General Public License (GPL)',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Framework :: Pylons',
