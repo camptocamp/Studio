@@ -1,0 +1,224 @@
+Installation guide
+==================
+
+This section describes how to install, configure, and set up Studio.
+
+Install dependencies
+--------------------
+
+Studio has two types of dependencies: pure Python dependencies, and system
+dependencies. Pure Python dependencies will be installed as part of the
+installation of Studio. System dependencies, listed below, are installed
+separately.
+
+* Python 2.4 or 2.5, Python 2.5 is highly recommended and even required if you
+  use Windows (untested with Python 2.6 but it may work)
+* MapServer CGI, version 5.0 and higher
+* MapServer MapScript Python, version 5.0 and higher
+* OGRGDAL Python, version 1.5 and higher
+
+On a Linux system, you can rely on your distribution packages (recommended).
+For example, on Debian-like system, you would install the required packages
+with::
+
+    $ apt-get install python cgi-mapserver python-mapscript python-gdal
+
+On a Windows system, you would need to install Python 2.5 from
+http://www.python.org/download/releases/2.5.4/ and its ``pwin32`` (a.k.a
+``win32api``) extension from http://sourceforge.net/projects/pywin32/files/.
+
+You would rely on the MS4W distribution from http://www.maptools.org/ms4w/
+for MapServer and OGR/GDAL
+(`2.3.1 <http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe>`_ is the
+current stable version).
+
+.. note::
+    You should install the same version of Python as the one supported by the
+    Python bindings (MapScript, OGR/GDAL) provided with MS4W. For OS4W v2.3.1,
+    you should rely on Python v2.5.x
+
+On a Debian system, you can check that MapServer CGI is correctly installed by
+testing the following URL in a browser::
+
+    $ http://localhost/cgi-bin/mapserv
+
+and the following on a Windows system::
+
+    $ http://localhost/cgi-bin/mapserv.exe
+
+Install Studio
+--------------
+
+Start by creating a folder named ``studio``, at the location of your choice.
+This folder will contain your installation of Studio
+
+You can now download the Studio installation script from
+http://dev.camptocamp.com/packages/mapfish/go-studio.py. Place this
+script in the ``studio`` folder.
+
+Now open a console, go into the ``studio`` folder and execute the
+``go-studio.py`` script there. You would use the following on a Unix system::
+
+    $ python go-studio.py env
+
+and the following on a Windows system::
+
+    C:\studio> C:\Python25\python.exe go-studio.py env
+
+In the above command it is assumed that your ``studio`` folder is directly
+under ``C:\``, it also assumes that Python is installed ``C:\Python25``, which
+is the default.
+
+``env`` is the name of the virtual Python environment Studio will be installed
+in. Do not worry if you don't know what a virtual Python environment is, you
+don't need to understand that to complete the installation.
+
+When installing on Windows, you also need to manually install the Python
+bindings for GDAL and MapScript in this virtual environment.
+
+The GDAL Python bindings:
+    Assuming that MS4W distribution has been installed in ``C:\Program
+    Files\ms4w\``, copy all Python files (``*.py``) from ``C:\Program
+    Files\ms4w\python\gdal\`` directory to the ``C:\studio\env\Lib\`` of your
+    virtual environment.  Also copy the DLL ``C:\Program
+    Files\ms4w\python\gdal\_gdal.dll`` to ``C:\studio\env\Lib\_gdal.pyd`` (make
+    sure you change the extension from ``.dll`` to ``.pyd`` so that the library
+    is understood by Python).
+
+The MapScript bindings:
+    Unpack ``C:\Program
+    Files\ms4w\Apache\cgi-bin\mapscript\python\mapscript-5.2.1.win32.zip``
+    in a safe location. In the directory structure that results from the
+    above step, navigate to
+    ``build\mapserver-buildkit\Python-2.5.1\Lib\site-packages`` and copy
+    the files ``_mapscript.pyd`` and ``mapscript.py`` to the
+    ``C:\studio\env\Lib\site-packages\`` directory in your virtual env.
+
+Before going to the next section, you must activate the virtual environment.
+Use the following on a Unix system::
+
+    $ source env/bin/activate
+
+and the following on a Windows system::
+
+    C:\studio> env\Scripts\activate.bat
+
+On a Windows system, you also need to set up MS4W environment variables::
+
+    C:\studio> C:\Program Files\ms4w\setenv.bat
+
+If you use Python 2.5 (enter ``python -V`` in a console to check) you're done
+with the installation, you can go directly to the next section.
+
+If you use Python 2.4, you need to install the ``pysqlite`` package as it is
+not distributed with Python 2.4. On Unix do::
+
+    $ easy_install pysqlite
+
+Create config
+-------------
+
+Now that Studio is installed, it is time to create your Studio configuration.
+
+On Unix use::
+
+    (env) $ paster make-config Studio my_studio.ini
+
+On Windows use::
+
+    (env) C:\studio> paster.exe make-config Studio my_studio.ini
+
+You will be asked for a ``database URL``, Studio indeed requires a database for
+its own use (to store information about users, datastores, mapfiles, etc.). If
+you just press "Enter", Studio will use an SQLite database, which will be
+automatically created at setup time (see the next section).
+
+If you have a PostgreSQL database and would like Studio to use that database
+enter something like the following as the database URL::
+
+    postgres://username:password@host:port/dbname
+
+where ``user`` is the name of the database user, ``password`` is the password
+for that user, ``host`` is the name of the host executing PostgreSQL, and
+``dbname`` the name of the database.
+
+If you want Studio to use PostgreSQL you will need to install the
+``psycopg2`` package in the Python virtual environment. On a Unix system do::
+
+    (env) $ easy_install psycopg2
+
+On Windows, install psycopg2 for Python 2.5 from
+``http://www.stickpeople.com/projects/python/win-psycopg/``.
+
+The above ``make-config`` command will also ask for the ``Url to the mapserv CGI``.
+So press "Enter" to keep the default, or enter a correct MapServer URL.
+
+On Windows, MapServer is provided with MS4W, so you should enter the following
+URL::
+
+    http://localhost/cgi-bin/mapserv.exe
+
+Then you will be asked for a ``Password for default admin user``. Again, press
+``Enter`` to keep the default, or enter a custom password.
+
+.. note::
+    These configuration parameters can also be edited directly in the ``.ini``
+    generated file (``my_studio.ini`` in our example).
+
+Set up
+------
+
+You now need to set up Studio, which means creating the database schema and
+insert initial data.
+
+Studio comes with a default datastore, which is a directory to which Studio
+users will be able to add geographic files. This datastore is pre-populated
+with a few geographic files, mostly for testing purposes.
+
+If you have a PostGIS database that you would like to see as a datastore in
+Studio, edit your ``my_studio.ini`` file, uncomment the line that sets the
+``default_datastore_postgis`` option, and change the value of that option as
+appropriate (to match the parameters of your database).
+
+To set up Studio, use the following command on Unix::
+
+    (env) $ paster setup-app my_studio.ini
+
+and the following on Windows::
+
+    (env) C:\studio> paster.exe setup-app my_studio.ini
+
+If you chose to have Studio rely on SQLite then a ``studio.db`` file, the
+SQLite database, should now be present in your ``studio`` directory.
+
+Start up
+--------
+
+Studio is now ready, let's start it!
+
+On Unix::
+
+    (env) $ paster serve my_studio.ini
+
+On Windows::
+
+    (env) C:\studio> paster.exe serve my_studio.ini
+
+An admin account has been created (when running ``setup-app``), so you
+can sign in using the following credentials:
+
+* login: ``admin``
+* password: [the password you provided when running ``make-config``]
+
+Note that you can also register for new user accounts directly from
+Studio home page. By default, these accounts will be associated to the
+``enduser`` group and will have restricted rights. This can be changed
+by editing the following line in file ``my_studio.ini``::
+
+    # default group for user creation ("enduser", "admin")
+    default_group = enduser
+
+Two groups are currently available:
+
+* ``admin`` is the master user. He has all permissions.
+* ``enduser`` is a standard user. He has all permissions except those to add/update/view datastores.

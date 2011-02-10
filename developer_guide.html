@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer guide &mdash; Studio v0.1dev documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Studio v0.1dev documentation" href="index.html" />
+    <link rel="prev" title="Installation guide" href="installation_guide.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="installation_guide.html" title="Installation guide"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Studio v0.1dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="developer-guide">
+<h1>Developer guide<a class="headerlink" href="#developer-guide" title="Permalink to this headline">¶</a></h1>
+<p>This document contains instructions for Studio developers.</p>
+<div class="section" id="install-studio-from-source">
+<h2>Install Studio from source<a class="headerlink" href="#install-studio-from-source" title="Permalink to this headline">¶</a></h2>
+<p>It is highly recommended to install Studio in a virtual Python environment, so you&#8217;ll start with that.</p>
+<ul class="simple">
+<li>include &#8220;Install Dependencies&#8221; section as in user guide</li>
+</ul>
+<div class="section" id="set-up-a-virtual-python-environment">
+<h3>Set up a virtual Python environment<a class="headerlink" href="#set-up-a-virtual-python-environment" title="Permalink to this headline">¶</a></h3>
+<p>Unix users will use this:</p>
+<div class="highlight-python"><pre>$ wget http://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.4.8.tar.gz
+$ tar xvzf virtualenv-1.4.8.tar.gz
+$ cp virtualenv-1.4.8/virtualenv.py ./
+$ rm -rf virtualenv-1.4.8
+$ rm virtualenv-1.4.8.tar.gz</pre>
+</div>
+<p>Windows users will download the file through their browsers and use a tool such
+as 7-zip from <a class="reference external" href="http://www.7-zip.org">http://www.7-zip.org</a> to extract the files.</p>
+<p>You are now ready to create a virtual Python environment. Here&#8217;s how it looks
+like on Windows:</p>
+<div class="highlight-python"><pre>C:\&gt;C:\Python25\python.exe "C:\Documents and Settings\Administrator\virtualenv.py" C:\env
+New python executable in C:\env\Scripts\python.exe
+Installing setuptools..............done.</pre>
+</div>
+<p>Here&#8217;s how it looks like on Unix:</p>
+<div class="highlight-python"><pre>$ python virtualenv.py /path/to/new/virtual/env</pre>
+</div>
+<p>You can create your virtual environment wherever you want.</p>
+</div>
+<div class="section" id="install-studio">
+<h3>Install Studio<a class="headerlink" href="#install-studio" title="Permalink to this headline">¶</a></h3>
+<p>Download Studio from gitorious:</p>
+<div class="highlight-python"><pre>$ git clone http://git.gitorious.org/erilem/studio.git</pre>
+</div>
+<p>Now that you have a virtual Python environment ready, you can proceed with the installation of Studio.</p>
+<p>On Linux:</p>
+<div class="highlight-python"><pre>$ source /path/to/virtual/env/bin/activate
+$ cd /path/to/Studio
+$ python setup.py develop</pre>
+</div>
+<p>This will install Studio and its dependencies.</p>
+<p>Windows users need to adapt the above commands.</p>
+</div>
+</div>
+<div class="section" id="build-the-documentation">
+<h2>Build the documentation<a class="headerlink" href="#build-the-documentation" title="Permalink to this headline">¶</a></h2>
+<p>To build the documentation, a Sphinx egg must first be installed in the virtual Python environment:</p>
+<div class="highlight-python"><pre>$ easy_install "Sphinx==0.6.5"</pre>
+</div>
+<p>Buiding the doc is done as follows:</p>
+<div class="highlight-python"><pre>$ cd /path/to/Studio/docs
+$ make html</pre>
+</div>
+<p>This creates the HTML documentation in the <tt class="docutils literal"><span class="pre">/path/to/Studio/docs/.build</span></tt> directory, <tt class="docutils literal"><span class="pre">index.html</span></tt> being
+the entry point.</p>
+<p>Sphinx documentation: <a class="reference external" href="http://sphinx.pocoo.org/contents.html">http://sphinx.pocoo.org/contents.html</a></p>
+</div>
+<div class="section" id="run-the-automatic-tests">
+<h2>Run the automatic tests<a class="headerlink" href="#run-the-automatic-tests" title="Permalink to this headline">¶</a></h2>
+<p>To run the unit and functional tests run the <tt class="docutils literal"><span class="pre">nosetests</span></tt> command at the root of the project directory (the
+Studio directory):</p>
+<div class="highlight-python"><pre>$ nosetests -d</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">nosetests</span></tt> documentation gives this for the <tt class="docutils literal"><span class="pre">-d</span></tt> switch:</p>
+<div class="highlight-python"><pre>Add detail to error output by attempting to evaluate
+failed asserts [NOSE_DETAILED_ERRORS]</pre>
+</div>
+</div>
+<div class="section" id="authentication-and-authorisation">
+<h2>Authentication and authorisation<a class="headerlink" href="#authentication-and-authorisation" title="Permalink to this headline">¶</a></h2>
+<p>The authentication and authorisation system is based on the repoze middleware
+(repoze.who and repose.what).</p>
+<p>Authentication is based on the following database tables :</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">user</span></tt> : this table contains users (id, user name, login, password)</li>
+<li><tt class="docutils literal"><span class="pre">group</span></tt> : this table contains groups (id, group name) and is linked to table &#8216;user&#8217; in [n..n] relation</li>
+<li><tt class="docutils literal"><span class="pre">permission</span></tt> : this table contains permissions (id, permission name) and is linked to table &#8216;group&#8217; in
+[n..n] relation</li>
+</ul>
+<p>The authorisation system will then allow a response based on group membership or permission check.
+In practical terms, you need to populate the database with some groups and permissions, then link each group
+with a set of permissions.</p>
+<p>Once this is done, you will be able to allow or deny every action of
+controllers, using the <tt class="docutils literal"><span class="pre">&#64;ActionProtector</span></tt> decorator and using built-in or custom
+predicates. You will find some good documentation on predicates, and a list of
+built-in predicates here:</p>
+<blockquote>
+<div><a class="reference external" href="http://static.repoze.org/whatdocs/Manual/Predicates.html">http://static.repoze.org/whatdocs/Manual/Predicates.html</a></div></blockquote>
+<p>So let&#8217;s go with a simple example. Imagine we want to deny access to action <tt class="docutils literal"><span class="pre">delete</span></tt> of our controller
+<tt class="docutils literal"><span class="pre">UsersController</span></tt> to all users except those who have the permission &#8216;delete users&#8217;.
+We simply need to add the decorator <tt class="docutils literal"><span class="pre">&#64;ActionProtector</span></tt> with the build-in predicate
+<tt class="docutils literal"><span class="pre">has_permission('delete</span> <span class="pre">users')</span></tt> to our <tt class="docutils literal"><span class="pre">delete</span></tt> action:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="kn">import</span> <span class="n">ActionProtector</span>
+
+<span class="k">class</span> <span class="nc">UsersController</span><span class="p">(</span><span class="n">BaseController</span><span class="p">):</span>
+
+    <span class="nd">@ActionProtector</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;delete users&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># [ ... ]</span>
+        <span class="k">return</span> <span class="s">&#39;User deleted&#39;</span>
+</pre></div>
+</div>
+<p>If the predicate <tt class="docutils literal"><span class="pre">has_permission('delete</span> <span class="pre">users')</span></tt> is not fulfilled, a 401 or 403 error will be returned.</p>
+<p>You may also need to know the identity of the user logged in. You can achieve this by looking at
+<tt class="docutils literal"><span class="pre">repoze.what.credentials</span></tt> environnement variable.
+So the user login is accessible via:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;repoze.what.credentials&#39;</span><span class="p">)[</span><span class="s">&#39;repoze.what.userid&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="http-interfaces">
+<h2>HTTP Interfaces<a class="headerlink" href="#http-interfaces" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the HTTP Interfaces the server side of Studio exposes.</p>
+<div class="section" id="datastores">
+<h3>Datastores<a class="headerlink" href="#datastores" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="get-the-list-of-datastores">
+<h4>Get the list of datastores<a class="headerlink" href="#get-the-list-of-datastores" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/datastores</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document of this form:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;datastores&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;{datastore_name}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{datastore_href}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;{datastore_type}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span><span class="nx">datastore_id</span><span class="p">}</span>
+        <span class="p">},</span>
+    <span class="p">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+<li><p class="first">manual test:</p>
+<div class="highlight-python"><pre>curl -X GET http://localhost:5000/datastores</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="get-the-information-of-a-given-datastore">
+<h4>Get the information of a given datastore<a class="headerlink" href="#get-the-information-of-a-given-datastore" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/datastores/{datastore_id}</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document of this form</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;datasources&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_name}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leaf&quot;</span><span class="o">:</span> <span class="p">[</span><span class="kc">true</span><span class="o">|</span><span class="kc">false</span><span class="p">],</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;[RASTER|POINT|LINE|POLYGON]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_id}&quot;</span>
+        <span class="p">},</span>
+        <span class="p">...</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;[directory|postgis]&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span><span class="nx">directory_id</span><span class="p">},</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{directory_name}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+<li><p class="first">notes:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">{datasource_id}</span></tt> is a hash representing the datasource</li>
+</ul>
+</li>
+<li><p class="first">manual test:</p>
+<div class="highlight-python"><pre>curl -X GET http://localhost:5000/datastores/1</pre>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="datasources">
+<h3>Datasources<a class="headerlink" href="#datasources" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="get-the-list-of-datasources-of-a-given-datastore">
+<h4>Get the list of datasources of a given datastore<a class="headerlink" href="#get-the-list-of-datasources-of-a-given-datastore" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/datastores/{datastore_id}/datasources</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document of this form</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;datasources&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_href}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_name}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leaf&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;[RASTER|POINT|LINE|POLYGON]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_id}&quot;</span>
+        <span class="p">},</span>
+        <span class="p">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+<li><p class="first">notes:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">{datasource_id}</span></tt> is a hash representing the datasource</li>
+</ul>
+</li>
+<li><p class="first">manual test:</p>
+<div class="highlight-python"><pre>curl -X GET http://localhost:5000/datastores/1/datasources</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="get-the-mapfile-excerpt-for-a-given-datasource">
+<h4>Get the mapfile excerpt for a given datasource<a class="headerlink" href="#get-the-mapfile-excerpt-for-a-given-datasource" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/datastores/{datastore_id}/datasources/{datasource_id}/mapfile</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document representing the mapfile section for this datasource</p>
+</li>
+<li><p class="first">manual test:</p>
+<div class="highlight-python"><pre>curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="get-the-mapfile-excerpt-for-a-given-datasource-with-an-automatic-classification">
+<h4>Get the mapfile excerpt for a given datasource, with an automatic classification<a class="headerlink" href="#get-the-mapfile-excerpt-for-a-given-datasource-with-an-automatic-classification" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/datastores/{datastore_id}/datasources/{datasource_id}/mapfile[?{classificationparams}]</span></tt></p>
+</li>
+<li><p class="first">the classifications params:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">classification=[quantile|unique]</span></tt>: type of classification to apply</li>
+<li><tt class="docutils literal"><span class="pre">attribute={attribute_name}</span></tt>: name of the attribute</li>
+<li><tt class="docutils literal"><span class="pre">intervals={number_of_classes}</span></tt>: number of classes (applies only for quantile classification)</li>
+<li><tt class="docutils literal"><span class="pre">colortype=[ramp|qualitative]</span></tt></li>
+</ul>
+</li>
+<li><p class="first">ramp: interpolate between a start and end color</p>
+<ul class="simple">
+<li>startcolor={rrggbb}: first color in ramp, in hexadecimal format without leading #</li>
+<li>endcolor={rrggbb}: last color in ramp, in hexadecimal format without leading #</li>
+<li>interpolation=[RGB|HSV]: in wich colorspace should the interpolation be done</li>
+</ul>
+</li>
+<li><p class="first">qualitative: use a predefined palette</p>
+<ul class="simple">
+<li>theme=[0|1|2.....|7]: which predefined palette to use</li>
+</ul>
+</li>
+<li><p class="first">examples:</p>
+<ul>
+<li><div class="first highlight-python"><pre>curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&amp;startcolor=ff0000&amp;endcolor=0000ff&amp;attribute=POP2005&amp;intervals=5</pre>
+</div>
+</li>
+<li><div class="first highlight-python"><pre>curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&amp;colortype=ramp&amp;interpolation=HSV&amp;startcolor=ff2200&amp;endcolor=0022ff&amp;attribute=POP2005&amp;intervals=7</pre>
+</div>
+</li>
+<li><div class="first highlight-python"><pre>curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&amp;colortype=qualitative&amp;theme=0&amp;attribute=POP2005&amp;intervals=5</pre>
+</div>
+</li>
+<li><div class="first highlight-python"><pre>curl -x GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=unique&amp;colortype=qualitative&amp;theme=0&amp;attribute=REGION</pre>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">response: a JSON document representing a default mapfile layer excerpt for this datasource</p>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+</ul>
+</div>
+<div class="section" id="get-the-columns-of-a-given-datasource">
+<h4>Get the columns of a given datasource<a class="headerlink" href="#get-the-columns-of-a-given-datasource" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/datastores/{datastore_id}/datasources/{datasource_id}/columns</span></tt></p>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+<li><p class="first">response body:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;columns&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="s2">&quot;{colum_name}&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;[string|numeric]&quot;</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">manual test:</p>
+<div class="highlight-python"><pre>curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/columns</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="create-a-new-datasource">
+<h4>Create a new datasource<a class="headerlink" href="#create-a-new-datasource" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>This action creates a new datasource within a given datastore by file upload. The request body must contains a single parameter <tt class="docutils literal"><span class="pre">datasources</span></tt> that contains the datasource, the parameter Content-Disposition must be <tt class="docutils literal"><span class="pre">form-data</span></tt>.  This file can be a single file, a zip or a tar archive.</li>
+<li>request: <tt class="docutils literal"><span class="pre">POST</span> <span class="pre">/datastores/{datastore_id}/datasources/</span></tt></li>
+<li>success status code: <tt class="docutils literal"><span class="pre">201</span> <span class="pre">CREATED</span></tt></li>
+</ul>
+</div>
+</div>
+<div class="section" id="mapfiles">
+<h3>mapfiles<a class="headerlink" href="#mapfiles" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="get-an-empty-mapfile-skeleton">
+<h4>Get an empty mapfile skeleton<a class="headerlink" href="#get-an-empty-mapfile-skeleton" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/mapfiles/default</span></tt></li>
+<li>response: a JSON document representing a mapfile</li>
+</ul>
+</div>
+<div class="section" id="get-the-list-of-mapfiles">
+<h4>Get the list of mapfiles<a class="headerlink" href="#get-the-list-of-mapfiles" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/mapfiles</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document of this form:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;maps&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_id}&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_href}&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_name}&quot;</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+</ul>
+</div>
+<div class="section" id="get-an-existing-mapfile">
+<h4>Get an existing mapfile<a class="headerlink" href="#get-an-existing-mapfile" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/mapfiles/{mapfile_id}</span></tt></li>
+<li>response: a JSON document representing a mapfile</li>
+<li>success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></li>
+</ul>
+</div>
+<div class="section" id="get-symbols-from-an-existing-mapfile">
+<h4>Get symbols from an existing mapfile<a class="headerlink" href="#get-symbols-from-an-existing-mapfile" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/mapfiles/{mapfile_id}/symbols</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document representing symbols of a mapfile:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;symbols&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;dash&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;parking&quot;</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+</ul>
+</div>
+<div class="section" id="get-fonts-from-an-existing-mapfile">
+<h4>Get fonts from an existing mapfile<a class="headerlink" href="#get-fonts-from-an-existing-mapfile" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/mapfiles/{mapfile_id}/fonts</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document representing fonts of a mapfile:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;fonts&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;verdana&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;verdana&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;arial&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;arial&quot;</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+</ul>
+</div>
+<div class="section" id="download-an-existing-mapfile">
+<h4>Download an existing mapfile<a class="headerlink" href="#download-an-existing-mapfile" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/mapfiles/{mapfile_id}/download</span></tt></li>
+<li>response: return the mapfile as an attachment (browser should ask for opening
+file with an external editor)</li>
+<li>success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></li>
+</ul>
+</div>
+<div class="section" id="create-a-new-mapfile">
+<h4>Create a new mapfile<a class="headerlink" href="#create-a-new-mapfile" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">POST</span> <span class="pre">/mapfiles</span></tt></p>
+</li>
+<li><p class="first">request body: a JSON document representing a mapfile</p>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">201</span> <span class="pre">CREATED</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document of this form:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_id}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_href}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_name}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="update-an-existing-mapfile">
+<h4>Update an existing mapfile<a class="headerlink" href="#update-an-existing-mapfile" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>request: <tt class="docutils literal"><span class="pre">PUT</span> <span class="pre">/mapfiles/{mapfile_id}</span></tt></li>
+<li>request body: a JSON document representing a mapfile</li>
+<li>success status code: <tt class="docutils literal"><span class="pre">201</span> <span class="pre">CREATED</span></tt></li>
+</ul>
+</div>
+<div class="section" id="delete-an-existing-mapfile">
+<h4>Delete an existing mapfile<a class="headerlink" href="#delete-an-existing-mapfile" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>request: <tt class="docutils literal"><span class="pre">DELETE</span> <span class="pre">/mapfiles/{mapfile_id}</span></tt></li>
+<li>success status code: <tt class="docutils literal"><span class="pre">204</span> <span class="pre">No</span> <span class="pre">Content</span></tt></li>
+</ul>
+</div>
+</div>
+<div class="section" id="layertemplates">
+<h3>layertemplates<a class="headerlink" href="#layertemplates" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="get-the-list-of-layertemplates">
+<h4>Get the list of layertemplates<a class="headerlink" href="#get-the-list-of-layertemplates" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/layertemplates</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document of this form:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;layertemplates&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_id}&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_href}&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+</ul>
+</div>
+<div class="section" id="get-an-existing-layertemplate">
+<h4>Get an existing layertemplate<a class="headerlink" href="#get-an-existing-layertemplate" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">GET</span> <span class="pre">/layertemplates/{layertemplate_id}</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document of this form:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_id}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;user_id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_user_id}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;json&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// the json representing the layer template</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt></p>
+</li>
+</ul>
+</div>
+<div class="section" id="create-a-new-layertemplate">
+<h4>Create a new layertemplate<a class="headerlink" href="#create-a-new-layertemplate" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">POST</span> <span class="pre">/layertemplates</span></tt></p>
+</li>
+<li><p class="first">request body: a JSON document of this form:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;json&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// the json representing the layer template</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">201</span> <span class="pre">CREATED</span></tt></p>
+</li>
+<li><p class="first">response: a JSON document of this form:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_id}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_href}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="update-an-existing-layertemplate">
+<h4>Update an existing layertemplate<a class="headerlink" href="#update-an-existing-layertemplate" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">request: <tt class="docutils literal"><span class="pre">PUT</span> <span class="pre">/layertemplates/{layertemplate_id}</span></tt></p>
+</li>
+<li><p class="first">request body: a JSON document of this form:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;json&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// the json representing the layer template</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">success status code: <tt class="docutils literal"><span class="pre">201</span> <span class="pre">CREATED</span></tt></p>
+</li>
+</ul>
+</div>
+<div class="section" id="delete-an-existing-layertemplate">
+<h4>Delete an existing layertemplate<a class="headerlink" href="#delete-an-existing-layertemplate" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>request: <tt class="docutils literal"><span class="pre">DELETE</span> <span class="pre">/layertemplates/{layertemplate_id}</span></tt></li>
+<li>success status code: <tt class="docutils literal"><span class="pre">204</span> <span class="pre">No</span> <span class="pre">Content</span></tt></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developer guide</a><ul>
+<li><a class="reference internal" href="#install-studio-from-source">Install Studio from source</a><ul>
+<li><a class="reference internal" href="#set-up-a-virtual-python-environment">Set up a virtual Python environment</a></li>
+<li><a class="reference internal" href="#install-studio">Install Studio</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build-the-documentation">Build the documentation</a></li>
+<li><a class="reference internal" href="#run-the-automatic-tests">Run the automatic tests</a></li>
+<li><a class="reference internal" href="#authentication-and-authorisation">Authentication and authorisation</a></li>
+<li><a class="reference internal" href="#http-interfaces">HTTP Interfaces</a><ul>
+<li><a class="reference internal" href="#datastores">Datastores</a></li>
+<li><a class="reference internal" href="#datasources">Datasources</a></li>
+<li><a class="reference internal" href="#mapfiles">mapfiles</a></li>
+<li><a class="reference internal" href="#layertemplates">layertemplates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation_guide.html"
+                        title="previous chapter">Installation guide</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/developer_guide.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="installation_guide.html" title="Installation guide"
+             >previous</a> |</li>
+        <li><a href="index.html">Studio v0.1dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Camptocamp.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

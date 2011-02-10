@@ -1,0 +1,529 @@
+:tocdepth: 3
+
+Developer guide
+===============
+
+This document contains instructions for Studio developers.
+
+Install Studio from source
+--------------------------
+
+It is highly recommended to install Studio in a virtual Python environment, so you'll start with that.
+
+.. todo::
+
+* include "Install Dependencies" section as in user guide
+
+Set up a virtual Python environment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Unix users will use this::
+
+    $ wget http://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.4.8.tar.gz
+    $ tar xvzf virtualenv-1.4.8.tar.gz
+    $ cp virtualenv-1.4.8/virtualenv.py ./
+    $ rm -rf virtualenv-1.4.8
+    $ rm virtualenv-1.4.8.tar.gz
+
+Windows users will download the file through their browsers and use a tool such
+as 7-zip from http://www.7-zip.org to extract the files.
+
+You are now ready to create a virtual Python environment. Here's how it looks
+like on Windows::
+
+    C:\>C:\Python25\python.exe "C:\Documents and Settings\Administrator\virtualenv.py" C:\env
+    New python executable in C:\env\Scripts\python.exe
+    Installing setuptools..............done.
+
+Here's how it looks like on Unix::
+
+    $ python virtualenv.py /path/to/new/virtual/env
+
+You can create your virtual environment wherever you want.
+
+Install Studio
+^^^^^^^^^^^^^^
+
+Download Studio from gitorious::
+
+    $ git clone http://git.gitorious.org/erilem/studio.git 
+
+Now that you have a virtual Python environment ready, you can proceed with the installation of Studio.
+
+On Linux::
+
+    $ source /path/to/virtual/env/bin/activate
+    $ cd /path/to/Studio
+    $ python setup.py develop
+
+This will install Studio and its dependencies.
+
+Windows users need to adapt the above commands.
+
+Build the documentation
+-----------------------
+
+To build the documentation, a Sphinx egg must first be installed in the virtual Python environment::
+
+    $ easy_install "Sphinx==0.6.5"
+
+Buiding the doc is done as follows::
+
+    $ cd /path/to/Studio/docs
+    $ make html
+
+This creates the HTML documentation in the ``/path/to/Studio/docs/.build`` directory, ``index.html`` being
+the entry point.
+
+Sphinx documentation: http://sphinx.pocoo.org/contents.html
+
+Run the automatic tests
+-----------------------
+
+To run the unit and functional tests run the ``nosetests`` command at the root of the project directory (the
+Studio directory)::
+
+    $ nosetests -d
+
+The ``nosetests`` documentation gives this for the ``-d`` switch::
+
+     Add detail to error output by attempting to evaluate
+     failed asserts [NOSE_DETAILED_ERRORS]
+
+Authentication and authorisation
+--------------------------------
+
+The authentication and authorisation system is based on the repoze middleware
+(repoze.who and repose.what).
+
+Authentication is based on the following database tables :
+
+* ``user`` : this table contains users (id, user name, login, password)
+
+* ``group`` : this table contains groups (id, group name) and is linked to table 'user' in [n..n] relation
+
+* ``permission`` : this table contains permissions (id, permission name) and is linked to table 'group' in
+  [n..n] relation
+
+The authorisation system will then allow a response based on group membership or permission check.
+In practical terms, you need to populate the database with some groups and permissions, then link each group
+with a set of permissions.
+
+Once this is done, you will be able to allow or deny every action of
+controllers, using the ``@ActionProtector`` decorator and using built-in or custom
+predicates. You will find some good documentation on predicates, and a list of
+built-in predicates here:
+
+    http://static.repoze.org/whatdocs/Manual/Predicates.html
+
+So let's go with a simple example. Imagine we want to deny access to action ``delete`` of our controller
+``UsersController`` to all users except those who have the permission 'delete users'.
+We simply need to add the decorator ``@ActionProtector`` with the build-in predicate
+``has_permission('delete users')`` to our ``delete`` action::
+
+    from repoze.what.predicates import has_permission
+    from repoze.what.plugins.pylonshq import ActionProtector
+
+    class UsersController(BaseController):
+
+        @ActionProtector(has_permission('delete users'))
+        def delete(self):
+            # [ ... ]
+            return 'User deleted'
+
+If the predicate ``has_permission('delete users')`` is not fulfilled, a 401 or 403 error will be returned.
+
+You may also need to know the identity of the user logged in. You can achieve this by looking at
+``repoze.what.credentials`` environnement variable.
+So the user login is accessible via::
+
+    request.environ.get('repoze.what.credentials')['repoze.what.userid']
+
+HTTP Interfaces
+---------------
+
+This section describes the HTTP Interfaces the server side of Studio exposes.
+
+Datastores
+^^^^^^^^^^
+
+Get the list of datastores
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+* request: ``GET /datastores``
+* response: a JSON document of this form:
+
+  .. code-block:: javascript
+
+      {
+          "datastores": [
+              {
+                  "text": "{datastore_name}",
+                  "href": "{datastore_href}",
+                  "type": "{datastore_type}",
+                  "id": {datastore_id}
+              },
+          ...
+          ]
+      } 
+
+* success status code: ``200 OK``
+* manual test::
+
+    curl -X GET http://localhost:5000/datastores
+
+Get the information of a given datastore
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* request: ``GET /datastores/{datastore_id}``
+* response: a JSON document of this form
+
+  .. code-block:: javascript
+
+      {
+          "datasources": [
+              {
+                  "text": "{datasource_name}",
+                  "leaf": [true|false],
+                  "type": "[RASTER|POINT|LINE|POLYGON]",
+                  "id": "{datasource_id}"
+              },
+              ...
+          ],
+          "type": "[directory|postgis]",
+          "id": {directory_id},
+          "name": "{directory_name}"
+      }
+
+* success status code: ``200 OK``
+* notes:
+
+  - ``{datasource_id}`` is a hash representing the datasource
+
+* manual test::
+
+    curl -X GET http://localhost:5000/datastores/1
+
+Datasources
+^^^^^^^^^^^
+
+Get the list of datasources of a given datastore
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* request: ``GET /datastores/{datastore_id}/datasources``
+* response: a JSON document of this form
+
+  .. code-block:: javascript
+
+      {
+          "datasources": [
+              {
+                  "href": "{datasource_href}",
+                  "text": "{datasource_name}",
+                  "leaf": true,
+                  "type": "[RASTER|POINT|LINE|POLYGON]",
+                  "id": "{datasource_id}"
+              },
+              ...
+          ]
+      }
+
+* success status code: ``200 OK``
+* notes:
+
+  - ``{datasource_id}`` is a hash representing the datasource
+
+* manual test::
+
+    curl -X GET http://localhost:5000/datastores/1/datasources
+
+Get the mapfile excerpt for a given datasource
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* request: ``GET /datastores/{datastore_id}/datasources/{datasource_id}/mapfile``
+* response: a JSON document representing the mapfile section for this datasource
+* manual test::
+
+    curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile
+
+Get the mapfile excerpt for a given datasource, with an automatic classification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* request: ``GET /datastores/{datastore_id}/datasources/{datasource_id}/mapfile[?{classificationparams}]``
+* the classifications params:
+
+  - ``classification=[quantile|unique]``: type of classification to apply
+  - ``attribute={attribute_name}``: name of the attribute
+  - ``intervals={number_of_classes}``: number of classes (applies only for quantile classification)
+  - ``colortype=[ramp|qualitative]``
+
+* ramp: interpolate between a start and end color
+
+  - startcolor={rrggbb}: first color in ramp, in hexadecimal format without leading #
+  - endcolor={rrggbb}: last color in ramp, in hexadecimal format without leading #
+  - interpolation=[RGB|HSV]: in wich colorspace should the interpolation be done
+
+* qualitative: use a predefined palette
+
+  - theme=[0|1|2.....|7]: which predefined palette to use
+
+* examples:
+
+  -
+
+    ::
+
+        curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&startcolor=ff0000&endcolor=0000ff&attribute=POP2005&intervals=5
+
+  -
+  
+    ::
+
+        curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&colortype=ramp&interpolation=HSV&startcolor=ff2200&endcolor=0022ff&attribute=POP2005&intervals=7
+
+  -
+  
+    ::
+    
+        curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=quantile&colortype=qualitative&theme=0&attribute=POP2005&intervals=5
+
+  -
+    
+    ::
+    
+        curl -x GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/mapfile?classification=unique&colortype=qualitative&theme=0&attribute=REGION
+
+* response: a JSON document representing a default mapfile layer excerpt for this datasource
+* success status code: ``200 OK``
+
+Get the columns of a given datasource
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* request: ``GET /datastores/{datastore_id}/datasources/{datasource_id}/columns``
+* success status code: ``200 OK``
+* response body:
+
+  .. code-block:: javascript
+
+      { "columns": [
+          {
+              "name":"{colum_name}",
+              "type":"[string|numeric]"
+          },
+          ...
+      ]}
+
+* manual test:: 
+  
+    curl -X GET http://localhost:5000/datastores/1/datasources/3dfa880a8e37bcc97ff8bbeb9aff7852/columns
+
+Create a new datasource
+~~~~~~~~~~~~~~~~~~~~~~~
+* This action creates a new datasource within a given datastore by file upload. The request body must contains a single parameter ``datasources`` that contains the datasource, the parameter Content-Disposition must be ``form-data``.  This file can be a single file, a zip or a tar archive.
+* request: ``POST /datastores/{datastore_id}/datasources/``
+* success status code: ``201 CREATED``
+
+mapfiles
+^^^^^^^^
+
+Get an empty mapfile skeleton
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``GET /mapfiles/default``
+* response: a JSON document representing a mapfile
+
+Get the list of mapfiles
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``GET /mapfiles``
+* response: a JSON document of this form:
+
+  .. code-block:: javascript
+
+      { "maps": [
+          {
+              "id": "{mapfile_id}",
+              "href": "{mapfile_href}",
+              "name": "{mapfile_name}"
+          },
+          ...
+      ]}
+
+* success status code: ``200 OK``
+
+Get an existing mapfile
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``GET /mapfiles/{mapfile_id}``
+* response: a JSON document representing a mapfile
+* success status code: ``200 OK``
+
+Get symbols from an existing mapfile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``GET /mapfiles/{mapfile_id}/symbols``
+* response: a JSON document representing symbols of a mapfile:
+
+  .. code-block:: javascript
+
+      { "symbols": [
+          {
+              "id": 1,
+              "name": "dash"
+          },
+          {
+              "id": 2,
+              "name": "parking"
+          },
+          ...
+      ]}
+
+* success status code: ``200 OK``
+
+Get fonts from an existing mapfile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``GET /mapfiles/{mapfile_id}/fonts``
+* response: a JSON document representing fonts of a mapfile:
+
+  .. code-block:: javascript
+
+      { "fonts": [
+          {
+              "id": "verdana",
+              "name": "verdana"
+          },
+          {
+              "id": "arial",
+              "name": "arial"
+          },
+          ...
+      ]}
+
+* success status code: ``200 OK``
+
+Download an existing mapfile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``GET /mapfiles/{mapfile_id}/download``
+* response: return the mapfile as an attachment (browser should ask for opening 
+  file with an external editor)
+* success status code: ``200 OK``
+
+Create a new mapfile
+~~~~~~~~~~~~~~~~~~~~
+
+* request: ``POST /mapfiles``
+* request body: a JSON document representing a mapfile
+* success status code: ``201 CREATED``
+* response: a JSON document of this form:
+
+  .. code-block:: javascript
+
+      {
+          "id": "{mapfile_id}",
+          "href": "{mapfile_href}",
+          "name": "{mapfile_name}"
+      }
+
+Update an existing mapfile
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``PUT /mapfiles/{mapfile_id}``
+* request body: a JSON document representing a mapfile
+* success status code: ``201 CREATED``
+
+Delete an existing mapfile
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``DELETE /mapfiles/{mapfile_id}``
+* success status code: ``204 No Content``
+
+layertemplates
+^^^^^^^^^^^^^^
+
+Get the list of layertemplates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``GET /layertemplates``
+* response: a JSON document of this form:
+
+  .. code-block:: javascript
+
+      { "layertemplates": [
+          {
+              "id": "{layertemplate_id}",
+              "href": "{layertemplate_href}",
+              "name": "{layertemplate_name}",
+              "comment": "{layertemplate_comment}"
+          },
+          ...
+      ]}
+
+* success status code: ``200 OK``
+
+Get an existing layertemplate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``GET /layertemplates/{layertemplate_id}``
+* response: a JSON document of this form:
+
+  .. code-block:: javascript
+
+      {
+          "id": "{layertemplate_id}",
+          "name": "{layertemplate_name}",
+          "comment": "{layertemplate_comment}",
+          "user_id": "{layertemplate_user_id}",
+          "json": {
+              // the json representing the layer template
+          }
+      }
+
+* success status code: ``200 OK``
+
+Create a new layertemplate
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``POST /layertemplates``
+* request body: a JSON document of this form:
+
+  .. code-block:: javascript
+
+      {
+          "name": "{layertemplate_name}",
+          "comment": "{layertemplate_comment}",
+          "json": {
+              // the json representing the layer template
+          }
+      }
+
+* success status code: ``201 CREATED``
+* response: a JSON document of this form:
+
+  .. code-block:: javascript
+
+      {
+          "id": "{layertemplate_id}",
+          "href": "{layertemplate_href}",
+          "name": "{layertemplate_name}",
+          "comment": "{layertemplate_comment}"
+      }
+
+Update an existing layertemplate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``PUT /layertemplates/{layertemplate_id}``
+* request body: a JSON document of this form:
+
+  .. code-block:: javascript
+
+      {
+          "name": "{layertemplate_name}",
+          "comment": "{layertemplate_comment}",
+          "json": {
+              // the json representing the layer template
+          }
+      }
+
+* success status code: ``201 CREATED``
+
+Delete an existing layertemplate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* request: ``DELETE /layertemplates/{layertemplate_id}``
+* success status code: ``204 No Content``

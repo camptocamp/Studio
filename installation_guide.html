@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation guide &mdash; Studio v0.1dev documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Studio v0.1dev documentation" href="index.html" />
+    <link rel="next" title="Developer guide" href="developer_guide.html" />
+    <link rel="prev" title="Studio Documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="developer_guide.html" title="Developer guide"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Studio Documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Studio v0.1dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installation-guide">
+<h1>Installation guide<a class="headerlink" href="#installation-guide" title="Permalink to this headline">¶</a></h1>
+<p>This section describes how to install, configure, and set up Studio.</p>
+<div class="section" id="install-dependencies">
+<h2>Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Studio has two types of dependencies: pure Python dependencies, and system
+dependencies. Pure Python dependencies will be installed as part of the
+installation of Studio. System dependencies, listed below, are installed
+separately.</p>
+<ul class="simple">
+<li>Python 2.4 or 2.5, Python 2.5 is highly recommended and even required if you
+use Windows (untested with Python 2.6 but it may work)</li>
+<li>MapServer CGI, version 5.0 and higher</li>
+<li>MapServer MapScript Python, version 5.0 and higher</li>
+<li>OGRGDAL Python, version 1.5 and higher</li>
+</ul>
+<p>On a Linux system, you can rely on your distribution packages (recommended).
+For example, on Debian-like system, you would install the required packages
+with:</p>
+<div class="highlight-python"><pre>$ apt-get install python cgi-mapserver python-mapscript python-gdal</pre>
+</div>
+<p>On a Windows system, you would need to install Python 2.5 from
+<a class="reference external" href="http://www.python.org/download/releases/2.5.4/">http://www.python.org/download/releases/2.5.4/</a> and its <tt class="docutils literal"><span class="pre">pwin32</span></tt> (a.k.a
+<tt class="docutils literal"><span class="pre">win32api</span></tt>) extension from <a class="reference external" href="http://sourceforge.net/projects/pywin32/files/">http://sourceforge.net/projects/pywin32/files/</a>.</p>
+<p>You would rely on the MS4W distribution from <a class="reference external" href="http://www.maptools.org/ms4w/">http://www.maptools.org/ms4w/</a>
+for MapServer and OGR/GDAL
+(<a class="reference external" href="http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe">2.3.1</a> is the
+current stable version).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You should install the same version of Python as the one supported by the
+Python bindings (MapScript, OGR/GDAL) provided with MS4W. For OS4W v2.3.1,
+you should rely on Python v2.5.x</p>
+</div>
+<p>On a Debian system, you can check that MapServer CGI is correctly installed by
+testing the following URL in a browser:</p>
+<div class="highlight-python"><pre>$ http://localhost/cgi-bin/mapserv</pre>
+</div>
+<p>and the following on a Windows system:</p>
+<div class="highlight-python"><pre>$ http://localhost/cgi-bin/mapserv.exe</pre>
+</div>
+</div>
+<div class="section" id="install-studio">
+<h2>Install Studio<a class="headerlink" href="#install-studio" title="Permalink to this headline">¶</a></h2>
+<p>Start by creating a folder named <tt class="docutils literal"><span class="pre">studio</span></tt>, at the location of your choice.
+This folder will contain your installation of Studio</p>
+<p>You can now download the Studio installation script from
+<a class="reference external" href="http://dev.camptocamp.com/packages/mapfish/go-studio.py">http://dev.camptocamp.com/packages/mapfish/go-studio.py</a>. Place this
+script in the <tt class="docutils literal"><span class="pre">studio</span></tt> folder.</p>
+<p>Now open a console, go into the <tt class="docutils literal"><span class="pre">studio</span></tt> folder and execute the
+<tt class="docutils literal"><span class="pre">go-studio.py</span></tt> script there. You would use the following on a Unix system:</p>
+<div class="highlight-python"><pre>$ python go-studio.py env</pre>
+</div>
+<p>and the following on a Windows system:</p>
+<div class="highlight-python"><pre>C:\studio&gt; C:\Python25\python.exe go-studio.py env</pre>
+</div>
+<p>In the above command it is assumed that your <tt class="docutils literal"><span class="pre">studio</span></tt> folder is directly
+under <tt class="docutils literal"><span class="pre">C:\</span></tt>, it also assumes that Python is installed <tt class="docutils literal"><span class="pre">C:\Python25</span></tt>, which
+is the default.</p>
+<p><tt class="docutils literal"><span class="pre">env</span></tt> is the name of the virtual Python environment Studio will be installed
+in. Do not worry if you don&#8217;t know what a virtual Python environment is, you
+don&#8217;t need to understand that to complete the installation.</p>
+<p>When installing on Windows, you also need to manually install the Python
+bindings for GDAL and MapScript in this virtual environment.</p>
+<dl class="docutils">
+<dt>The GDAL Python bindings:</dt>
+<dd>Assuming that MS4W distribution has been installed in <tt class="docutils literal"><span class="pre">C:\Program</span>
+<span class="pre">Files\ms4w\</span></tt>, copy all Python files (<tt class="docutils literal"><span class="pre">*.py</span></tt>) from <tt class="docutils literal"><span class="pre">C:\Program</span>
+<span class="pre">Files\ms4w\python\gdal\</span></tt> directory to the <tt class="docutils literal"><span class="pre">C:\studio\env\Lib\</span></tt> of your
+virtual environment.  Also copy the DLL <tt class="docutils literal"><span class="pre">C:\Program</span>
+<span class="pre">Files\ms4w\python\gdal\_gdal.dll</span></tt> to <tt class="docutils literal"><span class="pre">C:\studio\env\Lib\_gdal.pyd</span></tt> (make
+sure you change the extension from <tt class="docutils literal"><span class="pre">.dll</span></tt> to <tt class="docutils literal"><span class="pre">.pyd</span></tt> so that the library
+is understood by Python).</dd>
+<dt>The MapScript bindings:</dt>
+<dd>Unpack <tt class="docutils literal"><span class="pre">C:\Program</span>
+<span class="pre">Files\ms4w\Apache\cgi-bin\mapscript\python\mapscript-5.2.1.win32.zip</span></tt>
+in a safe location. In the directory structure that results from the
+above step, navigate to
+<tt class="docutils literal"><span class="pre">build\mapserver-buildkit\Python-2.5.1\Lib\site-packages</span></tt> and copy
+the files <tt class="docutils literal"><span class="pre">_mapscript.pyd</span></tt> and <tt class="docutils literal"><span class="pre">mapscript.py</span></tt> to the
+<tt class="docutils literal"><span class="pre">C:\studio\env\Lib\site-packages\</span></tt> directory in your virtual env.</dd>
+</dl>
+<p>Before going to the next section, you must activate the virtual environment.
+Use the following on a Unix system:</p>
+<div class="highlight-python"><pre>$ source env/bin/activate</pre>
+</div>
+<p>and the following on a Windows system:</p>
+<div class="highlight-python"><pre>C:\studio&gt; env\Scripts\activate.bat</pre>
+</div>
+<p>On a Windows system, you also need to set up MS4W environment variables:</p>
+<div class="highlight-python"><pre>C:\studio&gt; C:\Program Files\ms4w\setenv.bat</pre>
+</div>
+<p>If you use Python 2.5 (enter <tt class="docutils literal"><span class="pre">python</span> <span class="pre">-V</span></tt> in a console to check) you&#8217;re done
+with the installation, you can go directly to the next section.</p>
+<p>If you use Python 2.4, you need to install the <tt class="docutils literal"><span class="pre">pysqlite</span></tt> package as it is
+not distributed with Python 2.4. On Unix do:</p>
+<div class="highlight-python"><pre>$ easy_install pysqlite</pre>
+</div>
+</div>
+<div class="section" id="create-config">
+<h2>Create config<a class="headerlink" href="#create-config" title="Permalink to this headline">¶</a></h2>
+<p>Now that Studio is installed, it is time to create your Studio configuration.</p>
+<p>On Unix use:</p>
+<div class="highlight-python"><pre>(env) $ paster make-config Studio my_studio.ini</pre>
+</div>
+<p>On Windows use:</p>
+<div class="highlight-python"><pre>(env) C:\studio&gt; paster.exe make-config Studio my_studio.ini</pre>
+</div>
+<p>You will be asked for a <tt class="docutils literal"><span class="pre">database</span> <span class="pre">URL</span></tt>, Studio indeed requires a database for
+its own use (to store information about users, datastores, mapfiles, etc.). If
+you just press &#8220;Enter&#8221;, Studio will use an SQLite database, which will be
+automatically created at setup time (see the next section).</p>
+<p>If you have a PostgreSQL database and would like Studio to use that database
+enter something like the following as the database URL:</p>
+<div class="highlight-python"><pre>postgres://username:password@host:port/dbname</pre>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">user</span></tt> is the name of the database user, <tt class="docutils literal"><span class="pre">password</span></tt> is the password
+for that user, <tt class="docutils literal"><span class="pre">host</span></tt> is the name of the host executing PostgreSQL, and
+<tt class="docutils literal"><span class="pre">dbname</span></tt> the name of the database.</p>
+<p>If you want Studio to use PostgreSQL you will need to install the
+<tt class="docutils literal"><span class="pre">psycopg2</span></tt> package in the Python virtual environment. On a Unix system do:</p>
+<div class="highlight-python"><pre>(env) $ easy_install psycopg2</pre>
+</div>
+<p>On Windows, install psycopg2 for Python 2.5 from
+<tt class="docutils literal"><span class="pre">http://www.stickpeople.com/projects/python/win-psycopg/</span></tt>.</p>
+<p>The above <tt class="docutils literal"><span class="pre">make-config</span></tt> command will also ask for the <tt class="docutils literal"><span class="pre">Url</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">mapserv</span> <span class="pre">CGI</span></tt>.
+So press &#8220;Enter&#8221; to keep the default, or enter a correct MapServer URL.</p>
+<p>On Windows, MapServer is provided with MS4W, so you should enter the following
+URL:</p>
+<div class="highlight-python"><pre>http://localhost/cgi-bin/mapserv.exe</pre>
+</div>
+<p>Then you will be asked for a <tt class="docutils literal"><span class="pre">Password</span> <span class="pre">for</span> <span class="pre">default</span> <span class="pre">admin</span> <span class="pre">user</span></tt>. Again, press
+<tt class="docutils literal"><span class="pre">Enter</span></tt> to keep the default, or enter a custom password.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These configuration parameters can also be edited directly in the <tt class="docutils literal"><span class="pre">.ini</span></tt>
+generated file (<tt class="docutils literal"><span class="pre">my_studio.ini</span></tt> in our example).</p>
+</div>
+</div>
+<div class="section" id="set-up">
+<h2>Set up<a class="headerlink" href="#set-up" title="Permalink to this headline">¶</a></h2>
+<p>You now need to set up Studio, which means creating the database schema and
+insert initial data.</p>
+<p>Studio comes with a default datastore, which is a directory to which Studio
+users will be able to add geographic files. This datastore is pre-populated
+with a few geographic files, mostly for testing purposes.</p>
+<p>If you have a PostGIS database that you would like to see as a datastore in
+Studio, edit your <tt class="docutils literal"><span class="pre">my_studio.ini</span></tt> file, uncomment the line that sets the
+<tt class="docutils literal"><span class="pre">default_datastore_postgis</span></tt> option, and change the value of that option as
+appropriate (to match the parameters of your database).</p>
+<p>To set up Studio, use the following command on Unix:</p>
+<div class="highlight-python"><pre>(env) $ paster setup-app my_studio.ini</pre>
+</div>
+<p>and the following on Windows:</p>
+<div class="highlight-python"><pre>(env) C:\studio&gt; paster.exe setup-app my_studio.ini</pre>
+</div>
+<p>If you chose to have Studio rely on SQLite then a <tt class="docutils literal"><span class="pre">studio.db</span></tt> file, the
+SQLite database, should now be present in your <tt class="docutils literal"><span class="pre">studio</span></tt> directory.</p>
+</div>
+<div class="section" id="start-up">
+<h2>Start up<a class="headerlink" href="#start-up" title="Permalink to this headline">¶</a></h2>
+<p>Studio is now ready, let&#8217;s start it!</p>
+<p>On Unix:</p>
+<div class="highlight-python"><pre>(env) $ paster serve my_studio.ini</pre>
+</div>
+<p>On Windows:</p>
+<div class="highlight-python"><pre>(env) C:\studio&gt; paster.exe serve my_studio.ini</pre>
+</div>
+<p>An admin account has been created (when running <tt class="docutils literal"><span class="pre">setup-app</span></tt>), so you
+can sign in using the following credentials:</p>
+<ul class="simple">
+<li>login: <tt class="docutils literal"><span class="pre">admin</span></tt></li>
+<li>password: [the password you provided when running <tt class="docutils literal"><span class="pre">make-config</span></tt>]</li>
+</ul>
+<p>Note that you can also register for new user accounts directly from
+Studio home page. By default, these accounts will be associated to the
+<tt class="docutils literal"><span class="pre">enduser</span></tt> group and will have restricted rights. This can be changed
+by editing the following line in file <tt class="docutils literal"><span class="pre">my_studio.ini</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># default group for user creation (&quot;enduser&quot;, &quot;admin&quot;)</span>
+<span class="n">default_group</span> <span class="o">=</span> <span class="n">enduser</span>
+</pre></div>
+</div>
+<p>Two groups are currently available:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">admin</span></tt> is the master user. He has all permissions.</li>
+<li><tt class="docutils literal"><span class="pre">enduser</span></tt> is a standard user. He has all permissions except those to add/update/view datastores.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation guide</a><ul>
+<li><a class="reference internal" href="#install-dependencies">Install dependencies</a></li>
+<li><a class="reference internal" href="#install-studio">Install Studio</a></li>
+<li><a class="reference internal" href="#create-config">Create config</a></li>
+<li><a class="reference internal" href="#set-up">Set up</a></li>
+<li><a class="reference internal" href="#start-up">Start up</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Studio Documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="developer_guide.html"
+                        title="next chapter">Developer guide</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/installation_guide.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="developer_guide.html" title="Developer guide"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Studio Documentation"
+             >previous</a> |</li>
+        <li><a href="index.html">Studio v0.1dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Camptocamp.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
