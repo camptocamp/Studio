@@ -55,8 +55,9 @@ On Linux::
     $ source /path/to/virtual/env/bin/activate
     $ cd /path/to/Studio
     $ python setup.py develop
+    $ python setup.py compile_catalog
 
-This will install Studio and its dependencies.
+This will install Studio and its dependencies, then compile the localization files for i18n.
 
 Windows users need to adapt the above commands.
 
