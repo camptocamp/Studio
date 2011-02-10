@@ -9,6 +9,11 @@ Releasing Studio
 
   $ python setup.py compile_catalog
 
+* Generate go-pylons.py script, and move it to the docs/_static directory::
+
+  $ python util/gen-go-studio.py <VERSION_NUMBER>
+  $ mv go-studio.py docs/_static/
+
 * Make sure docs render OK::
 
   $ cd docs
