@@ -22,3 +22,5 @@ Studio is based on modern frameworks and libraries, including, but not limited
 to, `Pylons <http://pylonshq.com>`_, `SQLAlchemy <http://www.sqlalchemy.org>`_,
 `OGRGDAL <http://gdal.org>`_, `OpenLayers <http://www.openlayers.org>`_, and
 `GeoExt <http://www.geoext.org>`_.
+
+See Studio documentation on http://camptocamp.github.com/Studio/.
