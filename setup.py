@@ -7,11 +7,7 @@ except ImportError:
 
 import os
 
-try:
-    intro_path = os.path.join('docs', 'intro.frag')
-    long_description = ''.join([x for x in open(intro_path)])
-except IOError:
-    long_description = ""
+long_description = open('README.rst').read()
 
 setup(
     name                    = 'Studio',
