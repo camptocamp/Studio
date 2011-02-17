@@ -49,7 +49,7 @@ class Mapfile:
         update_mapobj_from_dict(self.mapobj,obj)
 
     def from_file(self, mapfile_path):
-        self.mapobj = mapscript.mapObj(mapfile_path)
+        self.mapobj = mapscript.mapObj(str(mapfile_path))
 
     def to_file(self, mapfile_path):
         if self.mapobj is None:
@@ -152,7 +152,7 @@ def outputformatobj_to_dict(outputformatobj):
     return of
 
 def dict_to_outputformatobj(dict):
-    ofo = mapscript.outputFormatObj(dict['driver'])
+    ofo = mapscript.outputFormatObj(str(dict['driver']))
     ofo.name = dict['name']
     ofo.mimetype = dict['mimetype']
     ofo.imagemode = mapscriptutils.imagemodes.lookup(dict['imagemode'])
