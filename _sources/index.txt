@@ -8,7 +8,7 @@ Studio Documentation
 Introduction
 ------------
 
-.. include:: intro.frag
+.. include:: ../README.rst
 
 Community
 ---------
