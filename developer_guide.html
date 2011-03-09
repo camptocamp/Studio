@@ -141,8 +141,8 @@ list of built-in predicates here:</p>
 have the permission &#8216;delete users&#8217;.  We simply need to add the decorator
 <tt class="docutils literal"><span class="pre">&#64;ActionProtector</span></tt> with the build-in predicate <tt class="docutils literal"><span class="pre">has_permission('delete</span>
 <span class="pre">users')</span></tt> to our <tt class="docutils literal"><span class="pre">delete</span></tt> action:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">repoze.what.predicates</span> <span class="k">import</span> <span class="n">has_permission</span>
-<span class="k">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="k">import</span> <span class="n">ActionProtector</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="kn">import</span> <span class="n">ActionProtector</span>
 
 <span class="k">class</span> <span class="nc">UsersController</span><span class="p">(</span><span class="n">BaseController</span><span class="p">):</span>
 
@@ -175,11 +175,11 @@ user login is accessible via:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;datastores&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;{datastore_name}&quot;</span><span class="o">,</span>
-            <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{datastore_href}&quot;</span><span class="o">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;{datastore_type}&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;{datastore_name}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{datastore_href}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;{datastore_type}&quot;</span><span class="p">,</span>
             <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span><span class="nx">datastore_id</span><span class="p">}</span>
-        <span class="p">}</span><span class="o">,</span>
+        <span class="p">},</span>
     <span class="p">...</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -203,15 +203,15 @@ user login is accessible via:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;datasources&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_name}&quot;</span><span class="o">,</span>
-            <span class="s2">&quot;leaf&quot;</span><span class="o">:</span> <span class="p">[</span><span class="kc">true</span><span class="o">|</span><span class="kc">false</span><span class="p">]</span><span class="o">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;[RASTER|POINT|LINE|POLYGON]&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_name}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leaf&quot;</span><span class="o">:</span> <span class="p">[</span><span class="kc">true</span><span class="o">|</span><span class="kc">false</span><span class="p">],</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;[RASTER|POINT|LINE|POLYGON]&quot;</span><span class="p">,</span>
             <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_id}&quot;</span>
-        <span class="p">}</span><span class="o">,</span>
+        <span class="p">},</span>
         <span class="p">...</span>
-    <span class="p">]</span><span class="o">,</span>
-    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;[directory|postgis]&quot;</span><span class="o">,</span>
-    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span><span class="nx">directory_id</span><span class="p">}</span><span class="o">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;[directory|postgis]&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span><span class="nx">directory_id</span><span class="p">},</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{directory_name}&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -242,12 +242,12 @@ user login is accessible via:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;datasources&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_href}&quot;</span><span class="o">,</span>
-            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_name}&quot;</span><span class="o">,</span>
-            <span class="s2">&quot;leaf&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="o">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;[RASTER|POINT|LINE|POLYGON]&quot;</span><span class="o">,</span>
+            <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_href}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_name}&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leaf&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;[RASTER|POINT|LINE|POLYGON]&quot;</span><span class="p">,</span>
             <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{datasource_id}&quot;</span>
-        <span class="p">}</span><span class="o">,</span>
+        <span class="p">},</span>
         <span class="p">...</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -337,9 +337,9 @@ user login is accessible via:</p>
 <li><p class="first">response body:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;columns&quot;</span><span class="o">:</span> <span class="p">[</span>
     <span class="p">{</span>
-        <span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="s2">&quot;{colum_name}&quot;</span><span class="o">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="s2">&quot;{colum_name}&quot;</span><span class="p">,</span>
         <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;[string|numeric]&quot;</span>
-    <span class="p">}</span><span class="o">,</span>
+    <span class="p">},</span>
     <span class="p">...</span>
 <span class="p">]}</span>
 </pre></div>
@@ -377,10 +377,10 @@ user login is accessible via:</p>
 <li><p class="first">response: a JSON document of this form:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;maps&quot;</span><span class="o">:</span> <span class="p">[</span>
     <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_id}&quot;</span><span class="o">,</span>
-        <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_href}&quot;</span><span class="o">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_id}&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_href}&quot;</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_name}&quot;</span>
-    <span class="p">}</span><span class="o">,</span>
+    <span class="p">},</span>
     <span class="p">...</span>
 <span class="p">]}</span>
 </pre></div>
@@ -406,13 +406,13 @@ user login is accessible via:</p>
 <li><p class="first">response: a JSON document representing symbols of a mapfile:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;symbols&quot;</span><span class="o">:</span> <span class="p">[</span>
     <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="o">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;dash&quot;</span>
-    <span class="p">}</span><span class="o">,</span>
+    <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="o">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;parking&quot;</span>
-    <span class="p">}</span><span class="o">,</span>
+    <span class="p">},</span>
     <span class="p">...</span>
 <span class="p">]}</span>
 </pre></div>
@@ -430,13 +430,13 @@ user login is accessible via:</p>
 <li><p class="first">response: a JSON document representing fonts of a mapfile:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;fonts&quot;</span><span class="o">:</span> <span class="p">[</span>
     <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;verdana&quot;</span><span class="o">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;verdana&quot;</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;verdana&quot;</span>
-    <span class="p">}</span><span class="o">,</span>
+    <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;arial&quot;</span><span class="o">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;arial&quot;</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;arial&quot;</span>
-    <span class="p">}</span><span class="o">,</span>
+    <span class="p">},</span>
     <span class="p">...</span>
 <span class="p">]}</span>
 </pre></div>
@@ -466,8 +466,8 @@ file with an external editor)</li>
 </li>
 <li><p class="first">response: a JSON document of this form:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
-    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_id}&quot;</span><span class="o">,</span>
-    <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_href}&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_id}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_href}&quot;</span><span class="p">,</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{mapfile_name}&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -501,11 +501,11 @@ file with an external editor)</li>
 <li><p class="first">response: a JSON document of this form:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;layertemplates&quot;</span><span class="o">:</span> <span class="p">[</span>
     <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_id}&quot;</span><span class="o">,</span>
-        <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_href}&quot;</span><span class="o">,</span>
-        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="o">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_id}&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_href}&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
         <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span>
-    <span class="p">}</span><span class="o">,</span>
+    <span class="p">},</span>
     <span class="p">...</span>
 <span class="p">]}</span>
 </pre></div>
@@ -522,12 +522,12 @@ file with an external editor)</li>
 </li>
 <li><p class="first">response: a JSON document of this form:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
-    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_id}&quot;</span><span class="o">,</span>
-    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="o">,</span>
-    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span><span class="o">,</span>
-    <span class="s2">&quot;user_id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_user_id}&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_id}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;user_id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_user_id}&quot;</span><span class="p">,</span>
     <span class="s2">&quot;json&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="c">// the json representing the layer template</span>
+        <span class="c1">// the json representing the layer template</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -544,10 +544,10 @@ file with an external editor)</li>
 </li>
 <li><p class="first">request body: a JSON document of this form:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
-    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="o">,</span>
-    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span><span class="p">,</span>
     <span class="s2">&quot;json&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="c">// the json representing the layer template</span>
+        <span class="c1">// the json representing the layer template</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -557,9 +557,9 @@ file with an external editor)</li>
 </li>
 <li><p class="first">response: a JSON document of this form:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
-    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_id}&quot;</span><span class="o">,</span>
-    <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_href}&quot;</span><span class="o">,</span>
-    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_id}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_href}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
     <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -574,10 +574,10 @@ file with an external editor)</li>
 </li>
 <li><p class="first">request body: a JSON document of this form:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
-    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="o">,</span>
-    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span><span class="o">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_name}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;comment&quot;</span><span class="o">:</span> <span class="s2">&quot;{layertemplate_comment}&quot;</span><span class="p">,</span>
     <span class="s2">&quot;json&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="c">// the json representing the layer template</span>
+        <span class="c1">// the json representing the layer template</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
