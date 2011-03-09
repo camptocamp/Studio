@@ -1,4 +1,3 @@
-.highlight .hll { background-color: #ffffcc }
 .highlight  { background: #eeffcc; }
 .highlight .c { color: #408090; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */
@@ -20,7 +19,6 @@
 .highlight .gt { color: #0040D0 } /* Generic.Traceback */
 .highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
 .highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
 .highlight .kp { color: #007020 } /* Keyword.Pseudo */
 .highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
 .highlight .kt { color: #902000 } /* Keyword.Type */

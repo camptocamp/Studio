@@ -1255,7 +1255,7 @@ def after_install(options, home_dir):
 
     if not os.path.exists(etc):
         os.makedirs(etc)
-    subprocess.call([join(bin_dir, 'easy_install'), 'Studio==0.5dev'])
+    subprocess.call([join(bin_dir, 'easy_install'), 'Studio==0.5'])
 
 
 ##file site.py
