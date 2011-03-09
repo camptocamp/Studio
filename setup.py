@@ -11,7 +11,7 @@ long_description = open('README.rst').read()
 
 setup(
     name                    = 'Studio',
-    version                 = '0.5dev',
+    version                 = '0.5',
     license                 = 'GPLv3',
     description             = 'Web-based administration interface for MapServer',
     long_description        = long_description,

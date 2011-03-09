@@ -38,6 +38,8 @@ Releasing Studio
 
 * Publish new docs on Github::
 
+  Follow the steps described in docs/INSTALL_GH_PAGE first.
+
   Regenerate docs:
 
   $ cd docs
