@@ -5,6 +5,8 @@ Releasing Studio
 
   $ python setup.py nosetests
 
+  For the tests to pass you have to have the EPSG:27572 projection in /usr/share/proj/epsg.
+
 * Compile localization files::
 
   $ python setup.py compile_catalog
