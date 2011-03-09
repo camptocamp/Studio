@@ -49,10 +49,10 @@
 <p>This document contains instructions for Studio developers.</p>
 <div class="section" id="install-studio-from-source">
 <h2>Install Studio from source<a class="headerlink" href="#install-studio-from-source" title="Permalink to this headline">¶</a></h2>
-<p>It is highly recommended to install Studio in a virtual Python environment, so you&#8217;ll start with that.</p>
-<ul class="simple">
-<li>include &#8220;Install Dependencies&#8221; section as in user guide</li>
-</ul>
+<p>It is first required to install the system dependencies. Look at the
+installation guide for that.</p>
+<p>It is highly recommended to install Studio in a virtual Python environment, so
+you&#8217;ll start with that.</p>
 <div class="section" id="set-up-a-virtual-python-environment">
 <h3>Set up a virtual Python environment<a class="headerlink" href="#set-up-a-virtual-python-environment" title="Permalink to this headline">¶</a></h3>
 <p>Unix users will use this:</p>
@@ -115,9 +115,9 @@ Studio directory):</p>
 failed asserts [NOSE_DETAILED_ERRORS]</pre>
 </div>
 </div>
-<div class="section" id="authentication-and-authorisation">
-<h2>Authentication and authorisation<a class="headerlink" href="#authentication-and-authorisation" title="Permalink to this headline">¶</a></h2>
-<p>The authentication and authorisation system is based on the repoze middleware
+<div class="section" id="authentication-and-authorization">
+<h2>Authentication and authorization<a class="headerlink" href="#authentication-and-authorization" title="Permalink to this headline">¶</a></h2>
+<p>The authentication and authorization system is based on the repoze middleware
 (repoze.who and repose.what).</p>
 <p>Authentication is based on the following database tables :</p>
 <ul class="simple">
@@ -126,19 +126,21 @@ failed asserts [NOSE_DETAILED_ERRORS]</pre>
 <li><tt class="docutils literal"><span class="pre">permission</span></tt> : this table contains permissions (id, permission name) and is linked to table &#8216;group&#8217; in
 [n..n] relation</li>
 </ul>
-<p>The authorisation system will then allow a response based on group membership or permission check.
-In practical terms, you need to populate the database with some groups and permissions, then link each group
-with a set of permissions.</p>
+<p>The authorization system will then allow a response based on group membership
+or permission check.  In practical terms, you need to populate the database
+with some groups and permissions, then link each group with a set of
+permissions.</p>
 <p>Once this is done, you will be able to allow or deny every action of
-controllers, using the <tt class="docutils literal"><span class="pre">&#64;ActionProtector</span></tt> decorator and using built-in or custom
-predicates. You will find some good documentation on predicates, and a list of
-built-in predicates here:</p>
+controllers, using the <tt class="docutils literal"><span class="pre">&#64;ActionProtector</span></tt> decorator and using built-in or
+custom predicates. You will find some good documentation on predicates, and a
+list of built-in predicates here:</p>
 <blockquote>
 <div><a class="reference external" href="http://static.repoze.org/whatdocs/Manual/Predicates.html">http://static.repoze.org/whatdocs/Manual/Predicates.html</a></div></blockquote>
-<p>So let&#8217;s go with a simple example. Imagine we want to deny access to action <tt class="docutils literal"><span class="pre">delete</span></tt> of our controller
-<tt class="docutils literal"><span class="pre">UsersController</span></tt> to all users except those who have the permission &#8216;delete users&#8217;.
-We simply need to add the decorator <tt class="docutils literal"><span class="pre">&#64;ActionProtector</span></tt> with the build-in predicate
-<tt class="docutils literal"><span class="pre">has_permission('delete</span> <span class="pre">users')</span></tt> to our <tt class="docutils literal"><span class="pre">delete</span></tt> action:</p>
+<p>So let&#8217;s go with a simple example. Imagine we want to deny access to action
+<tt class="docutils literal"><span class="pre">delete</span></tt> of our controller <tt class="docutils literal"><span class="pre">UsersController</span></tt> to all users except those who
+have the permission &#8216;delete users&#8217;.  We simply need to add the decorator
+<tt class="docutils literal"><span class="pre">&#64;ActionProtector</span></tt> with the build-in predicate <tt class="docutils literal"><span class="pre">has_permission('delete</span>
+<span class="pre">users')</span></tt> to our <tt class="docutils literal"><span class="pre">delete</span></tt> action:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">repoze.what.predicates</span> <span class="k">import</span> <span class="n">has_permission</span>
 <span class="k">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="k">import</span> <span class="n">ActionProtector</span>
 
@@ -150,10 +152,11 @@ We simply need to add the decorator <tt class="docutils literal"><span class="pr
         <span class="k">return</span> <span class="s">&#39;User deleted&#39;</span>
 </pre></div>
 </div>
-<p>If the predicate <tt class="docutils literal"><span class="pre">has_permission('delete</span> <span class="pre">users')</span></tt> is not fulfilled, a 401 or 403 error will be returned.</p>
-<p>You may also need to know the identity of the user logged in. You can achieve this by looking at
-<tt class="docutils literal"><span class="pre">repoze.what.credentials</span></tt> environnement variable.
-So the user login is accessible via:</p>
+<p>If the predicate <tt class="docutils literal"><span class="pre">has_permission('delete</span> <span class="pre">users')</span></tt> is not fulfilled, a 401 or
+403 error will be returned.</p>
+<p>You may also need to know the identity of the user logged in. You can achieve
+this by looking at <tt class="docutils literal"><span class="pre">repoze.what.credentials</span></tt> environnement variable.  So the
+user login is accessible via:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;repoze.what.credentials&#39;</span><span class="p">)[</span><span class="s">&#39;repoze.what.userid&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -611,7 +614,7 @@ file with an external editor)</li>
 </li>
 <li><a class="reference internal" href="#build-the-documentation">Build the documentation</a></li>
 <li><a class="reference internal" href="#run-the-automatic-tests">Run the automatic tests</a></li>
-<li><a class="reference internal" href="#authentication-and-authorisation">Authentication and authorisation</a></li>
+<li><a class="reference internal" href="#authentication-and-authorization">Authentication and authorization</a></li>
 <li><a class="reference internal" href="#http-interfaces">HTTP Interfaces</a><ul>
 <li><a class="reference internal" href="#datastores">Datastores</a></li>
 <li><a class="reference internal" href="#datasources">Datasources</a></li>

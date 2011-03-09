@@ -70,7 +70,7 @@ is the default.
 
 ``env`` is the name of the virtual Python environment Studio will be installed
 in. Do not worry if you don't know what a virtual Python environment is, you
-don't need to understand that to complete the installation.
+need not understand that to complete the installation.
 
 When installing on Windows, you also need to manually install the Python
 bindings for GDAL and MapScript in this virtual environment.
