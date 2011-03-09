@@ -8,11 +8,11 @@ This document contains instructions for Studio developers.
 Install Studio from source
 --------------------------
 
-It is highly recommended to install Studio in a virtual Python environment, so you'll start with that.
+It is first required to install the system dependencies. Look at the
+installation guide for that.
 
-.. todo::
-
-* include "Install Dependencies" section as in user guide
+It is highly recommended to install Studio in a virtual Python environment, so
+you'll start with that.
 
 Set up a virtual Python environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -91,10 +91,10 @@ The ``nosetests`` documentation gives this for the ``-d`` switch::
      Add detail to error output by attempting to evaluate
      failed asserts [NOSE_DETAILED_ERRORS]
 
-Authentication and authorisation
+Authentication and authorization
 --------------------------------
 
-The authentication and authorisation system is based on the repoze middleware
+The authentication and authorization system is based on the repoze middleware
 (repoze.who and repose.what).
 
 Authentication is based on the following database tables :
@@ -106,21 +106,23 @@ Authentication is based on the following database tables :
 * ``permission`` : this table contains permissions (id, permission name) and is linked to table 'group' in
   [n..n] relation
 
-The authorisation system will then allow a response based on group membership or permission check.
-In practical terms, you need to populate the database with some groups and permissions, then link each group
-with a set of permissions.
+The authorization system will then allow a response based on group membership
+or permission check.  In practical terms, you need to populate the database
+with some groups and permissions, then link each group with a set of
+permissions.
 
 Once this is done, you will be able to allow or deny every action of
-controllers, using the ``@ActionProtector`` decorator and using built-in or custom
-predicates. You will find some good documentation on predicates, and a list of
-built-in predicates here:
+controllers, using the ``@ActionProtector`` decorator and using built-in or
+custom predicates. You will find some good documentation on predicates, and a
+list of built-in predicates here:
 
     http://static.repoze.org/whatdocs/Manual/Predicates.html
 
-So let's go with a simple example. Imagine we want to deny access to action ``delete`` of our controller
-``UsersController`` to all users except those who have the permission 'delete users'.
-We simply need to add the decorator ``@ActionProtector`` with the build-in predicate
-``has_permission('delete users')`` to our ``delete`` action::
+So let's go with a simple example. Imagine we want to deny access to action
+``delete`` of our controller ``UsersController`` to all users except those who
+have the permission 'delete users'.  We simply need to add the decorator
+``@ActionProtector`` with the build-in predicate ``has_permission('delete
+users')`` to our ``delete`` action::
 
     from repoze.what.predicates import has_permission
     from repoze.what.plugins.pylonshq import ActionProtector
@@ -132,11 +134,12 @@ We simply need to add the decorator ``@ActionProtector`` with the build-in predi
             # [ ... ]
             return 'User deleted'
 
-If the predicate ``has_permission('delete users')`` is not fulfilled, a 401 or 403 error will be returned.
+If the predicate ``has_permission('delete users')`` is not fulfilled, a 401 or
+403 error will be returned.
 
-You may also need to know the identity of the user logged in. You can achieve this by looking at
-``repoze.what.credentials`` environnement variable.
-So the user login is accessible via::
+You may also need to know the identity of the user logged in. You can achieve
+this by looking at ``repoze.what.credentials`` environnement variable.  So the
+user login is accessible via::
 
     request.environ.get('repoze.what.credentials')['repoze.what.userid']
 
