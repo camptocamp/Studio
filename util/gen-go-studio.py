@@ -24,7 +24,13 @@ def after_install(options, home_dir):
 
     if not os.path.exists(etc):
         os.makedirs(etc)
-    subprocess.call([join(bin_dir, 'easy_install'), 'Studio==%s'])
+    subprocess.call([
+        join(bin_dir, 'easy_install'),
+        '-i',
+        'http://pypi.camptocamp.net/pypi',
+        '--allow-hosts',
+        'pypi.camptocamp.net',
+        'Studio==%s'])
 """
 
 
