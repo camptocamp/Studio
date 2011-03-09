@@ -806,7 +806,7 @@ def update_styleobj_from_dict(styleobj,style,mapobj):
         styleobj.size = style['size']
 
     if 'symbol' in style:
-        symbol = style['symbol']
+        symbol = str(style['symbol'])
         if type(symbol) is not StringType:
             styleobj.symbol = style['symbol']
         else:
