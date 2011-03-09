@@ -8,3 +8,4 @@ studio/public/js/Studio/studio-all.js
 docs/.build
 util/go-studio.py
 *.egg
+dist
