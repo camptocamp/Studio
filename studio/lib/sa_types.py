@@ -21,9 +21,12 @@ from sqlalchemy.types import TypeEngine
 import simplejson
 
 class JsonString(TypeEngine):
-    
+
+    def __init__(self, precision=8):
+        self.precision = precision
+
     def get_col_spec(self):
-        return 'STRING'
+        return 'VARCHAR(%s)' % self.precision
 
     def bind_processor(self, dialect):
         """convert value from python object to json"""

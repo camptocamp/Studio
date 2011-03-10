@@ -42,19 +42,19 @@ def init_model(engine):
 
 user_table = sa.Table('user', meta.metadata,
         sa.Column('id', sa.types.Integer, sa.Sequence('user_seq', optional=True), primary_key=True),
-        sa.Column('name', sa.types.String),
-        sa.Column('login', sa.types.String, nullable=False, unique=True),
-        sa.Column('password', sa.types.String, nullable=False)
+        sa.Column('name', sa.types.String(255)),
+        sa.Column('login', sa.types.String(255), nullable=False, unique=True),
+        sa.Column('password', sa.types.String(255), nullable=False)
         ) 
 
 group_table = sa.Table('group', meta.metadata,
         sa.Column('id', sa.types.Integer, sa.Sequence('group_seq', optional=True), primary_key=True),
-        sa.Column('name', sa.types.String, nullable=False, unique=True)
+        sa.Column('name', sa.types.String(255), nullable=False, unique=True)
         )
 
 permission_table = sa.Table('permission', meta.metadata,
         sa.Column('id', sa.types.Integer, sa.Sequence('permission_seq', optional=True), primary_key=True),
-        sa.Column('name', sa.types.String, nullable=False, unique=True)
+        sa.Column('name', sa.types.String(255), nullable=False, unique=True)
         ) 
 
 usergroup_table = sa.Table('usergroup', meta.metadata,
@@ -73,23 +73,23 @@ grouppermission_table = sa.Table('grouppermission', meta.metadata,
 map_table = sa.Table('map', meta.metadata,
         sa.Column('id', sa.types.Integer, sa.Sequence('map_seq', optional=True), primary_key=True),
         sa.Column('user_id', sa.types.Integer, sa.ForeignKey('user.id'), nullable=False),
-        sa.Column('name', sa.types.String, nullable=False),
-        sa.Column('filepath', sa.types.String, nullable=False)
+        sa.Column('name', sa.types.String(255), nullable=False),
+        sa.Column('filepath', sa.types.String(255), nullable=False)
         ) 
 
 datastore_table = sa.Table('datastore', meta.metadata,
         sa.Column('id', sa.types.Integer, sa.Sequence('datastore_seq', optional=True), primary_key=True),
-        sa.Column('name', sa.types.String, nullable=False),
-        sa.Column('type', sa.types.String, nullable=False),
-        sa.Column('ogrstring', sa.types.String)
+        sa.Column('name', sa.types.String(255), nullable=False),
+        sa.Column('type', sa.types.String(255), nullable=False),
+        sa.Column('ogrstring', sa.types.String(255))
         )
 
 layertemplate_table = sa.Table('layertemplate', meta.metadata,
         sa.Column('id', sa.types.Integer, sa.Sequence('layertemplate_seq', optional=True), primary_key=True),
         sa.Column('user_id', sa.types.Integer, sa.ForeignKey('user.id'), nullable=False),
-        sa.Column('name', sa.types.String, nullable=False),
-        sa.Column('comment', sa.types.String, nullable=False),
-        sa.Column('json', JsonString, nullable=False)
+        sa.Column('name', sa.types.String(255), nullable=False),
+        sa.Column('comment', sa.types.String(255), nullable=False),
+        sa.Column('json', JsonString(255), nullable=False)
         ) 
 
 class User(object):
