@@ -17,31 +17,22 @@
 # along with Studio.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from sqlalchemy.types import TypeEngine
+from sqlalchemy.types import TypeDecorator, Text
 import simplejson
 
-class JsonString(TypeEngine):
+class JsonString(TypeDecorator):
+    impl = Text
 
-    def __init__(self, precision=8):
-        self.precision = precision
-
-    def get_col_spec(self):
-        return 'VARCHAR(%s)' % self.precision
-
-    def bind_processor(self, dialect):
+    def process_bind_param(self, value, dialect):
         """convert value from python object to json"""
-        def convert(value):
-            if value is None:
-                return None
-            else:
-                return simplejson.dumps(value)
-        return convert
+        if value is None:
+            return None
+        else:
+            return simplejson.dumps(value)
 
-    def result_processor(self, dialect):
+    def process_result_value(self, value, dialect):
         """convert value from json to a python object"""
-        def convert(value):
-            if value is None:
-                return None
-            else:
-                return simplejson.loads(value)
-        return convert
+        if value is None:
+            return None
+        else:
+            return simplejson.loads(value)
