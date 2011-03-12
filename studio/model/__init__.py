@@ -89,7 +89,7 @@ layertemplate_table = sa.Table('layertemplate', meta.metadata,
         sa.Column('user_id', sa.types.Integer, sa.ForeignKey('user.id'), nullable=False),
         sa.Column('name', sa.types.String(255), nullable=False),
         sa.Column('comment', sa.types.String(255), nullable=False),
-        sa.Column('json', JsonString(255), nullable=False)
+        sa.Column('json', JsonString, nullable=False)
         ) 
 
 class User(object):
