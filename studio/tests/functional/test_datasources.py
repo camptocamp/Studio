@@ -66,7 +66,7 @@ class TestDatasourcesController(TestController):
         self._insert_datastore()
         log_in(self.app, 'enduser', 'password')
         response = self.app.get(
-            url(controller='datasources', action='index', datastore_id='foobar'),
+            url(controller='datasources', action='index', datastore_id=99999),
             status=404
             )
         log_out(self.app)
@@ -173,11 +173,11 @@ class TestDatasourcesController(TestController):
     def test_show_404(self):
         log_in(self.app, 'enduser', 'password')
         response = self.app.get(
-            url(controller='datasources', action='show', datastore_id="foo", datasource_id=1),
+            url(controller='datasources', action='show', datastore_id=99999, datasource_id=1),
             status=404
             )
         log_out(self.app)
         #response = self.app.get(
-        #    url(controller='datasources', action='show', datastore_id=1, datasource_id="foobar"),
+        #    url(controller='datasources', action='show', datastore_id=1, datasource_id=99999),
         #    status=404
         #    )
