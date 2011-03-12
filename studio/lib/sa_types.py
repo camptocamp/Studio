@@ -25,14 +25,12 @@ class JsonString(TypeDecorator):
 
     def process_bind_param(self, value, dialect):
         """convert value from python object to json"""
-        if value is None:
-            return None
-        else:
-            return simplejson.dumps(value)
+        if value is not None:
+            value = simplejson.dumps(value)
+        return value
 
     def process_result_value(self, value, dialect):
         """convert value from json to a python object"""
-        if value is None:
-            return None
-        else:
-            return simplejson.loads(value)
+        if value is not None:
+            value = simplejson.loads(value)
+        return value
