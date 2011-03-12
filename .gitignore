@@ -7,3 +7,5 @@ studio/public/js/Studio/studio-all.js
 *.mo
 docs/.build
 util/go-studio.py
+*.egg
+dist

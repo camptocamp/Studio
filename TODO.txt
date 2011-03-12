@@ -1,8 +1,6 @@
 General
 -------
 
-* in the user guide update link to go-studio.py
-
 * do not build js in paster setup-app: should be done manually before
   publishing egg to pypi
 
