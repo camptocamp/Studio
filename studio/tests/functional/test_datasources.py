@@ -28,22 +28,20 @@ import simplejson
 
 class TestDatasourcesController(TestController):
 
-    def setUp(self):
-        # insert a datastore in the datastore table
-        meta.Session.add(
-            DataStore('datastore1', 'directory', config['default_datastore_dir']),
-            )
-        meta.Session.commit()
+    def _insert_datastore(self):
+        ds = DataStore('datastore1', 'directory', config['default_datastore_dir'])
+        meta.Session.add(ds)
+        meta.Session.flush()
+        return ds.id
 
     def tearDown(self):
-        # empty the datastore table
-        meta.Session.query(DataStore).delete()
-        meta.Session.commit()
+        meta.Session.rollback()
 
     def test_index(self):
+        id = self._insert_datastore()
         log_in(self.app, 'enduser', 'password')
         response = self.app.get(
-            url(controller='datasources', action='index', datastore_id=1),
+            url(controller='datasources', action='index', datastore_id=id),
             )
         assert response.response.content_type == 'application/json'
         response = simplejson.loads(response.response._body)
@@ -55,6 +53,8 @@ class TestDatasourcesController(TestController):
         assert 'leaf' in r[0]
         assert 'type' in r[0]
         log_out(self.app)
+
+    def test_index_anonymous(self):
         # test anonymous user
         response = self.app.get(
             url(controller='datasources', action='index', datastore_id=1),
@@ -63,6 +63,7 @@ class TestDatasourcesController(TestController):
         assert response.location.find('signin') >= 0
 
     def test_index_404(self):
+        self._insert_datastore()
         log_in(self.app, 'enduser', 'password')
         response = self.app.get(
             url(controller='datasources', action='index', datastore_id='foobar'),
@@ -71,68 +72,57 @@ class TestDatasourcesController(TestController):
         log_out(self.app)
 
     def test_show(self):
+        datastore_id = self._insert_datastore()
         log_in(self.app, 'enduser', 'password')
-        response = self.app.get(
-            url(controller='datasources', action='index', datastore_id=1),
-            )
-        response = simplejson.loads(response.response._body)
-        assert isinstance(response, dict)
-        datasources = response['datasources']
-        assert isinstance(datasources, list)
-        # let's test with datasource "TM_WORLD_BORDERS_SIMPL-0.3"
+        # datasource "TM_WORLD_BORDERS_SIMPL-0.3"
         datasource_id = "3dfa880a8e37bcc97ff8bbeb9aff7852"
         response = self.app.get(
-            url(controller='datasources', action='show', datastore_id=1, datasource_id=datasource_id),
+            url(controller='datasources', action='show', datastore_id=datastore_id, datasource_id=datasource_id),
             )
         assert response.response.content_type == 'application/json'
         log_out(self.app)
-        # test anonymous user
+
+    def test_show_anonymous(self):
+        datastore_id = self._insert_datastore()
+        # datasource "TM_WORLD_BORDERS_SIMPL-0.3"
+        datasource_id = "3dfa880a8e37bcc97ff8bbeb9aff7852"
         response = self.app.get(
-            url(controller='datasources', action='show', datastore_id=1, datasource_id=datasource_id),
+            url(controller='datasources', action='show', datastore_id=datastore_id, datasource_id=datasource_id),
             status=302
             )
         assert response.location.find('signin') >= 0
-
     
     def test_show_mapfile(self):
+        datastore_id = self._insert_datastore()
         log_in(self.app, 'enduser', 'password')
-        response = self.app.get(
-            url(controller='datasources', action='index', datastore_id=1),
-            )
-        response = simplejson.loads(response.response._body)
-        assert isinstance(response, dict)
-        datasources = response['datasources']
-        assert isinstance(datasources, list)
-        # let's test with datasource "TM_WORLD_BORDERS_SIMPL-0.3"
+        # datasource "TM_WORLD_BORDERS_SIMPL-0.3"
         datasource_id = "3dfa880a8e37bcc97ff8bbeb9aff7852"
         response = self.app.get(
-            url(controller='datasources', action='showmapfile', datastore_id=1, datasource_id=datasource_id),
+            url(controller='datasources', action='showmapfile', datastore_id=datastore_id, datasource_id=datasource_id),
             )
         assert response.response.content_type == 'application/json'
         response = simplejson.loads(response.response._body)
         assert isinstance(response, dict)
         assert response['type']=='polygon'
         log_out(self.app)
-        # test anonymous user
+
+    def test_show_mapfile_anonymous(self):
+        datastore_id = self._insert_datastore()
+        # datasource "TM_WORLD_BORDERS_SIMPL-0.3"
+        datasource_id = "3dfa880a8e37bcc97ff8bbeb9aff7852"
         response = self.app.get(
-            url(controller='datasources', action='showmapfile', datastore_id=1, datasource_id=datasource_id),
+            url(controller='datasources', action='showmapfile', datastore_id=datastore_id, datasource_id=datasource_id),
             status=302
             )
         assert response.location.find('signin') >= 0
     
     def test_show_columns(self):
+        datastore_id = self._insert_datastore()
         log_in(self.app, 'enduser', 'password')
-        response = self.app.get(
-            url(controller='datasources', action='index', datastore_id=1),
-            )
-        response = simplejson.loads(response.response._body)
-        assert isinstance(response, dict)
-        datasources = response['datasources']
-        assert isinstance(datasources, list)
-        # let's test with datasource "TM_WORLD_BORDERS_SIMPL-0.3"
+        # datasource "TM_WORLD_BORDERS_SIMPL-0.3"
         datasource_id = "3dfa880a8e37bcc97ff8bbeb9aff7852"
         response = self.app.get(
-            url(controller='datasources', action='showcolumns', datastore_id=1, datasource_id=datasource_id),
+            url(controller='datasources', action='showcolumns', datastore_id=datastore_id, datasource_id=datasource_id),
             )
         assert response.response.content_type == 'application/json'
         response = simplejson.loads(response.response._body)
@@ -143,9 +133,13 @@ class TestDatasourcesController(TestController):
                     found_pop_column = True
         assert found_pop_column == True
         log_out(self.app)
-        # test anonymous user
+
+    def test_show_columns_anonymous(self):
+        datastore_id = self._insert_datastore()
+        # datasource "TM_WORLD_BORDERS_SIMPL-0.3"
+        datasource_id = "3dfa880a8e37bcc97ff8bbeb9aff7852"
         response = self.app.get(
-            url(controller='datasources', action='showcolumns', datastore_id=1, datasource_id=datasource_id),
+            url(controller='datasources', action='showcolumns', datastore_id=datastore_id, datasource_id=datasource_id),
             status=302
             )
         assert response.location.find('signin') >= 0

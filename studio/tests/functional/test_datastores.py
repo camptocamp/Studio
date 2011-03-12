@@ -26,13 +26,20 @@ from studio.tests.lib.helpers import log_in, log_out
 class TestDatastoresController(TestController):
 
     def setUp(self):
-        self._clean_datastores()
+        meta.Session.query(DataStore).delete()
 
     def tearDown(self):
-        self._clean_datastores()
-    
+        meta.Session.rollback()
+ 
+    def _insert_datastores(self):
+        ds1 = DataStore('datastore1', 'postgis', 'pgsql://toto')
+        ds2 = DataStore('datastore2', 'path', 'file://my/path')
+        meta.Session.add_all([ds1, ds2])
+        meta.Session.flush()
+        return ds1.id, ds2.id
+
     def test_index(self):
-        self._create_datastores()
+        self._insert_datastores()
         log_in(self.app, 'admin', 'password')
         response = self.app.get(url('datastores'))
         assert response.response.content_type == 'application/json'
@@ -56,7 +63,6 @@ class TestDatastoresController(TestController):
                                  content_type='application/json')
         results = meta.Session.query(DataStore).all()
         assert len(results) == 1
-        assert results[0].id == 1
         assert results[0].name == 'datastore3'
         assert results[0].type == 'postgis'
         assert results[0].ogrstring == 'pgsql://titi'
@@ -77,71 +83,58 @@ class TestDatastoresController(TestController):
         params = {'name': 'datastore3',
                   'type': 'postgis',
                   'ogrstring': 'pgsql://titi'}
-        self._create_datastores()        
+        id1, id2 = self._insert_datastores()        
         log_in(self.app, 'admin', 'password')
-        response = self.app.put(url('DataStores', id=2),
+        response = self.app.put(url('DataStores', id=id2),
                                 params = simplejson.dumps(params),
                                 content_type='application/json')
         results = meta.Session.query(DataStore).all()
         assert len(results) == 2
-        assert results[1].id == 2
         assert results[1].name == 'datastore3'
         assert results[1].type == 'postgis'
         assert results[1].ogrstring == 'pgsql://titi'        
         log_out(self.app)
         # test forbidden user
         log_in(self.app, 'enduser', 'password')
-        response = self.app.put(url('DataStores', id=2), status=403,
+        response = self.app.put(url('DataStores', id=id2), status=403,
                                 params = simplejson.dumps(params),
                                 content_type='application/json')
         log_out(self.app)
         # test anonymous user
-        response = self.app.put(url('DataStores', id=2), status=302,
+        response = self.app.put(url('DataStores', id=id2), status=302,
                                 params = simplejson.dumps(params),
                                 content_type='application/json')
         assert response.location.find('signin') >= 0
 
     def test_delete(self):
-        self._create_datastores()        
+        id1, id2 = self._insert_datastores()
         log_in(self.app, 'admin', 'password')
-        response = self.app.delete(url('DataStores', id=1), status=204)
+        response = self.app.delete(url('DataStores', id=id1), status=204)
         results = meta.Session.query(DataStore).all()
         assert len(results) == 1
-        assert results[0].id == 2
+        assert results[0].id == id2
         assert results[0].name == 'datastore2'
         assert results[0].type == 'path'
         assert results[0].ogrstring == 'file://my/path'
         log_out(self.app)
         # test forbidden user
         log_in(self.app, 'enduser', 'password')
-        response = self.app.delete(url('DataStores', id=1), status=403)
+        response = self.app.delete(url('DataStores', id=id1), status=403)
         log_out(self.app)
         # test anonymous user
-        response = self.app.delete(url('DataStores', id=1), status=302)
+        response = self.app.delete(url('DataStores', id=id1), status=302)
         assert response.location.find('signin') >= 0
 
     def test_show(self):
-        self._create_datastores()
+        id1, id2 = self._insert_datastores()
         log_in(self.app, 'admin', 'password')
-        response = self.app.get(url('DataStores', id=1, test="true"))
+        response = self.app.get(url('DataStores', id=id1, test="true"))
         assert response.response.content_type == 'application/json'
         r = simplejson.loads(response.response._body)
-        assert r['id'] == 1
+        assert r['id'] == id1
         assert r['type'] == 'postgis'
         assert r['name'] == 'datastore1'
         log_out(self.app)
         # test anonymous user
-        response = self.app.get(url('DataStores', id=1), status=302)
+        response = self.app.get(url('DataStores', id=id1), status=302)
         assert response.location.find('signin') >= 0
-
-    def _create_datastores(self):
-        meta.Session.add_all([
-            DataStore('datastore1', 'postgis', 'pgsql://toto'),
-            DataStore('datastore2', 'path', 'file://my/path')
-            ])
-        meta.Session.commit()
-
-    def _clean_datastores(self):
-        meta.Session.query(DataStore).delete()
-        meta.Session.commit()
-
