@@ -245,10 +245,10 @@ can sign in using the following credentials:
 * login: ``admin``
 * password: [the password you provided when running ``make-config``]
 
-Note that you can also register for new user accounts directly from
-Studio home page. By default, these accounts will be associated to the
-``enduser`` group and will have restricted rights. This can be changed
-by editing the following line in file ``studio.ini``::
+Note that you can also register new users directly from Studio home page. By
+default, these users will belong to the ``enduser`` group and will have
+restricted rights. This can be changed by editing the following line in the
+``studio.ini`` file::
 
     # default group for user creation ("enduser", "admin")
     default_group = enduser
@@ -261,3 +261,43 @@ Two groups are currently available:
 
 In the user interface, users from the ``admin`` group will have acces to the
 data manager tab, which end users won't see.
+
+Apache
+------
+
+The Paste HTTP server, very convenient for testing and development, is known
+for delivering poor performance. A common alternative for production is
+Apache's WSGI module, ``mod_wsgi``. This section explains how to execute Studio
+in ``mod_wsgi``.
+
+In the following we assume that the ``studio.ini`` file and the virtual
+environment are located in the ``/var/www/studio`` directory.
+
+To be able to run Studio in ``mod_wsgi`` a Python script must be written. For
+that create a file named ``studio.wsgi`` in the ``/var/www/studio`` directory
+with this content::
+
+    import site 
+    site.addsitedir('/var/www/studio/env/lib/python2.5/site-packages') 
+    from paste.deploy import loadapp 
+    application = loadapp('config:/var/www/studio/studio.ini')
+
+Now you need to edit your Apache virtual host's configuration and add
+this::
+
+    WSGIScriptAlias /studio /var/www/studio/studio.wsgi
+
+With the above line Studio is made available at the URL ``/studio``.
+
+For maximum performance the Apache configuration can be extended. Here are
+examples of directives::
+
+    # zip resources
+    <LocationMatch /studio/>
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/x-javascript application/javascript application/json
+    </LocationMatch>
+
+    # make Apache directly serve static resources
+    Alias /studio/css/      /var/www/studio/env/lib/python2.5/site-packages/Studio-0.5.1-py2.5.egg/studio/public/css/
+    Alias /studio/js/       /var/www/studio/env/lib/python2.5/site-packages/Studio-0.5.1-py2.5.egg/studio/public/js/
+    Alias /studio/images/   /var/www/studio/env/lib/python2.5/site-packages/Studio-0.5.1-py2.5.egg/studio/public/images/
