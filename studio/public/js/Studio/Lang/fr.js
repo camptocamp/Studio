@@ -126,7 +126,7 @@ OpenLayers.Util.extend(OpenLayers.Lang.fr, {
     
     // MapfileMgr/MapPropertiesPanel.js
     'MAP object properties': "Propriétés de l'objet MAP",
-    'Maxsize': "Taille minimum",
+    'Maxsize': "Taille maximale",
     'Image color': "Couleur de fonds",
     'extent': "Extension",
     
