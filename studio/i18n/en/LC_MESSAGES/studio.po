@@ -8,29 +8,33 @@ msgstr ""
 "Project-Id-Version: Studio 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-03-26 19:00+0100\n"
-"PO-Revision-Date: 2009-04-01 19:40+0200\n"
+"PO-Revision-Date: 2011-03-13 16:54+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.4\n"
+"Generated-By: Babel 0.9.5\n"
 
-#: studio/controllers/main.py:38
+#: studio/controllers/main.py:84
 msgid "Login or password should not be empty. Please register again."
 msgstr ""
 
-#: studio/controllers/main.py:45
+#: studio/controllers/main.py:90
+msgid "Login should not exceed 30 characters. Please register again."
+msgstr ""
+
+#: studio/controllers/main.py:97
 #, python-format
 msgid "The login \"%s\" is already in use. Please register again."
 msgstr ""
 
-#: studio/controllers/main.py:76
+#: studio/controllers/main.py:131
 msgid "You have just registered. Please log in to use Studio."
 msgstr ""
 
-#: studio/controllers/main.py:83
+#: studio/controllers/main.py:138
 msgid "You have just logged out. Please log in again to use Studio."
 msgstr ""
 

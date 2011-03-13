@@ -87,7 +87,7 @@ class MainController(BaseController):
 
         # ensure the login doesn't exceed 30 chars
         if len(request.params['login']) > 30:
-            session['flash'] = _('Login should not exceed 30 characters. Please register again')
+            session['flash'] = _('Login should not exceed 30 characters. Please register again.')
             session.save()
             redirect_to(controller='main', action='signin')
 
