@@ -100,3 +100,66 @@ class TestMainController(TestController):
         urlparsed = urlparse(response.location)
         assert urlparsed.path == '/signin' # we are redirected to "signin"
 
+    def _delete_user(self, login):
+        from studio.model import meta, User, Map
+        user = meta.Session.query(User).filter(User.login == login).first()
+        map = meta.Session.query(Map).filter(Map.user == user).first()
+        meta.Session.delete(map)
+        meta.Session.delete(user)
+        meta.Session.commit()
+
+    def test_register_empty_login_password(self):
+        response = self.app.post(url(controller='main', action='register'),
+                                 {'login': '', 'password': '', 'lang': 'en'},
+                                 status=302)
+        urlparsed = urlparse(response.location)
+        assert urlparsed.path == '/signin'
+
+        follow_response = response.follow()
+        assert 'Login or password should not be empty' in follow_response
+
+    def test_register(self):
+        response = self.app.post(url(controller='main', action='register'),
+                                 {'login': '_test_user_login',
+                                  'password': '_test_user_password',
+                                  'lang': 'en'},
+                                 status=302)
+        urlparsed = urlparse(response.location)
+        assert urlparsed.path == '/signin'
+
+        follow_response = response.follow()
+        assert 'You have just registered' in follow_response
+
+        from studio.model import meta, User, Map
+        results = meta.Session.query(User).filter(User.login == '_test_user_login').all()
+        assert len(results) == 1
+
+        self._delete_user('_test_user_login')
+
+    def test_register_long_password(self):
+        password = '01234567890123456789012345678901234567890123456789'
+        response = self.app.post(url(controller='main', action='register'),
+                                 {'login': '_test_user_login',
+                                  'password': password,
+                                  'lang': 'en'},
+                                 status=302)
+        urlparsed = urlparse(response.location)
+        assert urlparsed.path == '/signin'
+
+        follow_response = response.follow()
+        assert 'You have just registered' in follow_response
+
+        self._delete_user('_test_user_login')
+
+    def test_register_long_login(self):
+        login = '0123456789012345678901234567890'
+        response = self.app.post(url(controller='main', action='register'),
+                                 {'login': login,
+                                  'password': '_test_user_password',
+                                  'lang': 'en'},
+                                 status=302)
+        urlparsed = urlparse(response.location)
+        assert urlparsed.path == '/signin'
+
+        follow_response = response.follow()
+        assert 'Login should not exceed 30 characters' in follow_response

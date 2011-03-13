@@ -43,18 +43,18 @@ def init_model(engine):
 user_table = sa.Table('user', meta.metadata,
         sa.Column('id', sa.types.Integer, sa.Sequence('user_seq', optional=True), primary_key=True),
         sa.Column('name', sa.types.String(255)),
-        sa.Column('login', sa.types.String(255), nullable=False, unique=True),
-        sa.Column('password', sa.types.String(255), nullable=False)
+        sa.Column('login', sa.types.String(30), nullable=False, unique=True),
+        sa.Column('password', sa.types.String(40), nullable=False)
         ) 
 
 group_table = sa.Table('group', meta.metadata,
         sa.Column('id', sa.types.Integer, sa.Sequence('group_seq', optional=True), primary_key=True),
-        sa.Column('name', sa.types.String(255), nullable=False, unique=True)
+        sa.Column('name', sa.types.String(30), nullable=False, unique=True)
         )
 
 permission_table = sa.Table('permission', meta.metadata,
         sa.Column('id', sa.types.Integer, sa.Sequence('permission_seq', optional=True), primary_key=True),
-        sa.Column('name', sa.types.String(255), nullable=False, unique=True)
+        sa.Column('name', sa.types.String(30), nullable=False, unique=True)
         ) 
 
 usergroup_table = sa.Table('usergroup', meta.metadata,
