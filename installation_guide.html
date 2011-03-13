@@ -51,43 +51,71 @@
   <div class="section" id="installation-guide">
 <h1>Installation guide<a class="headerlink" href="#installation-guide" title="Permalink to this headline">¶</a></h1>
 <p>This section describes how to install, configure, and set up Studio.</p>
+<div class="section" id="for-the-impatient">
+<h2>For the impatient<a class="headerlink" href="#for-the-impatient" title="Permalink to this headline">¶</a></h2>
+<p>This section provides installation steps for the impatient, Debian Linux users.
+If you want detailed information on the installation steps, or if you&#8217;re
+installing Studio on Windows, skip this section.</p>
+<p>Install the system dependencies:</p>
+<div class="highlight-python"><pre>$ apt-get install python cgi-mapserver python-mapscript python-gdal</pre>
+</div>
+<p>Install Studio:</p>
+<div class="highlight-python"><pre>$ wget http://camptocamp.github.com/Studio/_static/go-studio.py
+$ python go-studio.py env</pre>
+</div>
+<p>Create configuration file:</p>
+<div class="highlight-python"><pre>$ ./env/bin/paster make-config Studio studio.ini</pre>
+</div>
+<p>Set up:</p>
+<div class="highlight-python"><pre>$ ./env/bin/paster setup-app studio.ini</pre>
+</div>
+<p>Start up:</p>
+<div class="highlight-python"><pre>$ ./env/bin/paster serve studio.ini</pre>
+</div>
+<p>Done.</p>
+</div>
 <div class="section" id="install-dependencies">
 <h2>Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Studio has two types of dependencies: pure Python dependencies, and system
-dependencies. Pure Python dependencies will be installed as part of the
-installation of Studio. System dependencies, listed below, are installed
+dependencies. Pure Python dependencies are installed by Studio&#8217;s installation
+script (we&#8217;ll come to this shortly). System dependencies are installed
 separately.</p>
+<p>System dependencies:</p>
 <ul class="simple">
-<li>Python 2.4 or 2.5, Python 2.5 is highly recommended and even required if you
-use Windows (untested with Python 2.6 but it may work)</li>
-<li>MapServer CGI, version 5.0 and higher</li>
-<li>MapServer MapScript Python, version 5.0 and higher</li>
-<li>OGRGDAL Python, version 1.5 and higher</li>
+<li>Python 2.4 or 2.5, Python 2.5 is highly recommended, and even required if you
+use Windows (untested with Python 2.6 but it may work).</li>
+<li>MapServer CGI, version 5.0 and higher.</li>
+<li>MapServer MapScript Python, version 5.0 and higher.</li>
+<li>OGRGDAL Python, version 1.5 and higher.</li>
 </ul>
-<p>On a Linux system, you can rely on your distribution packages (recommended).
-For example, on Debian-like system, you would install the required packages
-with:</p>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<p>To install the system dependencies on a Linux system, it is recommended to rely
+on your distribution packages. For example, on Debian-like system, the
+required packages can be installed with:</p>
 <div class="highlight-python"><pre>$ apt-get install python cgi-mapserver python-mapscript python-gdal</pre>
 </div>
-<p>On a Windows system, you would need to install Python 2.5 from
+<p>To verify that MapServer CGI is correctly installed you can open
+<a class="reference external" href="http://localhost/cgi-bin/mapserv">http://localhost/cgi-bin/mapserv</a> in your browser. You should get &#8220;No query
+information to decode. QUERY_STRING is set, but empty.&#8221;</p>
+</div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>On a Windows system, you need to install Python 2.5 from
 <a class="reference external" href="http://www.python.org/download/releases/2.5.4/">http://www.python.org/download/releases/2.5.4/</a> and its <tt class="docutils literal"><span class="pre">pwin32</span></tt> (a.k.a
 <tt class="docutils literal"><span class="pre">win32api</span></tt>) extension from <a class="reference external" href="http://sourceforge.net/projects/pywin32/files/">http://sourceforge.net/projects/pywin32/files/</a>.</p>
-<p>You would rely on the MS4W distribution from <a class="reference external" href="http://www.maptools.org/ms4w/">http://www.maptools.org/ms4w/</a>
-for MapServer and OGR/GDAL
-(<a class="reference external" href="http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe">2.3.1</a> is the
-current stable version).</p>
+<p>To get MapServer and OGR/GDAL install the MS4W distribution from
+<a class="reference external" href="http://www.maptools.org/ms4w/">http://www.maptools.org/ms4w/</a> (<a class="reference external" href="http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe">2.3.1</a> is the current stable
+version).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">You should install the same version of Python as the one supported by the
-Python bindings (MapScript, OGR/GDAL) provided with MS4W. For OS4W v2.3.1,
-you should rely on Python v2.5.x</p>
+Python bindings (MapScript, OGR/GDAL) provided with MS4W. For MS4W v2.3.1,
+you should rely on Python v2.5.x.</p>
 </div>
-<p>On a Debian system, you can check that MapServer CGI is correctly installed by
-testing the following URL in a browser:</p>
-<div class="highlight-python"><pre>$ http://localhost/cgi-bin/mapserv</pre>
-</div>
-<p>and the following on a Windows system:</p>
-<div class="highlight-python"><pre>$ http://localhost/cgi-bin/mapserv.exe</pre>
+<p>To verify that MapServer CGI is correctly installed you can open
+<a class="reference external" href="http://localhost/cgi-bin/mapserv.exe">http://localhost/cgi-bin/mapserv.exe</a> in your browser. You should get &#8220;No query
+information to decode. QUERY_STRING is set, but empty.&#8221;</p>
 </div>
 </div>
 <div class="section" id="install-studio">
@@ -139,9 +167,9 @@ Use the following on a Unix system:</p>
 <div class="highlight-python"><pre>C:\studio&gt; C:\Program Files\ms4w\setenv.bat</pre>
 </div>
 <p>If you use Python 2.5 (enter <tt class="docutils literal"><span class="pre">python</span> <span class="pre">-V</span></tt> in a console to check) you&#8217;re done
-with the installation, you can go directly to the next section.</p>
-<p>If you use Python 2.4, you need to install the <tt class="docutils literal"><span class="pre">pysqlite</span></tt> package as it is
-not distributed with Python 2.4. On Unix do:</p>
+with the installation, you can go directly to the next section. If you use
+Python 2.4, you need to install the <tt class="docutils literal"><span class="pre">pysqlite</span></tt> package as it is not
+distributed with Python 2.4. On Unix do:</p>
 <div class="highlight-python"><pre>$ easy_install pysqlite</pre>
 </div>
 </div>
@@ -149,10 +177,10 @@ not distributed with Python 2.4. On Unix do:</p>
 <h2>Create config<a class="headerlink" href="#create-config" title="Permalink to this headline">¶</a></h2>
 <p>Now that Studio is installed, it is time to create your Studio configuration.</p>
 <p>On Unix use:</p>
-<div class="highlight-python"><pre>(env) $ paster make-config Studio my_studio.ini</pre>
+<div class="highlight-python"><pre>(env) $ paster make-config Studio studio.ini</pre>
 </div>
 <p>On Windows use:</p>
-<div class="highlight-python"><pre>(env) C:\studio&gt; paster.exe make-config Studio my_studio.ini</pre>
+<div class="highlight-python"><pre>(env) C:\studio&gt; paster.exe make-config Studio studio.ini</pre>
 </div>
 <p>You will be asked for a <tt class="docutils literal"><span class="pre">database</span> <span class="pre">URL</span></tt>, Studio indeed requires a database for
 its own use (to store information about users, datastores, mapfiles, etc.). If
@@ -182,7 +210,7 @@ URL:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">These configuration parameters can also be edited directly in the <tt class="docutils literal"><span class="pre">.ini</span></tt>
-generated file (<tt class="docutils literal"><span class="pre">my_studio.ini</span></tt> in our example).</p>
+generated file (<tt class="docutils literal"><span class="pre">studio.ini</span></tt> in our example).</p>
 </div>
 </div>
 <div class="section" id="set-up">
@@ -193,14 +221,14 @@ insert initial data.</p>
 users will be able to add geographic files. This datastore is pre-populated
 with a few geographic files, mostly for testing purposes.</p>
 <p>If you have a PostGIS database that you would like to see as a datastore in
-Studio, edit your <tt class="docutils literal"><span class="pre">my_studio.ini</span></tt> file, uncomment the line that sets the
+Studio, edit your <tt class="docutils literal"><span class="pre">studio.ini</span></tt> file, uncomment the line that sets the
 <tt class="docutils literal"><span class="pre">default_datastore_postgis</span></tt> option, and change the value of that option as
 appropriate (to match the parameters of your database).</p>
 <p>To set up Studio, use the following command on Unix:</p>
-<div class="highlight-python"><pre>(env) $ paster setup-app my_studio.ini</pre>
+<div class="highlight-python"><pre>(env) $ paster setup-app studio.ini</pre>
 </div>
 <p>and the following on Windows:</p>
-<div class="highlight-python"><pre>(env) C:\studio&gt; paster.exe setup-app my_studio.ini</pre>
+<div class="highlight-python"><pre>(env) C:\studio&gt; paster.exe setup-app studio.ini</pre>
 </div>
 <p>If you chose to have Studio rely on SQLite then a <tt class="docutils literal"><span class="pre">studio.db</span></tt> file, the
 SQLite database, should now be present in your <tt class="docutils literal"><span class="pre">studio</span></tt> directory.</p>
@@ -209,10 +237,10 @@ SQLite database, should now be present in your <tt class="docutils literal"><spa
 <h2>Start up<a class="headerlink" href="#start-up" title="Permalink to this headline">¶</a></h2>
 <p>Studio is now ready, let&#8217;s start it!</p>
 <p>On Unix:</p>
-<div class="highlight-python"><pre>(env) $ paster serve my_studio.ini</pre>
+<div class="highlight-python"><pre>(env) $ paster serve studio.ini</pre>
 </div>
 <p>On Windows:</p>
-<div class="highlight-python"><pre>(env) C:\studio&gt; paster.exe serve my_studio.ini</pre>
+<div class="highlight-python"><pre>(env) C:\studio&gt; paster.exe serve studio.ini</pre>
 </div>
 <p>An admin account has been created (when running <tt class="docutils literal"><span class="pre">setup-app</span></tt>), so you
 can sign in using the following credentials:</p>
@@ -223,7 +251,7 @@ can sign in using the following credentials:</p>
 <p>Note that you can also register for new user accounts directly from
 Studio home page. By default, these accounts will be associated to the
 <tt class="docutils literal"><span class="pre">enduser</span></tt> group and will have restricted rights. This can be changed
-by editing the following line in file <tt class="docutils literal"><span class="pre">my_studio.ini</span></tt>:</p>
+by editing the following line in file <tt class="docutils literal"><span class="pre">studio.ini</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># default group for user creation (&quot;enduser&quot;, &quot;admin&quot;)</span>
 <span class="n">default_group</span> <span class="o">=</span> <span class="n">enduser</span>
 </pre></div>
@@ -248,7 +276,12 @@ data manager tab, which end users won&#8217;t see.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Installation guide</a><ul>
-<li><a class="reference internal" href="#install-dependencies">Install dependencies</a></li>
+<li><a class="reference internal" href="#for-the-impatient">For the impatient</a></li>
+<li><a class="reference internal" href="#install-dependencies">Install dependencies</a><ul>
+<li><a class="reference internal" href="#linux">Linux</a></li>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#install-studio">Install Studio</a></li>
 <li><a class="reference internal" href="#create-config">Create config</a></li>
 <li><a class="reference internal" href="#set-up">Set up</a></li>

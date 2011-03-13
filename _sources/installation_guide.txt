@@ -3,48 +3,85 @@ Installation guide
 
 This section describes how to install, configure, and set up Studio.
 
+For the impatient
+-----------------
+
+This section provides installation steps for the impatient, Debian Linux users.
+If you want detailed information on the installation steps, or if you're
+installing Studio on Windows, skip this section.
+
+Install the system dependencies::
+
+    $ apt-get install python cgi-mapserver python-mapscript python-gdal
+
+Install Studio::
+
+    $ wget http://camptocamp.github.com/Studio/_static/go-studio.py
+    $ python go-studio.py env
+
+Create configuration file::
+
+    $ ./env/bin/paster make-config Studio studio.ini
+
+Set up::
+
+    $ ./env/bin/paster setup-app studio.ini
+
+Start up::
+
+    $ ./env/bin/paster serve studio.ini
+
+Done.
+
 Install dependencies
 --------------------
 
 Studio has two types of dependencies: pure Python dependencies, and system
-dependencies. Pure Python dependencies will be installed as part of the
-installation of Studio. System dependencies, listed below, are installed
+dependencies. Pure Python dependencies are installed by Studio's installation
+script (we'll come to this shortly). System dependencies are installed
 separately.
 
-* Python 2.4 or 2.5, Python 2.5 is highly recommended and even required if you
-  use Windows (untested with Python 2.6 but it may work)
-* MapServer CGI, version 5.0 and higher
-* MapServer MapScript Python, version 5.0 and higher
-* OGRGDAL Python, version 1.5 and higher
+System dependencies:
 
-On a Linux system, you can rely on your distribution packages (recommended).
-For example, on Debian-like system, you would install the required packages
-with::
+* Python 2.4 or 2.5, Python 2.5 is highly recommended, and even required if you
+  use Windows (untested with Python 2.6 but it may work).
+* MapServer CGI, version 5.0 and higher.
+* MapServer MapScript Python, version 5.0 and higher.
+* OGRGDAL Python, version 1.5 and higher.
+
+Linux
+~~~~~
+
+To install the system dependencies on a Linux system, it is recommended to rely
+on your distribution packages. For example, on Debian-like system, the
+required packages can be installed with::
 
     $ apt-get install python cgi-mapserver python-mapscript python-gdal
 
-On a Windows system, you would need to install Python 2.5 from
+To verify that MapServer CGI is correctly installed you can open
+http://localhost/cgi-bin/mapserv in your browser. You should get "No query
+information to decode. QUERY_STRING is set, but empty."
+
+Windows
+~~~~~~~
+
+On a Windows system, you need to install Python 2.5 from
 http://www.python.org/download/releases/2.5.4/ and its ``pwin32`` (a.k.a
 ``win32api``) extension from http://sourceforge.net/projects/pywin32/files/.
 
-You would rely on the MS4W distribution from http://www.maptools.org/ms4w/
-for MapServer and OGR/GDAL
-(`2.3.1 <http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe>`_ is the
-current stable version).
+To get MapServer and OGR/GDAL install the MS4W distribution from
+http://www.maptools.org/ms4w/ (`2.3.1
+<http://www.maptools.org/dl/ms4w/ms4w-2.3.1-setup.exe>`_ is the current stable
+version).
 
 .. note::
     You should install the same version of Python as the one supported by the
-    Python bindings (MapScript, OGR/GDAL) provided with MS4W. For OS4W v2.3.1,
-    you should rely on Python v2.5.x
+    Python bindings (MapScript, OGR/GDAL) provided with MS4W. For MS4W v2.3.1,
+    you should rely on Python v2.5.x.
 
-On a Debian system, you can check that MapServer CGI is correctly installed by
-testing the following URL in a browser::
-
-    $ http://localhost/cgi-bin/mapserv
-
-and the following on a Windows system::
-
-    $ http://localhost/cgi-bin/mapserv.exe
+To verify that MapServer CGI is correctly installed you can open
+http://localhost/cgi-bin/mapserv.exe in your browser. You should get "No query
+information to decode. QUERY_STRING is set, but empty."
 
 Install Studio
 --------------
@@ -107,10 +144,9 @@ On a Windows system, you also need to set up MS4W environment variables::
     C:\studio> C:\Program Files\ms4w\setenv.bat
 
 If you use Python 2.5 (enter ``python -V`` in a console to check) you're done
-with the installation, you can go directly to the next section.
-
-If you use Python 2.4, you need to install the ``pysqlite`` package as it is
-not distributed with Python 2.4. On Unix do::
+with the installation, you can go directly to the next section. If you use
+Python 2.4, you need to install the ``pysqlite`` package as it is not
+distributed with Python 2.4. On Unix do::
 
     $ easy_install pysqlite
 
@@ -121,11 +157,11 @@ Now that Studio is installed, it is time to create your Studio configuration.
 
 On Unix use::
 
-    (env) $ paster make-config Studio my_studio.ini
+    (env) $ paster make-config Studio studio.ini
 
 On Windows use::
 
-    (env) C:\studio> paster.exe make-config Studio my_studio.ini
+    (env) C:\studio> paster.exe make-config Studio studio.ini
 
 You will be asked for a ``database URL``, Studio indeed requires a database for
 its own use (to store information about users, datastores, mapfiles, etc.). If
@@ -162,7 +198,7 @@ Then you will be asked for a ``Password for default admin user``. Again, press
 
 .. note::
     These configuration parameters can also be edited directly in the ``.ini``
-    generated file (``my_studio.ini`` in our example).
+    generated file (``studio.ini`` in our example).
 
 Set up
 ------
@@ -175,17 +211,17 @@ users will be able to add geographic files. This datastore is pre-populated
 with a few geographic files, mostly for testing purposes.
 
 If you have a PostGIS database that you would like to see as a datastore in
-Studio, edit your ``my_studio.ini`` file, uncomment the line that sets the
+Studio, edit your ``studio.ini`` file, uncomment the line that sets the
 ``default_datastore_postgis`` option, and change the value of that option as
 appropriate (to match the parameters of your database).
 
 To set up Studio, use the following command on Unix::
 
-    (env) $ paster setup-app my_studio.ini
+    (env) $ paster setup-app studio.ini
 
 and the following on Windows::
 
-    (env) C:\studio> paster.exe setup-app my_studio.ini
+    (env) C:\studio> paster.exe setup-app studio.ini
 
 If you chose to have Studio rely on SQLite then a ``studio.db`` file, the
 SQLite database, should now be present in your ``studio`` directory.
@@ -197,11 +233,11 @@ Studio is now ready, let's start it!
 
 On Unix::
 
-    (env) $ paster serve my_studio.ini
+    (env) $ paster serve studio.ini
 
 On Windows::
 
-    (env) C:\studio> paster.exe serve my_studio.ini
+    (env) C:\studio> paster.exe serve studio.ini
 
 An admin account has been created (when running ``setup-app``), so you
 can sign in using the following credentials:
@@ -212,7 +248,7 @@ can sign in using the following credentials:
 Note that you can also register for new user accounts directly from
 Studio home page. By default, these accounts will be associated to the
 ``enduser`` group and will have restricted rights. This can be changed
-by editing the following line in file ``my_studio.ini``::
+by editing the following line in file ``studio.ini``::
 
     # default group for user creation ("enduser", "admin")
     default_group = enduser
