@@ -609,7 +609,7 @@ def update_layerobj_from_dict(layerobj,layer,mapobj):
         if layer['dump']:
             layerobj.dump = mapscript.MS_TRUE
 
-    if 'filter' in layer and 'item' in layer['filter'] and 'item' in layer['filter']:
+    if 'filter' in layer and 'item' in layer['filter'] and 'value' in layer['filter']:
         layerobj.filteritem = layer['filter']['item']
         layerobj.setFilter(layer['filter']['value'])
 
